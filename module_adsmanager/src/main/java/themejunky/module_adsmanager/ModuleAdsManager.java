@@ -90,10 +90,8 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     public View getAllViewAds(String type){
         factory = LayoutInflater.from(activity);
         if(type.equals("facebook")){
-            Log.d("afdasdf","este face");
             inflateView = factory.inflate(R.layout.container_facebook_ads,null);
         }else if (type.equals("admob")){
-            Log.d("afdasdf","este admob");
             inflateView= factory.inflate(R.layout.container_admob_ads,null);
         }
         return inflateView;
@@ -117,6 +115,9 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
         }
     }
 
+    public void setAdmobeMute(){
+        admobAds.setAdmobInterMuted();
+    }
     public void showInterstitialAdmob(){
         admobAds.showAdmobAds();
     }

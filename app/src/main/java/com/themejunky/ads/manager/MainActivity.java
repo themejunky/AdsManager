@@ -189,4 +189,10 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
         }
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        moduleAdsManager.setAdmobeMute();
+    }
 }

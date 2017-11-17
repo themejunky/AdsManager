@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +24,14 @@ public class AdmobAdsInterstitial {
     public static String adUnitId;
     private List<String> logs = new ArrayList<>();
     private AdsListenerManager.ListenerAds listenerAds;
+    private MobileAds mobileAds;
 
     public AdmobAdsInterstitial(AdsListenerManager.ListenerLogs listenerLogs){
         this.listenerLogs = listenerLogs;
+    }
+
+    public void setAdmobInterMuted(){
+        mobileAds.setAppMuted(true);
     }
 
 
@@ -34,6 +40,7 @@ public class AdmobAdsInterstitial {
         interstitialAdmob = new com.google.android.gms.ads.InterstitialAd(context);
         if (adUnitId != null) {
             interstitialAdmob.setAdUnitId(adUnitId);
+            mobileAds.initialize(context);
             listenerLogs.logs("Admob Inter: initialized");
             AdListener adListener = new AdListener() {
                 @Override
