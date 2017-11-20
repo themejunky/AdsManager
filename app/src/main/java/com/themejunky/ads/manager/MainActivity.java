@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        flowAds.add("mobfox");
         flowAds.add("facebook");
         flowAds.add("admob");
         flowAds.add("appnext");
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         moduleAdsManager.initializeInterlAds(true);
         moduleAdsManager.initializeNativeAds(true,true);
 
+
+        moduleAdsManager.initInterstitialMobfoxAds("b9938899ccc89073bd91ab447a73adff");
         moduleAdsManager.initInterstitialAdmobAds("ca-app-pub-5322508131338449/2877444211");
        // moduleAdsManager.initInterstitialFacebookAds("698838770248387_848026318662964");
         moduleAdsManager.initInterstitialAppNextAds("8106d659-a20b-4640-943b-d6b0aab18d08");

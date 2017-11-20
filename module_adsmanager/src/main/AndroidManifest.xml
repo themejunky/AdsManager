@@ -18,6 +18,11 @@
                 android:hardwareAccelerated="true"
                 android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
+            <!--mobfox interstitial activity-->
+            <activity android:name="com.mobfox.sdk.interstitialads.InterstitialActivity" android:hardwareAccelerated="true" />
+            <activity android:name="com.mobfox.sdk.interstitial.InterstitialActivity" android:hardwareAccelerated="true"/>
+            <service android:name="com.mobfox.sdk.services.MobFoxService" android:launchMode="singleTop" />
+
         </application>
 
 

@@ -14,6 +14,7 @@ import themejunky.module_adsmanager.ads.AdmobNativeAds;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
 import themejunky.module_adsmanager.ads.AppnextAdsInterstitial;
 
+import themejunky.module_adsmanager.ads.MobFoxIntersitital;
 import themejunky.module_adsmanager.utils.ConstantsAds;
 
 /**
@@ -38,6 +39,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     private String action;
     private AppnextAdsInterstitial appnextAds;
     private AdsListenerManager.ListenerAds listenerAds;
+    private MobFoxIntersitital mobfox;
 
     public ModuleAdsManager(Context activity){
         this.activity = activity;
@@ -67,6 +69,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     public void initializeInterlAds(boolean isFacebook){
         if(isFacebook){
            // facebookAds = FacebookAdsInterstitial.getmInstance(this);
+            mobfox = MobFoxIntersitital.getmInstance(this);
             admobAds = AdmobAdsInterstitial.getmInstance(this);
             appnextAds = AppnextAdsInterstitial.getInstance(this);
         }else {
@@ -110,6 +113,12 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     public void initInterstitialAdmobAds(String keyAdmob){
         if(keyAdmob!=null && !keyAdmob.equals("")){
             admobAds.initAdmobInterstitial(activity,keyAdmob,listenerAds);
+        }
+    }
+
+    public void initInterstitialMobfoxAds(String keyMobfox){
+        if(keyMobfox!=null && !keyMobfox.equals("")){
+            mobfox.initMobFoxInterstitial(activity,keyMobfox,listenerAds);
         }
     }
     public void initInterstitialAppNextAds(String keyAppNext){
@@ -244,6 +253,17 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
                         Log.d("ShowFlow", "ADMOB INTER 3");
                     }else{
                         Log.d("ShowFlow", "ADMOB INTER 4");
+                        runAdds_Part2Inter();
+                    }
+                    break;
+                case ConstantsAds.MOBFOX:
+                    Log.d("ShowFlow", "MOBFOX INTER 1");
+                    if(mobfox.interstitial.isReady()){
+                        Log.d("ShowFlow", "MOBFOX INTER 2");
+                        mobfox.interstitial.show();
+                        Log.d("ShowFlow", "MOBFOX INTER 3");
+                    }else{
+                        Log.d("ShowFlow", "MOBFOX INTER 4");
                         runAdds_Part2Inter();
                     }
                     break;
