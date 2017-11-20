@@ -1,3 +1,4 @@
+/*
 package themejunky.module_adsmanager.ads;
 
 import android.content.Context;
@@ -22,9 +23,11 @@ import java.util.List;
 import themejunky.module_adsmanager.R;
 
 
+*/
 /**
  * Created by Junky2 on 9/26/2017.
- */
+ *//*
+
 
 public class FacebookNativeAds {
 
@@ -123,3 +126,4 @@ public class FacebookNativeAds {
     }
 
 }
+*/

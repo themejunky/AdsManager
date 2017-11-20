@@ -1,6 +1,7 @@
 package themejunky.module_adsmanager.ads;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -30,7 +31,8 @@ public class AdmobAdsInterstitial {
         this.listenerLogs = listenerLogs;
     }
 
-    public void setAdmobInterMuted(){
+    public void setAdmobInterMuted(Context context){
+        mobileAds.initialize(context);
         mobileAds.setAppMuted(true);
     }
 
@@ -40,7 +42,7 @@ public class AdmobAdsInterstitial {
         interstitialAdmob = new com.google.android.gms.ads.InterstitialAd(context);
         if (adUnitId != null) {
             interstitialAdmob.setAdUnitId(adUnitId);
-            mobileAds.initialize(context);
+
             listenerLogs.logs("Admob Inter: initialized");
             AdListener adListener = new AdListener() {
                 @Override
@@ -48,7 +50,7 @@ public class AdmobAdsInterstitial {
                     super.onAdClosed();
                     interstitialAdmob.loadAd(new AdRequest.Builder().addTestDevice("74df1a5b43f90b50dd8ea33699814380").build());
                     listenerLogs.logs("Admob Inter: Closed");
-                    listenerAds.isClosedInterAds();
+                    listenerLogs.isClosedInterAds();
                 }
 
                 @Override

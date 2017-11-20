@@ -41,15 +41,15 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         flowAds.add("admob");
         flowAds.add("appnext");
 
-        moduleAdsManager =new ModuleAdsManager(this);
 
-        moduleAdsManager = new ModuleAdsManager(this);
+
+        moduleAdsManager = ModuleAdsManager.getInstance(this);
         moduleAdsManager.setListenerAds(this);
-        moduleAdsManager.initializeInterlAds(this,true);
-        moduleAdsManager.initializeNativeAds(true,this,true);
+        moduleAdsManager.initializeInterlAds(true);
+        moduleAdsManager.initializeNativeAds(true,true);
 
         moduleAdsManager.initInterstitialAdmobAds("ca-app-pub-5322508131338449/2877444211");
-        moduleAdsManager.initInterstitialFacebookAds("698838770248387_848026318662964");
+       // moduleAdsManager.initInterstitialFacebookAds("698838770248387_848026318662964");
         moduleAdsManager.initInterstitialAppNextAds("8106d659-a20b-4640-943b-d6b0aab18d08");
 
         containerFacebook.removeAllViews();
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
         moduleAdsManager.setLogs("InfoAds");
         moduleAdsManager.initAdmobNativeAds(containerAdmob,"ca-app-pub-8562466601970101/5081303159");
-        moduleAdsManager.initFacebookNativeAds(containerFacebook,"83194690296345_932932096864070");
+       //moduleAdsManager.initFacebookNativeAds(containerFacebook,"83194690296345_932932096864070");
     }
 
     public void initView(){
@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
     @Override
     public void afterInterstitialIsClosed(String action) {
+        Log.d("TestLogs","loadedAds");
         switch (action){
             case Action.APPLY:
                 startActivity(new Intent(this,ApplyActivity.class));
@@ -151,10 +152,6 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         }
     }
 
-    @Override
-    public void isClosedInterAds() {
-
-    }
 
     @Override
     public void onClick(View v) {
@@ -163,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
             case R.id.applyid:
                 if(moduleAdsManager.isSomeAdLoaded()){
                     Log.d("TestButton", "1");
-                    moduleAdsManager.setInterFlowAndShowAds(((MainApplication)getApplication()).flowAdsInceput,"apply");
+                    moduleAdsManager.setInterFlowAndShowAds(flowAds,"apply");
                     Log.d("TestButton", "2");
                 }else {
                     Log.d("TestButton", "3");
@@ -172,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
                 break;
             case R.id.rateId:
                 if(moduleAdsManager.isSomeAdLoaded()){
-                    moduleAdsManager.setInterFlowAndShowAds(((MainApplication)getApplication()).flowAdsInceput,"rate");
+                    moduleAdsManager.setInterFlowAndShowAds(flowAds,"rate");
                     // mam.setAction("rate");
                 }else {
                     Toast.makeText(this, "Rate", Toast.LENGTH_SHORT).show();
@@ -180,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
                 break;
             case R.id.getmoreId:
                 if(moduleAdsManager.isSomeAdLoaded()){
-                    moduleAdsManager.setInterFlowAndShowAds(((MainApplication)getApplication()).flowAdsInceput,"more");
+                    moduleAdsManager.setInterFlowAndShowAds(flowAds,"more");
                     // mam.setAction("more");
                 }else {
                     Toast.makeText(this, "GetMore", Toast.LENGTH_SHORT).show();
@@ -193,6 +190,6 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     @Override
     protected void onPause() {
         super.onPause();
-        moduleAdsManager.setAdmobeMute();
+        moduleAdsManager.setAdmobeMute(this);
     }
 }

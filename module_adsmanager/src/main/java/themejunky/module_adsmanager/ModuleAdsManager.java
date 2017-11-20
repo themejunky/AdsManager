@@ -13,8 +13,7 @@ import themejunky.module_adsmanager.ads.AdmobAdsInterstitial;
 import themejunky.module_adsmanager.ads.AdmobNativeAds;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
 import themejunky.module_adsmanager.ads.AppnextAdsInterstitial;
-import themejunky.module_adsmanager.ads.FacebookAdsInterstitial;
-import themejunky.module_adsmanager.ads.FacebookNativeAds;
+
 import themejunky.module_adsmanager.utils.ConstantsAds;
 
 /**
@@ -24,7 +23,7 @@ import themejunky.module_adsmanager.utils.ConstantsAds;
 public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
 
     public static ModuleAdsManager instance = null;
-    private FacebookNativeAds facebookNativeAds;
+   // private FacebookNativeAds facebookNativeAds;
     private AdmobNativeAds admobNativeAds;
     private View facebookView,admobView;
     private String nameLogs;
@@ -34,7 +33,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     private static List<String> addsFlow = new ArrayList<>();
     private View inflateView;
     private boolean isFacebookInitialized,isAdmobInitialized;
-    private FacebookAdsInterstitial facebookAds;
+  //  private FacebookAdsInterstitial facebookAds;
     private AdmobAdsInterstitial admobAds;
     private String action;
     private AppnextAdsInterstitial appnextAds;
@@ -44,26 +43,30 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
         this.activity = activity;
     }
 
-    public void initializeNativeAds(boolean isNewInstance,AdsListenerManager.ListenerAds loadListener, boolean isFacebook){
+    public void initializeNativeAds(boolean isNewInstance, boolean isFacebook){
         if(isNewInstance){
+            Log.d("infosasda","isNewInstance 1");
             if(isFacebook){
-                admobNativeAds = new AdmobNativeAds(activity,this,loadListener);
-                facebookNativeAds = new FacebookNativeAds(activity,this,loadListener);
+                admobNativeAds = new AdmobNativeAds(activity,this,listenerAds);
+                //facebookNativeAds = new FacebookNativeAds(activity,this,loadListener);
             }else {
-                admobNativeAds = new AdmobNativeAds(activity,this,loadListener);
+                Log.d("infosasda","isNewInstance 2");
+                admobNativeAds = new AdmobNativeAds(activity,this,listenerAds);
             }
         }else {
+            Log.d("infosasda"," not isNewInstance 2");
             if(isFacebook){
-                admobNativeAds = new AdmobNativeAds(activity,this,loadListener);
-                facebookNativeAds = new FacebookNativeAds(activity,this,loadListener);
+                admobNativeAds = AdmobNativeAds.getInstance(activity,this,listenerAds);
+              //  facebookNativeAds = new FacebookNativeAds(activity,this,loadListener);
             }else {
-                admobNativeAds = new AdmobNativeAds(activity,this,loadListener);
+                Log.d("infosasda","not isNewInstance 2");
+                admobNativeAds = AdmobNativeAds.getInstance(activity,this,listenerAds);
             }
         }
     }
-    public void initializeInterlAds(AdsListenerManager.ListenerAds listenerAds,boolean isFacebook){
+    public void initializeInterlAds(boolean isFacebook){
         if(isFacebook){
-            facebookAds = FacebookAdsInterstitial.getmInstance(this);
+           // facebookAds = FacebookAdsInterstitial.getmInstance(this);
             admobAds = AdmobAdsInterstitial.getmInstance(this);
             appnextAds = AppnextAdsInterstitial.getInstance(this);
         }else {
@@ -99,11 +102,11 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
 
     }
 
-    public void initInterstitialFacebookAds(String keyFacebook){
+ /*   public void initInterstitialFacebookAds(String keyFacebook){
         if(keyFacebook!=null && !keyFacebook.equals("")){
             facebookAds.initFacebookInterstitial(activity,keyFacebook,listenerAds);
         }
-    }
+    }*/
     public void initInterstitialAdmobAds(String keyAdmob){
         if(keyAdmob!=null && !keyAdmob.equals("")){
             admobAds.initAdmobInterstitial(activity,keyAdmob,listenerAds);
@@ -115,8 +118,8 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
         }
     }
 
-    public void setAdmobeMute(){
-        admobAds.setAdmobInterMuted();
+    public void setAdmobeMute(Context context){
+        admobAds.setAdmobInterMuted(context);
     }
     public void showInterstitialAdmob(){
         admobAds.showAdmobAds();
@@ -124,9 +127,9 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     public void showInterstitialAppNext(){
         appnextAds.showAppNext();
     }
-    public boolean isLoadedFacebook(){
+    /*public boolean isLoadedFacebook(){
         return facebookAds.isFacebookLoaded();
-    }
+    }*/
     public boolean isLoadedAdmob(){
         return admobAds.isLoadedAdmob();
     }
@@ -134,7 +137,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
         return appnextAds.isLoadedAppNext();
     }
     public boolean isSomeAdLoaded(){
-        return facebookAds.isFacebookLoaded()|| admobAds.isLoadedAdmob()||appnextAds.isLoadedAppNext();
+        return /*facebookAds.isFacebookLoaded()||*/ admobAds.isLoadedAdmob()||appnextAds.isLoadedAppNext();
     }
 
 
@@ -142,12 +145,12 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
         this.listenerAds = listenerAds;
     }
 
-    public void initFacebookNativeAds(View view, String keynativeFacebook) {
+/*    public void initFacebookNativeAds(View view, String keynativeFacebook) {
         if (!isFacebookInitialized) {
             facebookNativeAds.initFacebookNative(view, keynativeFacebook);
             isFacebookInitialized = true;
         }
-    }
+    }*/
 
     public void initAdmobNativeAds(View view,String idUnitAdmob,int typeAdmobAds ){
         if(!isAdmobInitialized){
@@ -158,11 +161,13 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     }
 
     public void initAdmobNativeAds(View view,String idUnitAdmob ){
-        if(!isAdmobInitialized){
+        Log.d("infoadmob","initAdmobNativeAds");
+        admobNativeAds.initAdmobNativeAdvance(view,idUnitAdmob);
+      /*  if(!isAdmobInitialized){
             admobNativeAds.initAdmobNativeAdvance(view,idUnitAdmob);
             isAdmobInitialized=true;
         }
-
+*/
     }
 
     public void setLogs(String nameLog){
@@ -199,7 +204,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
                         runAdds_Part2Native();
                     }
                     break;
-                case ConstantsAds.FACEBOOK:
+             /*   case ConstantsAds.FACEBOOK:
                     Log.d("ShowFlow", "FACEBOOK 1");
                     if(facebookNativeAds!=null){
                         Log.d("ShowFlow", "FACEBOOK 1.2");
@@ -215,7 +220,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
                     }else {
                         runAdds_Part2Native();
                     }
-                    break;
+                    break;*/
                 default:
                     Log.d("ShowFlow", "default ");
                     runAdds_Part2Native();
@@ -242,7 +247,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
                         runAdds_Part2Inter();
                     }
                     break;
-                case ConstantsAds.FACEBOOK:
+               /* case ConstantsAds.FACEBOOK:
                     Log.d("ShowFlow", "FACEBOOK INTER 1");
                     if(facebookAds!=null){
                         Log.d("ShowFlow", "FACEBOOK INTER 1");
@@ -258,7 +263,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
                         runAdds_Part2Inter();
                     }
 
-                    break;
+                    break;*/
                 case ConstantsAds.APPNEXT:
                     Log.d("ShowFlow", "APPNEXT INTER 1");
                     if(appnextAds.isLoadedAppNext()){
@@ -289,5 +294,11 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     @Override
     public void logs(String logs) {
         Log.d(nameLogs,logs);
+    }
+
+    @Override
+    public void isClosedInterAds() {
+        Log.d("adaction",action);
+        listenerAds.afterInterstitialIsClosed(action);
     }
 }

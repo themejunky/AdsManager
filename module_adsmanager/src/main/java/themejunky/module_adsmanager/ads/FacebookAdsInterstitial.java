@@ -1,3 +1,4 @@
+/*
 package themejunky.module_adsmanager.ads;
 
 import android.app.Activity;
@@ -98,3 +99,4 @@ public class FacebookAdsInterstitial {
 
 
 }
+*/

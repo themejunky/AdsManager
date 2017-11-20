@@ -41,7 +41,7 @@ public class AppnextAdsInterstitial {
             @Override
             public void onAdClosed() {
                 listenerLogs.logs("Appnext: Closed");
-                listenerAds.isClosedInterAds();
+                listenerLogs.isClosedInterAds();
             }
         });
         interstitialAppnext.setOnAdErrorCallback(new OnAdError() {

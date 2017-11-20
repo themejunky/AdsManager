@@ -56,7 +56,7 @@ public class AdmobNativeAds  {
 
 
     public void initAdmobNativeAdvance(final View view, String idUnitAdmob,int type ){
-        Log.d("sadasd","Estasdasde");
+        Log.d("infosasda","initAdmobNativeAdvance");
         final LayoutInflater inflater = (LayoutInflater) activity.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
         if(type== ConstantsTypeAmobAds.AD_CONTENT){
             adLoader = new AdLoader.Builder(activity, idUnitAdmob)
@@ -152,6 +152,7 @@ public class AdmobNativeAds  {
     }
 
     public void initAdmobNativeAdvance(final View view, String idUnitAdmob ){
+        Log.d("infoadmob","initAdmobNativeAdvance");
         final LayoutInflater inflater = (LayoutInflater) activity.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
         adLoader = new AdLoader.Builder(activity, idUnitAdmob)
                 .forContentAd(new NativeContentAd.OnContentAdLoadedListener() {
