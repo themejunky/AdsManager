@@ -16,6 +16,7 @@ public class MobFoxIntersitital {
     InterstitialAdListener listener;
 
     private static MobFoxIntersitital mInstance = null;
+    public boolean isMobfoxLoaded;
 
     public MobFoxIntersitital(AdsListenerManager.ListenerLogs listenerLogs){
         this.listenerLogs = listenerLogs;
@@ -25,10 +26,11 @@ public class MobFoxIntersitital {
     public void initMobFoxInterstitial(Context context,String id,final AdsListenerManager.ListenerAds listenerAds){
         interstitial = new InterstitialAd(context);
 
-        InterstitialAdListener listener = new InterstitialAdListener() {
+         listener = new InterstitialAdListener() {
             @Override
             public void onInterstitialLoaded(InterstitialAd interstitial) {
                 listenerLogs.logs("Mobfox Inter: Loaded");
+                isMobfoxLoaded = true;
                 listenerAds.loadedInterAds();
               //  interstitial.show();
             }
@@ -41,6 +43,7 @@ public class MobFoxIntersitital {
             public void onInterstitialClosed(InterstitialAd interstitial) {
                 listenerLogs.logs("Mobfox Inter: Closed");
                 listenerLogs.isClosedInterAds();
+                interstitial.load();
             }
             @Override
             public void onInterstitialFinished() {
@@ -56,9 +59,14 @@ public class MobFoxIntersitital {
             }
         };
 
-        interstitial.setListener(listener);
-        interstitial.setInventoryHash(id);
-        interstitial.load();
+        if(interstitial!=null){
+            interstitial.setListener(listener);
+            interstitial.setInventoryHash(id);
+            interstitial.load();
+        }else {
+            listenerLogs.logs("Mobfox Inter: faild to initialize");
+        }
+
 
     }
 

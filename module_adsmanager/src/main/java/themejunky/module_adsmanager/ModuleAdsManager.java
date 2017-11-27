@@ -73,6 +73,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
             admobAds = AdmobAdsInterstitial.getmInstance(this);
             appnextAds = AppnextAdsInterstitial.getInstance(this);
         }else {
+            mobfox = MobFoxIntersitital.getmInstance(this);
             admobAds = AdmobAdsInterstitial.getmInstance(this);
             appnextAds = AppnextAdsInterstitial.getInstance(this);
         }
