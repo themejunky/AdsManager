@@ -14,6 +14,7 @@ import themejunky.module_adsmanager.ads.AdmobNativeAds;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
 import themejunky.module_adsmanager.ads.AppnextAdsInterstitial;
 
+import themejunky.module_adsmanager.ads.VungleAdsInterstitial;
 import themejunky.module_adsmanager.utils.ConstantsAds;
 
 /**
@@ -38,6 +39,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     private String action;
     private AppnextAdsInterstitial appnextAds;
     private AdsListenerManager.ListenerAds listenerAds;
+    private VungleAdsInterstitial vungleAds;
 
     public ModuleAdsManager(Context activity){
         this.activity = activity;
@@ -67,9 +69,11 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     public void initializeInterlAds(boolean isFacebook){
         if(isFacebook){
            // facebookAds = FacebookAdsInterstitial.getmInstance(this);
+            vungleAds = VungleAdsInterstitial.getmInstance(this);
             admobAds = AdmobAdsInterstitial.getmInstance(this);
             appnextAds = AppnextAdsInterstitial.getInstance(this);
         }else {
+            vungleAds = VungleAdsInterstitial.getmInstance(this);
             admobAds = AdmobAdsInterstitial.getmInstance(this);
             appnextAds = AppnextAdsInterstitial.getInstance(this);
         }
@@ -107,6 +111,12 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
             facebookAds.initFacebookInterstitial(activity,keyFacebook,listenerAds);
         }
     }*/
+
+    public void initInterstitialVungle(String keyVungle){
+        if(keyVungle!=null && !keyVungle.equals("")){
+          vungleAds.initVungleInterstitial(activity,keyVungle,listenerAds);
+        }
+    }
     public void initInterstitialAdmobAds(String keyAdmob){
         if(keyAdmob!=null && !keyAdmob.equals("")){
             admobAds.initAdmobInterstitial(activity,keyAdmob,listenerAds);
@@ -244,6 +254,17 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
                         Log.d("ShowFlow", "ADMOB INTER 3");
                     }else{
                         Log.d("ShowFlow", "ADMOB INTER 4");
+                        runAdds_Part2Inter();
+                    }
+                    break;
+                case ConstantsAds.VUNGLE:
+                    Log.d("ShowFlow", "VUNGLE INTER 1");
+                    if(vungleAds.vunglePub.isAdPlayable()){
+                        Log.d("ShowFlow", "VUNGLE INTER 2");
+                        vungleAds.showVungleAds();
+                        Log.d("ShowFlow", "VUNGLE INTER 3");
+                    }else{
+                        Log.d("ShowFlow", "VUNGLE INTER 4");
                         runAdds_Part2Inter();
                     }
                     break;

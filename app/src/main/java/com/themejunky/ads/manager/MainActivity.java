@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        flowAds.add("facebook");
+
+        flowAds.add("vungle");
         flowAds.add("admob");
         flowAds.add("appnext");
 
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         moduleAdsManager.initInterstitialAdmobAds("ca-app-pub-5322508131338449/2877444211");
        // moduleAdsManager.initInterstitialFacebookAds("698838770248387_848026318662964");
         moduleAdsManager.initInterstitialAppNextAds("8106d659-a20b-4640-943b-d6b0aab18d08");
+        moduleAdsManager.initInterstitialVungle("5a2a60bdcbc18a6325000ef4");
 
         containerFacebook.removeAllViews();
         containerFacebook.addView(moduleAdsManager.getAllViewAds("facebook"));
