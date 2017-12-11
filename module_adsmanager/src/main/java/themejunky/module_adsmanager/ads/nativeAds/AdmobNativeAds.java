@@ -1,4 +1,4 @@
-package themejunky.module_adsmanager.ads;
+package themejunky.module_adsmanager.ads.nativeAds;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;

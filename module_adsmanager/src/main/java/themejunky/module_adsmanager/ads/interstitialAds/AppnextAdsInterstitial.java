@@ -1,15 +1,17 @@
-package themejunky.module_adsmanager.ads;
+package themejunky.module_adsmanager.ads.interstitialAds;
 
 
 import android.content.Context;
 
+
 import com.appnext.ads.interstitial.Interstitial;
 import com.appnext.ads.interstitial.InterstitialConfig;
+import com.appnext.base.Appnext;
 import com.appnext.core.callbacks.OnAdClosed;
 import com.appnext.core.callbacks.OnAdError;
 import com.appnext.core.callbacks.OnAdLoaded;
 
-
+import themejunky.module_adsmanager.ads.AdsListenerManager;
 
 
 /**
@@ -31,11 +33,8 @@ public class AppnextAdsInterstitial {
 
     //initAppnext(activity,"8106d659-a20b-4640-943b-d6b0aab18d08");
     public void initAppnext(Context context, String placementID, final AdsListenerManager.ListenerAds listenerAds) {
-
-        InterstitialConfig config = new InterstitialConfig();
-        config.setBackButtonCanClose(true);
-        config.setCreativeType(Interstitial.TYPE_MANAGED);
-        interstitialAppnext = new Interstitial(context, placementID, config);
+        Appnext.init(context);
+        interstitialAppnext = new Interstitial(context, placementID);
         listenerLogs.logs("Appnext: initialized");
         interstitialAppnext.setOnAdClosedCallback(new OnAdClosed() {
             @Override

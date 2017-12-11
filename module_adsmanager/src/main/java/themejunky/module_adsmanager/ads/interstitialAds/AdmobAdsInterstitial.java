@@ -1,7 +1,6 @@
-package themejunky.module_adsmanager.ads;
+package themejunky.module_adsmanager.ads.interstitialAds;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -10,6 +9,8 @@ import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import themejunky.module_adsmanager.ads.AdsListenerManager;
 
 
 /**

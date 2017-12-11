@@ -64,6 +64,14 @@
         android:layout_height="wrap_content"
         />
 
+    <RelativeLayout
+        android:visibility="visible"
+        android:layout_below="@id/containerAdmob"
+        android:id="@+id/containerAppnext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
 
 
 </RelativeLayout>

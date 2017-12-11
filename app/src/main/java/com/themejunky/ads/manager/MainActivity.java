@@ -30,16 +30,17 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     private ImageView splash;
     private LinearLayout layoutButtons;
     private byte nrFailedLoad=0;
-    private RelativeLayout containerFacebook,containerAdmob;
+    private RelativeLayout containerFacebook,containerAdmob ,containerAppnext;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        flowAds.add("facebook");
-        flowAds.add("admob");
         flowAds.add("appnext");
+
+
 
 
 
@@ -50,16 +51,19 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
         moduleAdsManager.initInterstitialAdmobAds("ca-app-pub-5322508131338449/2877444211");
        // moduleAdsManager.initInterstitialFacebookAds("698838770248387_848026318662964");
-        moduleAdsManager.initInterstitialAppNextAds("8106d659-a20b-4640-943b-d6b0aab18d08");
+        //moduleAdsManager.initInterstitialAppNextAds("8106d659-a20b-4640-943b-d6b0aab18d08");
 
         containerFacebook.removeAllViews();
         containerFacebook.addView(moduleAdsManager.getAllViewAds("facebook"));
         containerAdmob.removeAllViews();
         containerAdmob.addView(moduleAdsManager.getAllViewAds("admob"));
+        containerAppnext.removeAllViews();
+        containerAppnext.addView(moduleAdsManager.getAllViewAds("appnext"));
 
 
         moduleAdsManager.setLogs("InfoAds");
         moduleAdsManager.initAdmobNativeAds(containerAdmob,"ca-app-pub-8562466601970101/5081303159");
+
        //moduleAdsManager.initFacebookNativeAds(containerFacebook,"83194690296345_932932096864070");
     }
 
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         layoutButtons = (LinearLayout) findViewById(R.id.layoutButonsId);
         containerFacebook = (RelativeLayout) findViewById(R.id.containerFacebook);
         containerAdmob = (RelativeLayout) findViewById(R.id.containerAdmob);
+        containerAppnext = (RelativeLayout) findViewById(R.id.containerAppnext);
 
         Log.d("TestLogs2","onCreate");
 
@@ -147,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     @Override
     public void loadNativeAds(String type) {
         if (type.equals("admob") && flowAds.size() > 0) {
-            moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob);
+            moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob,containerAppnext);
 
         }
     }
