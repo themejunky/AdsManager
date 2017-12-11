@@ -105,6 +105,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
             inflateView= factory.inflate(R.layout.container_admob_ads,null);
         }
         else if (type.equals("appnext")){
+            Log.d("InfoA","inflate appnext");
             inflateView= factory.inflate(R.layout.container_appnext_ads,null);
         }
         return inflateView;

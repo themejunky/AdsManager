@@ -65,7 +65,7 @@
         />
 
     <RelativeLayout
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_below="@id/containerAdmob"
         android:id="@+id/containerAppnext"
         android:layout_width="wrap_content"

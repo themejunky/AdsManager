@@ -1,11 +1,14 @@
 package themejunky.module_adsmanager.ads.nativeAds;
 
+import android.app.Activity;
 import android.content.Context;
 import android.icu.text.BreakIterator;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.appnext.base.Appnext;
@@ -44,6 +47,10 @@ public class AppnextNativeAds {
     private Button button;
     private NativeAdView nativeAdView;
     private  ArrayList<View> viewArrayList;
+    private ProgressBar progressBar;
+    private LayoutInflater factory;
+    private View inflateView;
+    private View view2;
 
 
     public AppnextNativeAds(Context context, AdsListenerManager.ListenerLogs logs, AdsListenerManager.ListenerAds loadListener) {
@@ -57,11 +64,29 @@ public class AppnextNativeAds {
 
     public void initAppnextNativeAdvance(final View view, String idUnitAppnext) {
         Appnext.init(context);
+
+        LayoutInflater factory = LayoutInflater.from(context);
+        View DialogInflateView = factory.inflate(R.layout.ad_appnext, null);
+        RelativeLayout container = (RelativeLayout) DialogInflateView.findViewById(R.id.nContainer);
+        setViews(DialogInflateView);
+        ((RelativeLayout) view).addView(container);
+
+//        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+//        factory = LayoutInflater.from(context);
+//        view2 = inflater.inflate(R.layout.ad_appnext, null, false);
+//        RelativeLayout mContainer = view2.findViewById(R.id.nContainer);
+
+
+       // inflateView= factory.inflate(R.layout.ad_content,null);*/
+    /*    setViews(view2);
+        frameLayout.removeAllViews();
+        frameLayout.addView(view2);*/
+
         mediaView.setMute(true);
         mediaView.setAutoPLay(true);
         mediaView.setClickEnabled(true);
         nativeAd = new NativeAd(context, idUnitAppnext);
-        setViews(view);
+
         nativeAd.setAdListener(new NativeAdListener() {
             @Override
             public void onAdLoaded(NativeAd nativeAd) {
@@ -69,6 +94,7 @@ public class AppnextNativeAds {
                 nativeAd.setMediaView(mediaView);
                 logsListener.logs("Appnex: onAdLoaded");
                 loadListener.loadNativeAds("appnext");
+                progressBar.setVisibility(View.GONE);
                 nativeAd.downloadAndDisplayImage(imageView, nativeAd.getIconURL());
                 textView.setText(nativeAd.getAdTitle());
                 nativeAd.setMediaView(mediaView);
@@ -106,6 +132,7 @@ public class AppnextNativeAds {
         );
     }
     private void setViews(View views) {
+        progressBar = (ProgressBar) views.findViewById(R.id.progressBar);
         nativeAdView = (NativeAdView) views.findViewById(R.id.na_view);
         imageView = (ImageView) views.findViewById(R.id.na_icon);
         textView = (TextView) views.findViewById(R.id.na_title);
