@@ -19,6 +19,10 @@ allprojects {
         maven {
             url "https://maven.google.com"
         }
+        maven {
+            name "Fyber's maven repo"
+            url "https://fyber.bintray.com/maven"
+        }
     }
 }
 

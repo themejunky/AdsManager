@@ -14,6 +14,7 @@ import themejunky.module_adsmanager.ads.AdmobNativeAds;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
 import themejunky.module_adsmanager.ads.AppnextAdsInterstitial;
 
+import themejunky.module_adsmanager.ads.TabjoyAdsInterstitial;
 import themejunky.module_adsmanager.utils.ConstantsAds;
 
 /**
@@ -38,6 +39,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     private String action;
     private AppnextAdsInterstitial appnextAds;
     private AdsListenerManager.ListenerAds listenerAds;
+    private TabjoyAdsInterstitial tapjoyAds;
 
     public ModuleAdsManager(Context activity){
         this.activity = activity;
@@ -67,9 +69,11 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     public void initializeInterlAds(boolean isFacebook){
         if(isFacebook){
            // facebookAds = FacebookAdsInterstitial.getmInstance(this);
+            tapjoyAds = TabjoyAdsInterstitial.getmInstance(this);
             admobAds = AdmobAdsInterstitial.getmInstance(this);
             appnextAds = AppnextAdsInterstitial.getInstance(this);
         }else {
+            tapjoyAds = TabjoyAdsInterstitial.getmInstance(this);
             admobAds = AdmobAdsInterstitial.getmInstance(this);
             appnextAds = AppnextAdsInterstitial.getInstance(this);
         }
@@ -107,6 +111,11 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
             facebookAds.initFacebookInterstitial(activity,keyFacebook,listenerAds);
         }
     }*/
+ public void initInterstitialTapjoyAds(String keyAdmob){
+     if(keyAdmob!=null && !keyAdmob.equals("")){
+         tapjoyAds.initTapjoyInterstitial(activity,keyAdmob,listenerAds);
+     }
+ }
     public void initInterstitialAdmobAds(String keyAdmob){
         if(keyAdmob!=null && !keyAdmob.equals("")){
             admobAds.initAdmobInterstitial(activity,keyAdmob,listenerAds);
@@ -201,6 +210,17 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
                         Log.d("ShowFlow", "ADMOB 3");
                     }else{
                         Log.d("ShowFlow", "ADMOB 4");
+                        runAdds_Part2Native();
+                    }
+                    break;
+                case ConstantsAds.TAPJOY:
+                    Log.d("ShowFlow", "TAPJOY 1");
+                    if(tapjoyAds.isTapjoyLoaded){
+                        Log.d("ShowFlow", "TAPJOY 2");
+                        tapjoyAds.showTapjoy();
+                        Log.d("ShowFlow", "TAPJOY 3");
+                    }else{
+                        Log.d("ShowFlow", "TAPJOY 4");
                         runAdds_Part2Native();
                     }
                     break;
