@@ -3,6 +3,7 @@ package themejunky.module_adsmanager.ads.nativeAds;
 import android.app.Activity;
 import android.content.Context;
 import android.icu.text.BreakIterator;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -92,16 +93,23 @@ public class AppnextNativeAds {
             public void onAdLoaded(NativeAd nativeAd) {
                 super.onAdLoaded(nativeAd);
                 nativeAd.setMediaView(mediaView);
-                logsListener.logs("Appnex: onAdLoaded");
-                loadListener.loadNativeAds("appnext");
-                progressBar.setVisibility(View.GONE);
+
+
                 nativeAd.downloadAndDisplayImage(imageView, nativeAd.getIconURL());
                 textView.setText(nativeAd.getAdTitle());
                 nativeAd.setMediaView(mediaView);
-                rating.setText(nativeAd.getStoreRating());
                 description.setText(nativeAd.getAdDescription());
                 nativeAd.registerClickableViews(viewArrayList);
                 nativeAd.setNativeAdView(nativeAdView);
+                if(nativeAd.getAdTitle()!=null){
+                    logsListener.logs("Appnex: onAdLoaded");
+                    loadListener.loadNativeAds("appnext");
+                    Log.d("loadsometd","is text Loaded");
+                }else{
+                    Log.d("loadsometd","is  text not Loaded");
+                }
+
+
             }
 
             @Override
@@ -132,18 +140,23 @@ public class AppnextNativeAds {
         );
     }
     private void setViews(View views) {
-        progressBar = (ProgressBar) views.findViewById(R.id.progressBar);
         nativeAdView = (NativeAdView) views.findViewById(R.id.na_view);
         imageView = (ImageView) views.findViewById(R.id.na_icon);
         textView = (TextView) views.findViewById(R.id.na_title);
         mediaView = (MediaView) views.findViewById(R.id.na_media);
         button = (Button) views.findViewById(R.id.install);
-        rating = (TextView) views.findViewById(R.id.rating);
         description = (TextView) views.findViewById(R.id.description);
         viewArrayList = new ArrayList<>();
         viewArrayList.add(button);
         viewArrayList.add(mediaView);
     }
 
+    public boolean isLoadedAppnextAds(){
+        if(nativeAd.getAdTitle()!=null){
+            return true;
+        }else {
+            return false;
+        }
+    }
 
 }

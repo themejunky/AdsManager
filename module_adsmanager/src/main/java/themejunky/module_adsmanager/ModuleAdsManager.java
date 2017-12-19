@@ -219,8 +219,8 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
                     }
                     break;
                 case ConstantsAds.APPNEXT:
-                    Log.d("ShowFlow", "APPNEXT 1");
-                    if(admobNativeAds.isLoaded){
+                    Log.d("ShowFlow", "APPNEXT  1");
+                    if(appnextNativeAds.isLoadedAppnextAds()){
                         Log.d("ShowFlow", "APPNEXT 2");
                         appnextView.setVisibility(View.VISIBLE);
                         Log.d("ShowFlow", "APPNEXT 3");

@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
         moduleAdsManager.initInterstitialAdmobAds("ca-app-pub-5322508131338449/2877444211");
        // moduleAdsManager.initInterstitialFacebookAds("698838770248387_848026318662964");
-        //moduleAdsManager.initInterstitialAppNextAds("8106d659-a20b-4640-943b-d6b0aab18d08");
+        moduleAdsManager.initInterstitialAppNextAds("8106d659-a20b-4640-943b-d6b0aab18d08");
 
         containerFacebook.removeAllViews();
         containerFacebook.addView(moduleAdsManager.getAllViewAds("facebook"));
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
         moduleAdsManager.setLogs("InfoAds");
         moduleAdsManager.initAdmobNativeAds(containerAdmob,"ca-app-pub-8562466601970101/5081303159");
+        moduleAdsManager.initAppnextNativeAds(containerAppnext,"cdd052e2-9394-407c-99d4-323439dd7398");
 
        //moduleAdsManager.initFacebookNativeAds(containerFacebook,"83194690296345_932932096864070");
     }
@@ -154,6 +155,8 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         if (type.equals("admob") && flowAds.size() > 0) {
             moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob,containerAppnext);
 
+        }else if(type.equals("appnext") && flowAds.size() > 0){
+            moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob,containerAppnext);
         }
     }
 

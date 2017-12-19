@@ -35,18 +35,18 @@ public class AppnextAdsInterstitial {
     public void initAppnext(Context context, String placementID, final AdsListenerManager.ListenerAds listenerAds) {
         Appnext.init(context);
         interstitialAppnext = new Interstitial(context, placementID);
-        listenerLogs.logs("Appnext: initialized");
+        listenerLogs.logs("Appnext inter: initialized");
         interstitialAppnext.setOnAdClosedCallback(new OnAdClosed() {
             @Override
             public void onAdClosed() {
-                listenerLogs.logs("Appnext: Closed");
+                listenerLogs.logs("Appnext inter: Closed");
                 listenerLogs.isClosedInterAds();
             }
         });
         interstitialAppnext.setOnAdErrorCallback(new OnAdError() {
             @Override
             public void adError(String s) {
-                listenerLogs.logs("Appnext error: " + s.toString());
+                listenerLogs.logs("Appnext inter error: " + s.toString());
                 listenerAds.loadInterFailed();
             }
         });
@@ -54,7 +54,7 @@ public class AppnextAdsInterstitial {
             @Override
             public void adLoaded(String s) {
                 listenerAds.loadedInterAds();
-                listenerLogs.logs("Appnext: is Loaded");
+                listenerLogs.logs("Appnext inter: is Loaded");
             }
         });
 
