@@ -1,5 +1,4 @@
-/*
-package themejunky.module_adsmanager.ads;
+package themejunky.module_adsmanager.ads.interstitialAds;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +8,8 @@ import com.facebook.ads.AdError;
 import com.facebook.ads.AdSettings;
 import com.facebook.ads.InterstitialAd;
 import com.facebook.ads.InterstitialAdListener;
+
+import themejunky.module_adsmanager.ads.AdsListenerManager;
 
 
 public class FacebookAdsInterstitial {
@@ -41,7 +42,7 @@ public class FacebookAdsInterstitial {
             public void onInterstitialDismissed(Ad ad) {
                 interstitialAd.loadAd();
                 listenerLogs.logs("Facebook : dismissed!");
-                listenerAds.isClosedInterAds();
+                listenerLogs.isClosedInterAds();
             }
 
             @Override
@@ -99,4 +100,3 @@ public class FacebookAdsInterstitial {
 
 
 }
-*/

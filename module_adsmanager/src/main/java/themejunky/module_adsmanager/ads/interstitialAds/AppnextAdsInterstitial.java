@@ -58,11 +58,11 @@ public class AppnextAdsInterstitial {
             }
         });
 
+        interstitialAppnext.setBackButtonCanClose(true);
         interstitialAppnext.setMute(true);
         interstitialAppnext.setAutoPlay(true);
         interstitialAppnext.loadAd();
-        interstitialAppnext.setMute(true);
-        interstitialAppnext.setAutoPlay(true);
+
 
     }
 
