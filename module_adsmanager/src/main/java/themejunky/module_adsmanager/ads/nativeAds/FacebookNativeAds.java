@@ -13,6 +13,7 @@ import com.facebook.ads.Ad;
 import com.facebook.ads.AdChoicesView;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdListener;
+import com.facebook.ads.AdSettings;
 import com.facebook.ads.MediaView;
 import com.facebook.ads.NativeAd;
 
@@ -39,7 +40,7 @@ public class FacebookNativeAds {
         this.activity = activity;
         this.logsListener = logs;
         this.loadListener = loadListener;
-
+        AdSettings.addTestDevice("f5726d6130e7bc96ef669e32ea0ae59e");
 
     }
 
@@ -59,6 +60,7 @@ public class FacebookNativeAds {
                 loadListener.loadNativeAds("facebook");
                 logsListener.logs("Facebook: onAdLoaded");
                 nativeAdContainer = (LinearLayout) view.findViewById(R.id.native_ad_container);
+                nativeAdContainer.setOrientation(LinearLayout.VERTICAL);
                 LayoutInflater inflater = LayoutInflater.from(activity);
                 // Inflate the Ad view.  The layout referenced should be the one you created in the last step.
                 adView = (LinearLayout) inflater.inflate(R.layout.native_ad, nativeAdContainer, false);

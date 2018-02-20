@@ -8,6 +8,7 @@ import com.facebook.ads.AdError;
 import com.facebook.ads.AdSettings;
 import com.facebook.ads.InterstitialAd;
 import com.facebook.ads.InterstitialAdListener;
+import com.google.android.gms.ads.AdRequest;
 
 import themejunky.module_adsmanager.ads.AdsListenerManager;
 
@@ -21,13 +22,13 @@ public class FacebookAdsInterstitial {
 
     public FacebookAdsInterstitial(AdsListenerManager.ListenerLogs listenerLogs){
         this.listenerLogs = listenerLogs;
+        AdSettings.addTestDevice("f5726d6130e7bc96ef669e32ea0ae59e");
     }
 
 
 
     public void initFacebookInterstitial(Context activity, String keyFacebook, final AdsListenerManager.ListenerAds listenerAds) {
         this.listenerAds = listenerAds;
-        AdSettings.addTestDevice("f755429e799a9291a0e305d065db6326");
 
         interstitialAd = new InterstitialAd(activity, keyFacebook);
         listenerLogs.logs("Facebook:  initialized");

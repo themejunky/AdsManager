@@ -46,13 +46,13 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
 
 
-        moduleAdsManager = ModuleAdsManager.getInstance(this);
+        moduleAdsManager = ModuleAdsManager.getInstance(this,true);
         moduleAdsManager.setListenerAds(this);
         moduleAdsManager.initializeInterlAds(true);
-        moduleAdsManager.initializeNativeAds(true,true);
+        moduleAdsManager.initializeNativeAds(true,false);
 
         moduleAdsManager.initInterstitialAdmobAds("ca-app-pub-5322508131338449/2877444211");
-        moduleAdsManager.initInterstitialFacebookAds("698838770248387_848026318662964");
+        moduleAdsManager.initInterstitialFacebookAds("989309397888813_993580754128344");
         moduleAdsManager.initInterstitialAppNextAds("8106d659-a20b-4640-943b-d6b0aab18d08");
 
         containerFacebook.removeAllViews();
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         moduleAdsManager.initAdmobNativeAds(containerAdmob,"ca-app-pub-8562466601970101/5081303159");
         moduleAdsManager.initAppnextNativeAds(containerAppnext,"cdd052e2-9394-407c-99d4-323439dd7398");
 
-       moduleAdsManager.initFacebookNativeAds(containerFacebook,"83194690296345_932932096864070");
+       //moduleAdsManager.initFacebookNativeAds(containerFacebook,"989309397888813_993580754128344");
     }
 
     public void initView(){
@@ -111,9 +111,6 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
     @Override
     public void loadedInterAds() {
-        Log.d("TestLogs","loadedAds");
-
-        Log.d("TestLogs","loadedAds: "+splash.getVisibility());
 
         if (splash.getVisibility()== View.VISIBLE ) {
             Log.d("TestLogs","intra in metoda loaded");
