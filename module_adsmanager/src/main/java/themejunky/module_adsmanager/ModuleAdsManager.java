@@ -167,7 +167,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     }
 
     public boolean isSomeAdLoaded() {
-        return /*facebookAds.isFacebookLoaded()||*/ admobAds.isLoadedAdmob() || appnextAds.isLoadedAppNext();
+        return facebookAds.isFacebookLoaded()|| admobAds.isLoadedAdmob() || appnextAds.isLoadedAppNext();
     }
 
 
