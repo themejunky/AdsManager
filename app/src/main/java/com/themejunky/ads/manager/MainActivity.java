@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     private ImageView splash;
     private LinearLayout layoutButtons;
     private byte nrFailedLoad=0;
-    private RelativeLayout containerFacebook,containerAdmob ,containerAppnext;
+    private RelativeLayout containerFacebook,containerAdmob ,containerAppnext, containerVungle;
 
 
     @Override
@@ -41,10 +41,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         flowAds.add("facebook");
         flowAds.add("appnext");
         flowAds.add("appnext");
-
-
-
-
+        flowAds.add("vungle");
 
         moduleAdsManager = ModuleAdsManager.getInstance(this,true);
         moduleAdsManager.setListenerAds(this);
@@ -54,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         moduleAdsManager.initInterstitialAdmobAds("ca-app-pub-5322508131338449/2877444211");
         moduleAdsManager.initInterstitialFacebookAds("989309397888813_993580754128344");
         moduleAdsManager.initInterstitialAppNextAds("8106d659-a20b-4640-943b-d6b0aab18d08");
+        moduleAdsManager.initInterstitialVungle("5916309cb46f6b5a3e00009c");
 
         containerFacebook.removeAllViews();
         containerFacebook.addView(moduleAdsManager.getAllViewAds("facebook"));
@@ -61,11 +59,13 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         containerAdmob.addView(moduleAdsManager.getAllViewAds("admob"));
         containerAppnext.removeAllViews();
         containerAppnext.addView(moduleAdsManager.getAllViewAds("appnext"));
-
+        containerVungle.removeAllViews();
+        containerVungle.addView(moduleAdsManager.getAllViewAds("vungle"));
 
         moduleAdsManager.setLogs("InfoAds");
         moduleAdsManager.initAdmobNativeAds(containerAdmob,"ca-app-pub-8562466601970101/5081303159");
         moduleAdsManager.initAppnextNativeAds(containerAppnext,"cdd052e2-9394-407c-99d4-323439dd7398");
+        moduleAdsManager.initVungleNativeAds(containerVungle,"5916309cb46f6b5a3e00009c");
 
        //moduleAdsManager.initFacebookNativeAds(containerFacebook,"989309397888813_993580754128344");
     }
@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         containerFacebook = (RelativeLayout) findViewById(R.id.containerFacebook);
         containerAdmob = (RelativeLayout) findViewById(R.id.containerAdmob);
         containerAppnext = (RelativeLayout) findViewById(R.id.containerAppnext);
+        containerVungle = (RelativeLayout) findViewById(R.id.containerVungle);
 
         Log.d("TestLogs2","onCreate");
 
@@ -152,10 +153,11 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     @Override
     public void loadNativeAds(String type) {
         if (type.equals("admob") && flowAds.size() > 0) {
-            moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob,containerAppnext);
-
-        }else if(type.equals("appnext") && flowAds.size() > 0){
-            moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob,containerAppnext);
+            moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob,containerAppnext, containerVungle);
+        } else if(type.equals("appnext") && flowAds.size() > 0){
+            moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob,containerAppnext, containerVungle);
+        } else if(type.equals("vungle") && flowAds.size() > 0){
+            moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob, containerAppnext, containerVungle);
         }
     }
 

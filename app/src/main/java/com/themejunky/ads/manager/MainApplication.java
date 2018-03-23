@@ -21,13 +21,12 @@ public class MainApplication extends Application {
         flowAdsInceput.add("facebook");
         flowAdsInceput.add("appnext");
         flowAdsInceput.add("admob");
+        flowAdsInceput.add("vungle");
 
         flowAdsSfarsit.add("facebook");
         flowAdsSfarsit.add("admob");
         flowAdsSfarsit.add("appnext");
-
-
-
+        flowAdsSfarsit.add("vungle");
 
     }
 }
