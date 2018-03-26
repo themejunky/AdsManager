@@ -144,11 +144,16 @@ public class VungleNativeAds {
     }
 
     public boolean isLoadedVungleNativeAds(){
-        if(nativeAd.getAdTitle()!=null){
-            return true;
-        }else {
-            return false;
+        try {
+            if (nativeAd.getAdTitle() != null) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e){
+            Log.d("vungle", "cannot read ad title");
         }
+        return false;
     }
 
 }
