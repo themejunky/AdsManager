@@ -154,9 +154,9 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
         }
     }
 
-    public void initInterstitialVungle(String keyVungle){
-        if(keyVungle!=null && !keyVungle.equals("")){
-            vungleAds.initVungle(activity,keyVungle,listenerAds);
+    public void initInterstitialVungle(String appId, String placementID){
+        if(placementID!=null && !placementID.equals("")){
+            vungleAds.initVungle(activity, appId, placementID, listenerAds);
         }
     }
 

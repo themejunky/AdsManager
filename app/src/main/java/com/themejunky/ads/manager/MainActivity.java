@@ -38,10 +38,11 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        //flowAds.add("facebook");
-        //flowAds.add("appnext");
-        //flowAds.add("appnext");
+        flowAds.add("facebook");
         flowAds.add("vungle");
+        flowAds.add("admob");
+        flowAds.add("appnext");
+
 
         moduleAdsManager = ModuleAdsManager.getInstance(this,true);
         moduleAdsManager.setListenerAds(this);
@@ -51,7 +52,9 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         moduleAdsManager.initInterstitialAdmobAds("ca-app-pub-5322508131338449/2877444211");
         moduleAdsManager.initInterstitialFacebookAds("989309397888813_993580754128344");
         moduleAdsManager.initInterstitialAppNextAds("8106d659-a20b-4640-943b-d6b0aab18d08");
-        moduleAdsManager.initInterstitialVungle("5916309cb46f6b5a3e00009c");
+
+        //moduleAdsManager.initInterstitialVungle("5abb495d1a839166af6a8e62","DEFAULT-6433071"); //red velvet
+        moduleAdsManager.initInterstitialVungle("5916309cb46f6b5a3e00009c","DEFAULT32590"); //test vungle ad
 
         containerFacebook.removeAllViews();
         containerFacebook.addView(moduleAdsManager.getAllViewAds("facebook"));
@@ -64,8 +67,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
         moduleAdsManager.setLogs("InfoAds");
         moduleAdsManager.initAdmobNativeAds(containerAdmob,"ca-app-pub-8562466601970101/5081303159");
-        moduleAdsManager.initAppnextNativeAds(containerAppnext,"cdd052e2-9394-407c-99d4-323439dd7398");
-        //moduleAdsManager.initVungleNativeAds(containerVungle,"5916309cb46f6b5a3e00009c");
+        //moduleAdsManager.initAppnextNativeAds(containerAppnext,"cdd052e2-9394-407c-99d4-323439dd7398");
         //moduleAdsManager.initFacebookNativeAds(containerFacebook,"989309397888813_993580754128344");
     }
 

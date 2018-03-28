@@ -2,6 +2,7 @@ package themejunky.module_adsmanager.ads.interstitialAds;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.vungle.publisher.AdConfig;
 import com.vungle.publisher.VungleAdEventListener;
@@ -13,20 +14,16 @@ import themejunky.module_adsmanager.ads.AdsListenerManager;
 public class VungleAdsInterstitial extends android.app.Activity {
     // get the VunglePub instance
     final VunglePub vunglePub = VunglePub.getInstance();
-    final AdConfig globalAdConfig = vunglePub.getGlobalAdConfig();
+    //final AdConfig globalAdConfig = vunglePub.getGlobalAdConfig();
 
     public static VungleAdsInterstitial instance = null;
     private final AdsListenerManager.ListenerLogs listenerLogs;
-    Context context;
+    private Context context;
+    private String placementID;
 
     public VungleAdsInterstitial(AdsListenerManager.ListenerLogs listenerLogs) {
         this.listenerLogs = listenerLogs;
     }
-
-    // Get your Vungle App ID and Placement ID information from Vungle Dashboard
-    final String app_id = "5916309cb46f6b5a3e00009c";
-    final String DEFAULT_PLACEMENT_ID = "DEFAULT32590";
-    private final String[] placement_list = { DEFAULT_PLACEMENT_ID, "TESTREW28799", "TESTINT07107" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,26 +31,19 @@ public class VungleAdsInterstitial extends android.app.Activity {
         context = getApplicationContext();
     }
 
-    public void initVungle(Context context, String placementID, final AdsListenerManager.ListenerAds listenerAds) {
+    public void initVungle(Context context, final String appId, final String placementID, final AdsListenerManager.ListenerAds listenerAds) {
         listenerLogs.logs("Vungle inter: initialized");
-        vunglePub.init(context, app_id, placement_list, new VungleInitListener() {
+        this.placementID = placementID;
+        vunglePub.init(context, appId, new String[]{placementID}, new VungleInitListener() {
                 @Override
                 public void onSuccess() {
                     listenerLogs.logs("Vungle inter: onSuccess");
                     vunglePub.clearAndSetEventListeners(vungleListener);
-                    for (int i = 0; i < 3; i++) {
-                        final int index = i;
-                        if (vunglePub != null && vunglePub.isInitialized()) {
-                            // Load an ad using a Placement ID
-                            vunglePub.loadAd(placement_list[index]);
-                            if (vunglePub != null && vunglePub.isInitialized()) {
-                                // Check a Placement if it is ready to play the Ad
-                                if (vunglePub.isAdPlayable(placement_list[index])) {
-                                    // Play a Placement ad with Placement ID, you can pass AdConfig to customize your ad
-                                    vunglePub.playAd(placement_list[index], null);
-                                }
-                            }
-                        }
+                    if (vunglePub != null && vunglePub.isInitialized()) {
+                        // Load an ad using a Placement ID
+                        Log.d("InfoAds","placementID3 "+placementID);
+                        vunglePub.loadAd(placementID);
+                        showVungle();
                     }
                 }
                 @Override
@@ -66,30 +56,35 @@ public class VungleAdsInterstitial extends android.app.Activity {
 
 
     public void showVungle() {
-        if (vunglePub != null && vunglePub.isInitialized()) {
-            // Load an ad using a Placement ID
-            vunglePub.loadAd("DEFAULT32590");
-            listenerLogs.logs("Vungle inter: load ad");
-            if (vunglePub.isAdPlayable("DEFAULT32590")) {
-                vunglePub.playAd(app_id, globalAdConfig);
-                listenerLogs.logs("Vungle inter: play ad");
-            }
+        if (vunglePub.isAdPlayable(placementID)) {
+            Log.d("InfoAds","isAdPlayable true");
+            vunglePub.playAd(placementID, null);
+        } else {
+            vunglePub.playAd(placementID, null);
+            Log.d("InfoAds","isAdPlayable false");
         }
+
+        /*
+        // Check a Placement if it is ready to play the Ad
+        if (isLoadedVungle()) {
+            Log.d("InfoAds","isLoadedVungle true");
+            // Play a Placement ad with Placement ID, you can pass AdConfig to customize your ad
+            vunglePub.playAd(placementID, null);
+        } else {
+            Log.d("InfoAds","isLoadedVungle false");
+        }
+        */
     }
 
     public boolean isLoadedVungle() {
-        if (vunglePub.isAdPlayable("DEFAULT32590")) {
+        if (vunglePub != null) {
+            Log.d("InfoAds","isLoadedVungle true");
             return true;
         } else {
+            Log.d("InfoAds","isLoadedVungle false");
             return false;
         }
-        /*
-        if (interstitialVungle != null && interstitialVungle.isAdLoaded()) {
-            return true;
-        } else {
-            return false;
-        }
-        */
+
     }
 
     private final VungleAdEventListener vungleListener = new VungleAdEventListener(){
@@ -102,6 +97,7 @@ public class VungleAdsInterstitial extends android.app.Activity {
             // if wasCallToActionClicked is true, the user clicked the call to action
             // button in the ad.
             listenerLogs.logs("Vungle inter: onAdEnd");
+            listenerLogs.isClosedInterAds();
         }
 
         @Override
@@ -113,14 +109,14 @@ public class VungleAdsInterstitial extends android.app.Activity {
         @Override
         public void onUnableToPlayAd(String placementReferenceId, String reason) {
             // Called after playAd(placementId, adConfig) is unable to play the ad
-            listenerLogs.logs("Vungle inter: onUnableToPlayAd");
+            listenerLogs.logs("Vungle inter: onUnableToPlayAd "+reason);
         }
 
         @Override
         public void onAdAvailabilityUpdate(String placementReferenceId, boolean isAdAvailable) {
             // Notifies ad availability for the indicated placement
             // There can be duplicate notifications
-            listenerLogs.logs("Vungle inter: onAdAvailabilityUpdate");
+            listenerLogs.logs("Vungle inter: onAdAvailabilityUpdate "+isAdAvailable);
         }
     };
 
