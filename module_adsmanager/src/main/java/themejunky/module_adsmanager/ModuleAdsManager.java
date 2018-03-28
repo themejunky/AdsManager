@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import themejunky.module_adsmanager.ads.interstitialAds.AdmobAdsInterstitial;
+import themejunky.module_adsmanager.ads.interstitialAds.ApplovinAdsInterstitial;
 import themejunky.module_adsmanager.ads.interstitialAds.FacebookAdsInterstitial;
 import themejunky.module_adsmanager.ads.interstitialAds.VungleAdsInterstitial;
 import themejunky.module_adsmanager.ads.nativeAds.AdmobNativeAds;
@@ -31,7 +32,8 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     private FacebookNativeAds facebookNativeAds;
     private AdmobNativeAds admobNativeAds;
     private VungleNativeAds vungleNativeAds;
-    private View facebookView, admobView, appnextView, vungleView;
+    //private AppLovinNativeAds applovinNativeAds;
+    private View facebookView, admobView, appnextView, vungleView, applovinView;
     private String nameLogs;
     private LayoutInflater factory;
     private int next;
@@ -46,6 +48,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     private AdsListenerManager.ListenerAds listenerAds;
     private AppnextNativeAds appnextNativeAds;
     private VungleAdsInterstitial vungleAds;
+    private ApplovinAdsInterstitial applovinAds;
 
 
     public ModuleAdsManager(Context activity, boolean showAds) {
@@ -88,19 +91,22 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
                 admobAds = AdmobAdsInterstitial.getmInstance(this);
                 appnextAds = AppnextAdsInterstitial.getInstance(this);
                 vungleAds = VungleAdsInterstitial.getInstance(this);
+                applovinAds = ApplovinAdsInterstitial.getInstance(this);
             } else {
                 admobAds = AdmobAdsInterstitial.getmInstance(this);
                 appnextAds = AppnextAdsInterstitial.getInstance(this);
                 vungleAds = VungleAdsInterstitial.getInstance(this);
+                applovinAds = ApplovinAdsInterstitial.getInstance(this);
             }
         }
     }
 
-    public void setNativeFlowAndShowAds(List<String> flowAds, View facebookView, View admobView, View appnextView, View vungleView) {
+    public void setNativeFlowAndShowAds(List<String> flowAds, View facebookView, View admobView, View appnextView, View vungleView, View applovinView) {
         this.facebookView = facebookView;
         this.admobView = admobView;
         this.appnextView = appnextView;
         this.vungleView = vungleView;
+        this.applovinView = applovinView;
         addsFlow = flowAds;
         runAdds_Part1Native();
 
@@ -125,6 +131,9 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
         } else if (type.equals("vungle")){
             Log.d("InfoA","inflate vungle");
             inflateView= factory.inflate(R.layout.container_vungle_ads,null);
+        } else if (type.equals("applovin")){
+            Log.d("InfoA","inflate applovin");
+            inflateView= factory.inflate(R.layout.container_applovin_ads,null);
         }
         return inflateView;
 
@@ -160,6 +169,12 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
         }
     }
 
+    public void initInterstitialAppLovin(String keyAppLovin){
+        if(keyAppLovin!=null && !keyAppLovin.equals("")){
+            applovinAds.initApplovin(activity, keyAppLovin, listenerAds);
+        }
+    }
+
     public void setAdmobeMute(Context context) {
         if (showAds) {
             admobAds.setAdmobInterMuted(context);
@@ -178,6 +193,8 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
         vungleAds.showVungle();
     }
 
+    public void showInterstitialAppLovin(){ applovinAds.showAppLovin(); }
+
     public boolean isLoadedFacebook() {
         return facebookAds.isFacebookLoaded();
     }
@@ -194,8 +211,12 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
         return vungleAds.isLoadedVungle();
     }
 
+    public boolean isLoadedAppLovin(){
+        return applovinAds.isLoadedAppLovin();
+    }
+
     public boolean isSomeAdLoaded() {
-        return facebookAds.isFacebookLoaded()|| admobAds.isLoadedAdmob() || appnextAds.isLoadedAppNext() || vungleAds.isLoadedVungle();
+        return facebookAds.isFacebookLoaded()|| admobAds.isLoadedAdmob() || appnextAds.isLoadedAppNext() || vungleAds.isLoadedVungle() || applovinAds.isLoadedAppLovin();
     }
 
 
@@ -375,6 +396,17 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
                         Log.d("ShowFlow", "VUNGLE INTER 3");
                     }else{
                         Log.d("ShowFlow", "VUNGLE INTER 4");
+                        runAdds_Part2Inter();
+                    }
+                    break;
+                case ConstantsAds.APPLOVIN:
+                    Log.d("ShowFlow", "APPLOVIN INTER 1");
+                    if(applovinAds.isLoadedAppLovin()){
+                        Log.d("ShowFlow", "APPLOVIN INTER 2");
+                        applovinAds.showAppLovin();
+                        Log.d("ShowFlow", "APPLOVIN INTER 3");
+                    }else{
+                        Log.d("ShowFlow", "APPLOVIN INTER 4");
                         runAdds_Part2Inter();
                     }
                     break;

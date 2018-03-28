@@ -76,8 +76,17 @@
     <RelativeLayout
         android:layout_alignParentBottom="true"
         android:visibility="gone"
-        android:layout_below="@id/containerAppnext"
+        android:layout_below="@id/containerAdmob"
         android:id="@+id/containerVungle"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        />
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:layout_below="@id/containerAdmob"
+        android:id="@+id/containerAppLovin"
         android:layout_width="wrap_content"
         android:layout_height="250dp"
         />

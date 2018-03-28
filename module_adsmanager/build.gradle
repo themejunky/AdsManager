@@ -32,5 +32,13 @@ dependencies {
     compile 'com.appnext.sdk:native-ads2:2.+'
     compile 'com.facebook.android:audience-network-sdk:4.26.0'
     compile 'com.google.android.gms:play-services-ads:11.0.4'
+    // If AppLovin Demo App is running as a module in the AppLovin development environment
+    if (new File(projectDir, "../../AppLovin-Android-SDK").exists() && new File(projectDir, "../../AppLovin-Android-SDK-Mediation-Adapters").exists()) {
+        compile project(':AppLovin-Android-SDK-Mediation-Adapters') // This compiles SDK project
+    }
+    // Otherwise (AppLovin Demo app is running as a standalone project) - Import latest AppLovin SDK from JCenter
+    else {
+        compile 'com.applovin:applovin-sdk:+'
+    }
     testCompile 'junit:junit:4.12'
 }
