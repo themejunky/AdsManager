@@ -1,7 +1,6 @@
 package com.themejunky.ads.manager;
 
 
-import android.app.MediaRouteButton;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -57,7 +56,8 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         //moduleAdsManager.initInterstitialVungle("5abb495d1a839166af6a8e62","DEFAULT-6433071"); //red velvet
         //moduleAdsManager.initInterstitialVungle("5916309cb46f6b5a3e00009c","DEFAULT32590"); //test vungle ad
 
-        moduleAdsManager.initInterstitialAppLovin("");
+        moduleAdsManager.initInterstitialAppLovin("123");
+        //moduleAdsManager.showInterstitialAppLovin();
 
         containerFacebook.removeAllViews();
         containerFacebook.addView(moduleAdsManager.getAllViewAds("facebook"));
@@ -186,12 +186,15 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
                 }
                 break;
             case R.id.rateId:
+                startActivity(new Intent(this,ApplovinInterstitialTest.class));
+                /*
                 if(moduleAdsManager.isSomeAdLoaded()){
                     moduleAdsManager.setInterFlowAndShowAds(flowAds,"rate");
                     // mam.setAction("rate");
                 }else {
                     Toast.makeText(this, "Rate", Toast.LENGTH_SHORT).show();
                 }
+                */
                 break;
             case R.id.getmoreId:
                 if(moduleAdsManager.isSomeAdLoaded()){

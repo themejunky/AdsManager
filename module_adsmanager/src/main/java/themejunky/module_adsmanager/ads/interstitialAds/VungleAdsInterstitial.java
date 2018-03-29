@@ -43,7 +43,7 @@ public class VungleAdsInterstitial extends android.app.Activity {
                         // Load an ad using a Placement ID
                         Log.d("InfoAds","placementID3 "+placementID);
                         vunglePub.loadAd(placementID);
-                        showVungle();
+                        //showVungle();
                     }
                 }
                 @Override
@@ -77,7 +77,7 @@ public class VungleAdsInterstitial extends android.app.Activity {
     }
 
     public boolean isLoadedVungle() {
-        if (vunglePub != null) {
+        if (vunglePub != null && vunglePub.isAdPlayable(placementID)) {
             Log.d("InfoAds","isLoadedVungle true");
             return true;
         } else {

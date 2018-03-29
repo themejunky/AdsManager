@@ -10,6 +10,19 @@
         android:supportsRtl="true"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
+
+        <!-- AppLovin SDK Key -->
+        <meta-data
+            android:name="applovin.sdk.key"
+            android:value="TyimmuBV9vvyqxCpdr8Z-ByqAkww6byeXeOIWaogTgdIbq6DfEodPkSZRNTTzPBV3Zoa8aFcFuvsh_4LEs-dZR" />
+
+        <!-- It is VERY IMPORTANT you add the orientation and screenSize config flags if using Version 6.4.0 and above -->
+        <activity
+            android:name="com.applovin.adview.AppLovinInterstitialActivity"
+            android:configChanges="orientation|screenSize" />
+
+        <activity android:name="com.applovin.adview.AppLovinConfirmationActivity" />
+
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -19,6 +32,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ApplyActivity"></activity>
+        <activity android:name=".ApplovinInterstitialTest"></activity>
     </application>
 
 </manifest>

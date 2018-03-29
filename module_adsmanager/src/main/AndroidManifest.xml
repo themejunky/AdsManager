@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 
+    xmlns:tools="http://schemas.android.com/tools"
     package="themejunky.module_adsmanager">
     <uses-permission android:name="android.permission.INTERNET" />
     <application android:allowBackup="true" android:label="@string/app_name"
@@ -8,8 +9,9 @@
 
         <application android:allowBackup="true" android:label="@string/app_name"
             android:supportsRtl="true"
-            >
+            tools:ignore="WrongManifestParent">
 
+            <!-- AppLovin SDK Key -->
             <meta-data
                 android:name="applovin.sdk.key"
                 android:value="TyimmuBV9vvyqxCpdr8Z-ByqAkww6byeXeOIWaogTgdIbq6DfEodPkSZRNTTzPBV3Zoa8aFcFuvsh_4LEs-dZR" />
