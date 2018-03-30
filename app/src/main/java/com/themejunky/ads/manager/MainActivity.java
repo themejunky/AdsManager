@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        flowAds.add("facebook");
         flowAds.add("applovin");
+        flowAds.add("facebook");
         flowAds.add("vungle");
         flowAds.add("admob");
         flowAds.add("appnext");

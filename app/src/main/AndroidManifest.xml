@@ -19,9 +19,11 @@
         <!-- It is VERY IMPORTANT you add the orientation and screenSize config flags if using Version 6.4.0 and above -->
         <activity
             android:name="com.applovin.adview.AppLovinInterstitialActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize" />
 
-        <activity android:name="com.applovin.adview.AppLovinConfirmationActivity" />
+        <activity android:name="com.applovin.adview.AppLovinConfirmationActivity"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait">
@@ -31,7 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ApplyActivity"></activity>
+        <activity android:name=".ApplyActivity"/>
     </application>
 
 </manifest>

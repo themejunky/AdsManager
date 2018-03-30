@@ -21,9 +21,7 @@ import com.applovin.sdk.AppLovinErrorCodes;
 import com.applovin.sdk.AppLovinSdk;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
 
-public class ApplovinAdsInterstitial extends Activity implements
-    AppLovinAdLoadListener, AppLovinAdDisplayListener, AppLovinAdClickListener, AppLovinAdVideoPlaybackListener {
-    private AppLovinAd                   currentAd;
+public class ApplovinAdsInterstitial extends Activity implements AppLovinAdLoadListener, AppLovinAdDisplayListener, AppLovinAdClickListener, AppLovinAdVideoPlaybackListener {
     private AppLovinInterstitialAdDialog interstitialAd;
     public static ApplovinAdsInterstitial instance = null;
     private final AdsListenerManager.ListenerLogs listenerLogs;
@@ -33,9 +31,7 @@ public class ApplovinAdsInterstitial extends Activity implements
     }
 
     public void initApplovin(Context context, final AdsListenerManager.ListenerAds listenerAds) {
-        listenerLogs.logs("AppLovinn init");
-        Log.d("InfoAds","AppLovinn init");
-
+        listenerLogs.logs("AppLovin Inter:  init");
         interstitialAd = AppLovinInterstitialAd.create( AppLovinSdk.getInstance( context ), context );
         interstitialAd.setAdLoadListener( ApplovinAdsInterstitial.this );
         interstitialAd.setAdDisplayListener( ApplovinAdsInterstitial.this );
@@ -43,19 +39,18 @@ public class ApplovinAdsInterstitial extends Activity implements
         interstitialAd.setAdVideoPlaybackListener( ApplovinAdsInterstitial.this ); // This will only ever be used if you have video ads enabled.
     }
 
-
-
     public void showAppLovin() {
+        listenerLogs.logs("AppLovin Inter:  Show ad");
         Log.d("InfoAds","AppLovinn show ad");
         interstitialAd.show();
     }
 
     public boolean isLoadedAppLovin() {
          if (interstitialAd != null) {
-            Log.d("InfoAds","isLoadedAppLovinn is ok, show ad");
+             listenerLogs.logs("AppLovin Inter:  isLoaded");
             return true;
         } else {
-            Log.d("InfoAds","isLoadedAppLovinn is null");
+             listenerLogs.logs("AppLovin Inter:  Loaded Failed");
             return false;
         }
     }
@@ -70,31 +65,26 @@ public class ApplovinAdsInterstitial extends Activity implements
     // Ad Load Listener
     //
     @Override
-    public void adReceived(AppLovinAd appLovinAd)
-    {
-        Log.d("InfoAds","AppLovinn Interstitial adReceived" );
+    public void adReceived(AppLovinAd appLovinAd){
+        listenerLogs.logs("AppLovin Inter: adReceived");
     }
 
     @Override
-    public void failedToReceiveAd(int errorCode)
-    {
-        // Look at AppLovinErrorCodes.java for list of error codes
-        Log.d("InfoAds","AppLovinn Interstitial failed to load with error code " + errorCode );
+    public void failedToReceiveAd(int errorCode)    {
+        listenerLogs.logs("AppLovin Inter: Failed - "+errorCode);
     }
 
     //
     // Ad Display Listener
     //
     @Override
-    public void adDisplayed(AppLovinAd appLovinAd)
-    {
-        Log.d("InfoAds","AppLovinn Interstitial Displayed" );
+    public void adDisplayed(AppLovinAd appLovinAd){
+        listenerLogs.logs("AppLovin Inter: adDisplayed");
     }
 
     @Override
-    public void adHidden(AppLovinAd appLovinAd)
-    {
-        Log.d("InfoAds","AppLovinn Interstitial Hidden" );
+    public void adHidden(AppLovinAd appLovinAd){
+        listenerLogs.logs("AppLovin Inter: Hidden");
     }
 
     //
@@ -110,16 +100,14 @@ public class ApplovinAdsInterstitial extends Activity implements
     // Ad Video Playback Listener
     //
     @Override
-    public void videoPlaybackBegan(AppLovinAd appLovinAd)
-    {
-        Log.d("InfoAds","AppLovinn Video Started" );
+    public void videoPlaybackBegan(AppLovinAd appLovinAd){
+        listenerLogs.logs("AppLovin Inter: Video Started");
     }
 
     @Override
-    public void videoPlaybackEnded(AppLovinAd appLovinAd, double percentViewed, boolean wasFullyViewed)
-    {
+    public void videoPlaybackEnded(AppLovinAd appLovinAd, double percentViewed, boolean wasFullyViewed){
         listenerLogs.isClosedInterAds();
-        Log.d("InfoAds","AppLovinn Video Ended" );
+        listenerLogs.logs("AppLovin Inter: Video Ended");
     }
 
 
