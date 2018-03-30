@@ -63,17 +63,6 @@ public class VungleAdsInterstitial extends android.app.Activity {
             vunglePub.playAd(placementID, null);
             Log.d("InfoAds","isAdPlayable false");
         }
-
-        /*
-        // Check a Placement if it is ready to play the Ad
-        if (isLoadedVungle()) {
-            Log.d("InfoAds","isLoadedVungle true");
-            // Play a Placement ad with Placement ID, you can pass AdConfig to customize your ad
-            vunglePub.playAd(placementID, null);
-        } else {
-            Log.d("InfoAds","isLoadedVungle false");
-        }
-        */
     }
 
     public boolean isLoadedVungle() {

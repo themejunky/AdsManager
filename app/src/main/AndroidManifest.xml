@@ -32,7 +32,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ApplyActivity"></activity>
-        <activity android:name=".ApplovinInterstitialTest"></activity>
     </application>
 
 </manifest>

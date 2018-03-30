@@ -169,10 +169,8 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
         }
     }
 
-    public void initInterstitialAppLovin(String keyAppLovin){
-        if(keyAppLovin!=null && !keyAppLovin.equals("")){
-            applovinAds.initApplovin(activity, keyAppLovin, listenerAds);
-        }
+    public void initInterstitialAppLovin(){
+            applovinAds.initApplovin(activity, listenerAds);
     }
 
     public void setAdmobeMute(Context context) {
@@ -401,6 +399,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
                     break;
                 case ConstantsAds.APPLOVIN:
                     Log.d("ShowFlow", "APPLOVIN INTER 1");
+
                     if(applovinAds.isLoadedAppLovin()){
                         Log.d("ShowFlow", "APPLOVIN INTER 2");
                         applovinAds.showAppLovin();

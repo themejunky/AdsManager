@@ -17,6 +17,7 @@ import java.util.List;
 
 import themejunky.module_adsmanager.ModuleAdsManager;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
+import themejunky.module_adsmanager.ads.interstitialAds.ApplovinAdsInterstitial;
 import themejunky.module_adsmanager.utils.Action;
 
 
@@ -37,11 +38,11 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        //flowAds.add("facebook");
+        flowAds.add("facebook");
         flowAds.add("applovin");
-        //flowAds.add("vungle");
-        //flowAds.add("admob");
-        //flowAds.add("appnext");
+        flowAds.add("vungle");
+        flowAds.add("admob");
+        flowAds.add("appnext");
 
 
         moduleAdsManager = ModuleAdsManager.getInstance(this,true);
@@ -53,11 +54,11 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         moduleAdsManager.initInterstitialFacebookAds("989309397888813_993580754128344");
         moduleAdsManager.initInterstitialAppNextAds("8106d659-a20b-4640-943b-d6b0aab18d08");
 
-        //moduleAdsManager.initInterstitialVungle("5abb495d1a839166af6a8e62","DEFAULT-6433071"); //red velvet
+        moduleAdsManager.initInterstitialVungle("5abb495d1a839166af6a8e62","REDHD-4036329"); //red velvet
+        //moduleAdsManager.initInterstitialVungle("5abb495d1a839166af6a8e62","DEFAULT-6433071"); //red velvet default
         //moduleAdsManager.initInterstitialVungle("5916309cb46f6b5a3e00009c","DEFAULT32590"); //test vungle ad
 
-        moduleAdsManager.initInterstitialAppLovin("123");
-        //moduleAdsManager.showInterstitialAppLovin();
+        moduleAdsManager.initInterstitialAppLovin();
 
         containerFacebook.removeAllViews();
         containerFacebook.addView(moduleAdsManager.getAllViewAds("facebook"));
@@ -186,15 +187,12 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
                 }
                 break;
             case R.id.rateId:
-                startActivity(new Intent(this,ApplovinInterstitialTest.class));
-                /*
                 if(moduleAdsManager.isSomeAdLoaded()){
                     moduleAdsManager.setInterFlowAndShowAds(flowAds,"rate");
                     // mam.setAction("rate");
                 }else {
                     Toast.makeText(this, "Rate", Toast.LENGTH_SHORT).show();
                 }
-                */
                 break;
             case R.id.getmoreId:
                 if(moduleAdsManager.isSomeAdLoaded()){

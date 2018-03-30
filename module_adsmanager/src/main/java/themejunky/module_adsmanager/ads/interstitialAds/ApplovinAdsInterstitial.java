@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 
 import com.applovin.adview.AppLovinInterstitialAd;
 import com.applovin.adview.AppLovinInterstitialAdDialog;
@@ -19,7 +22,8 @@ import com.applovin.sdk.AppLovinSdk;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
 
 public class ApplovinAdsInterstitial extends Activity implements
-        AppLovinAdLoadListener, AppLovinAdDisplayListener, AppLovinAdClickListener, AppLovinAdVideoPlaybackListener {
+    AppLovinAdLoadListener, AppLovinAdDisplayListener, AppLovinAdClickListener, AppLovinAdVideoPlaybackListener {
+    private AppLovinAd                   currentAd;
     private AppLovinInterstitialAdDialog interstitialAd;
     public static ApplovinAdsInterstitial instance = null;
     private final AdsListenerManager.ListenerLogs listenerLogs;
@@ -28,11 +32,11 @@ public class ApplovinAdsInterstitial extends Activity implements
         this.listenerLogs = listenerLogs;
     }
 
+    public void initApplovin(Context context, final AdsListenerManager.ListenerAds listenerAds) {
+        listenerLogs.logs("AppLovinn init");
+        Log.d("InfoAds","AppLovinn init");
 
-    public void initApplovin(Context context, String placementID, final AdsListenerManager.ListenerAds listenerAds) {
-        listenerLogs.logs("app loving init");
-        AppLovinSdk.initializeSdk( getApplicationContext() );
-        interstitialAd = AppLovinInterstitialAd.create( AppLovinSdk.getInstance( this ), this );
+        interstitialAd = AppLovinInterstitialAd.create( AppLovinSdk.getInstance( context ), context );
         interstitialAd.setAdLoadListener( ApplovinAdsInterstitial.this );
         interstitialAd.setAdDisplayListener( ApplovinAdsInterstitial.this );
         interstitialAd.setAdClickListener( ApplovinAdsInterstitial.this );
@@ -40,17 +44,18 @@ public class ApplovinAdsInterstitial extends Activity implements
     }
 
 
+
     public void showAppLovin() {
+        Log.d("InfoAds","AppLovinn show ad");
         interstitialAd.show();
     }
 
     public boolean isLoadedAppLovin() {
-        //if (interstitialAd != null && interstitialAd.isAdLoaded()) {
-        if (interstitialAd != null) {
-            Log.d("InfoAds","isLoadedAppLovin is not null");
+         if (interstitialAd != null) {
+            Log.d("InfoAds","isLoadedAppLovinn is ok, show ad");
             return true;
         } else {
-            Log.d("InfoAds","isLoadedAppLovin is null");
+            Log.d("InfoAds","isLoadedAppLovinn is null");
             return false;
         }
     }
@@ -67,14 +72,14 @@ public class ApplovinAdsInterstitial extends Activity implements
     @Override
     public void adReceived(AppLovinAd appLovinAd)
     {
-        //log( "Interstitial loaded" );
+        Log.d("InfoAds","AppLovinn Interstitial adReceived" );
     }
 
     @Override
     public void failedToReceiveAd(int errorCode)
     {
         // Look at AppLovinErrorCodes.java for list of error codes
-        //log( "Interstitial failed to load with error code " + errorCode );
+        Log.d("InfoAds","AppLovinn Interstitial failed to load with error code " + errorCode );
     }
 
     //
@@ -83,13 +88,13 @@ public class ApplovinAdsInterstitial extends Activity implements
     @Override
     public void adDisplayed(AppLovinAd appLovinAd)
     {
-        //log( "Interstitial Displayed" );
+        Log.d("InfoAds","AppLovinn Interstitial Displayed" );
     }
 
     @Override
     public void adHidden(AppLovinAd appLovinAd)
     {
-        //log( "Interstitial Hidden" );
+        Log.d("InfoAds","AppLovinn Interstitial Hidden" );
     }
 
     //
@@ -98,7 +103,7 @@ public class ApplovinAdsInterstitial extends Activity implements
     @Override
     public void adClicked(AppLovinAd appLovinAd)
     {
-        //log( "Interstitial Clicked" );
+        Log.d("InfoAds","AppLovinn Interstitial Clicked" );
     }
 
     //
@@ -107,13 +112,14 @@ public class ApplovinAdsInterstitial extends Activity implements
     @Override
     public void videoPlaybackBegan(AppLovinAd appLovinAd)
     {
-        //log( "Video Started" );
+        Log.d("InfoAds","AppLovinn Video Started" );
     }
 
     @Override
     public void videoPlaybackEnded(AppLovinAd appLovinAd, double percentViewed, boolean wasFullyViewed)
     {
-        //log( "Video Ended" );
+        listenerLogs.isClosedInterAds();
+        Log.d("InfoAds","AppLovinn Video Ended" );
     }
 
 
