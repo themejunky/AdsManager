@@ -153,6 +153,9 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     public void showInterstitialAppNext() {
         appnextAds.showAppNext();
     }
+    public void showInterstitialFacebook() {
+        facebookAds.showInterstitialFacebook();
+    }
 
     public boolean isLoadedFacebook() {
         return facebookAds.isFacebookLoaded();
