@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     private ImageView splash;
     private LinearLayout layoutButtons;
     private byte nrFailedLoad=0;
-    private RelativeLayout containerFacebook,containerAdmob ,containerAppnext, containerVungle, containerAppLovin;
+    private RelativeLayout containerFacebook,containerAdmob ,containerAppnext, containerVungle, containerAppLovin, containerTapJoy;
 
 
     @Override
@@ -38,11 +38,12 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        flowAds.add("applovin");
-        flowAds.add("facebook");
-        flowAds.add("vungle");
-        flowAds.add("admob");
-        flowAds.add("appnext");
+        flowAds.add("tapjoy");
+        //flowAds.add("applovin");
+        //flowAds.add("facebook");
+        //flowAds.add("vungle");
+        //flowAds.add("admob");
+        //flowAds.add("appnext");
 
 
         moduleAdsManager = ModuleAdsManager.getInstance(this,true);
@@ -58,7 +59,8 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         //moduleAdsManager.initInterstitialVungle("5abb495d1a839166af6a8e62","DEFAULT-6433071"); //red velvet default
         //moduleAdsManager.initInterstitialVungle("5916309cb46f6b5a3e00009c","DEFAULT32590"); //test vungle ad
 
-        moduleAdsManager.initInterstitialAppLovin();
+        //moduleAdsManager.initInterstitialAppLovin();
+        moduleAdsManager.initInterstitialTapJoy();
 
         containerFacebook.removeAllViews();
         containerFacebook.addView(moduleAdsManager.getAllViewAds("facebook"));
@@ -70,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         containerVungle.addView(moduleAdsManager.getAllViewAds("vungle"));
         containerAppLovin.removeAllViews();
         containerAppLovin.addView(moduleAdsManager.getAllViewAds("applovin"));
+        containerTapJoy.removeAllViews();
+        containerTapJoy.addView(moduleAdsManager.getAllViewAds("tapjoy"));
 
         moduleAdsManager.setLogs("InfoAds");
         moduleAdsManager.initAdmobNativeAds(containerAdmob,"ca-app-pub-8562466601970101/5081303159");
@@ -88,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         containerAppnext = (RelativeLayout) findViewById(R.id.containerAppnext);
         containerVungle = (RelativeLayout) findViewById(R.id.containerVungle);
         containerAppLovin = (RelativeLayout) findViewById(R.id.containerAppLovin);
+        containerTapJoy = (RelativeLayout) findViewById(R.id.containerTapJoy);
 
         Log.d("TestLogs2","onCreate");
 
@@ -111,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
                 Toast.makeText(this, "GetMore", Toast.LENGTH_SHORT).show();
                 break;
             case "back":
-
                 break;
 
         }
@@ -161,13 +165,13 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     @Override
     public void loadNativeAds(String type) {
         if (type.equals("admob") && flowAds.size() > 0) {
-            moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob,containerAppnext, containerVungle, containerAppLovin);
+            moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob,containerAppnext, containerVungle, containerAppLovin, containerTapJoy);
         } else if(type.equals("appnext") && flowAds.size() > 0){
-            moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob,containerAppnext, containerVungle, containerAppLovin);
+            moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob,containerAppnext, containerVungle, containerAppLovin, containerTapJoy);
         } else if(type.equals("vungle") && flowAds.size() > 0){
-            moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob, containerAppnext, containerVungle, containerAppLovin);
+            moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob, containerAppnext, containerVungle, containerAppLovin, containerTapJoy);
         } else if(type.equals("applovin") && flowAds.size() > 0){
-            moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob, containerAppnext, containerVungle, containerAppLovin);
+            moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob, containerAppnext, containerVungle, containerAppLovin, containerTapJoy);
         }
     }
 

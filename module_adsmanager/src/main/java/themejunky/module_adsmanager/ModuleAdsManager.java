@@ -11,6 +11,7 @@ import java.util.List;
 import themejunky.module_adsmanager.ads.interstitialAds.AdmobAdsInterstitial;
 import themejunky.module_adsmanager.ads.interstitialAds.ApplovinAdsInterstitial;
 import themejunky.module_adsmanager.ads.interstitialAds.FacebookAdsInterstitial;
+import themejunky.module_adsmanager.ads.interstitialAds.TapJoyAdsInterstitial;
 import themejunky.module_adsmanager.ads.interstitialAds.VungleAdsInterstitial;
 import themejunky.module_adsmanager.ads.nativeAds.AdmobNativeAds;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
@@ -18,7 +19,6 @@ import themejunky.module_adsmanager.ads.interstitialAds.AppnextAdsInterstitial;
 
 import themejunky.module_adsmanager.ads.nativeAds.AppnextNativeAds;
 import themejunky.module_adsmanager.ads.nativeAds.FacebookNativeAds;
-import themejunky.module_adsmanager.ads.nativeAds.VungleNativeAds;
 import themejunky.module_adsmanager.utils.ConstantsAds;
 
 /**
@@ -29,11 +29,18 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
 
     public static ModuleAdsManager instance = null;
     private final boolean showAds;
+    /* native ads */
     private FacebookNativeAds facebookNativeAds;
     private AdmobNativeAds admobNativeAds;
-    private VungleNativeAds vungleNativeAds;
-    //private AppLovinNativeAds applovinNativeAds;
-    private View facebookView, admobView, appnextView, vungleView, applovinView;
+    /* interstitial ads */
+    private AppnextAdsInterstitial appnextAds;
+    private AdsListenerManager.ListenerAds listenerAds;
+    private AppnextNativeAds appnextNativeAds;
+    private VungleAdsInterstitial vungleAds;
+    private ApplovinAdsInterstitial applovinAds;
+    private TapJoyAdsInterstitial tapjoyAds;
+    private View facebookView, admobView, appnextView, vungleView, applovinView, tapjoyView;
+    /* others */
     private String nameLogs;
     private LayoutInflater factory;
     private int next;
@@ -44,12 +51,6 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     private FacebookAdsInterstitial facebookAds;
     private AdmobAdsInterstitial admobAds;
     private String action;
-    private AppnextAdsInterstitial appnextAds;
-    private AdsListenerManager.ListenerAds listenerAds;
-    private AppnextNativeAds appnextNativeAds;
-    private VungleAdsInterstitial vungleAds;
-    private ApplovinAdsInterstitial applovinAds;
-
 
     public ModuleAdsManager(Context activity, boolean showAds) {
         this.activity = activity;
@@ -63,22 +64,18 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
                     appnextNativeAds = new AppnextNativeAds(activity, this, listenerAds);
                     admobNativeAds = new AdmobNativeAds(activity, this, listenerAds);
                     facebookNativeAds = new FacebookNativeAds(activity, this, listenerAds);
-                    vungleNativeAds = new VungleNativeAds(activity, this, listenerAds);
                 } else {
                     appnextNativeAds = new AppnextNativeAds(activity, this, listenerAds);
                     admobNativeAds = new AdmobNativeAds(activity, this, listenerAds);
-                    vungleNativeAds = new VungleNativeAds(activity, this, listenerAds);
                 }
             } else {
                 if (isFacebook) {
                     appnextNativeAds = new AppnextNativeAds(activity, this, listenerAds);
                     admobNativeAds = AdmobNativeAds.getInstance(activity, this, listenerAds);
                     facebookNativeAds = new FacebookNativeAds(activity, this, listenerAds);
-                    vungleNativeAds = new VungleNativeAds(activity, this, listenerAds);
                 } else {
                     appnextNativeAds = new AppnextNativeAds(activity, this, listenerAds);
                     admobNativeAds = AdmobNativeAds.getInstance(activity, this, listenerAds);
-                    vungleNativeAds = new VungleNativeAds(activity, this, listenerAds);
                 }
             }
         }
@@ -92,21 +89,24 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
                 appnextAds = AppnextAdsInterstitial.getInstance(this);
                 vungleAds = VungleAdsInterstitial.getInstance(this);
                 applovinAds = ApplovinAdsInterstitial.getInstance(this);
+                tapjoyAds = TapJoyAdsInterstitial.getInstance(this);
             } else {
                 admobAds = AdmobAdsInterstitial.getmInstance(this);
                 appnextAds = AppnextAdsInterstitial.getInstance(this);
                 vungleAds = VungleAdsInterstitial.getInstance(this);
                 applovinAds = ApplovinAdsInterstitial.getInstance(this);
+                tapjoyAds = TapJoyAdsInterstitial.getInstance(this);
             }
         }
     }
 
-    public void setNativeFlowAndShowAds(List<String> flowAds, View facebookView, View admobView, View appnextView, View vungleView, View applovinView) {
+    public void setNativeFlowAndShowAds(List<String> flowAds, View facebookView, View admobView, View appnextView, View vungleView, View applovinView, View tapjoyView) {
         this.facebookView = facebookView;
         this.admobView = admobView;
         this.appnextView = appnextView;
         this.vungleView = vungleView;
         this.applovinView = applovinView;
+        this.tapjoyView = tapjoyView;
         addsFlow = flowAds;
         runAdds_Part1Native();
 
@@ -134,6 +134,9 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
         } else if (type.equals("applovin")){
             Log.d("InfoA","inflate applovin");
             inflateView= factory.inflate(R.layout.container_applovin_ads,null);
+        } else if (type.equals("tapjoy")){
+            Log.d("InfoA","inflate tapjoy");
+            inflateView= factory.inflate(R.layout.container_tapjoy_ads,null);
         }
         return inflateView;
 
@@ -171,6 +174,10 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
 
     public void initInterstitialAppLovin(){
             applovinAds.initApplovin(activity, listenerAds);
+    }
+
+    public void initInterstitialTapJoy(){
+        tapjoyAds.initTapJoy(activity, listenerAds);
     }
 
     public void setAdmobeMute(Context context) {
@@ -249,11 +256,13 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
         }
     }
 
+    /*
     public void initVungleNativeAds(View view, String idVungle) {
         if (showAds) {
             vungleNativeAds.initVungleNativeAdvance(view, idVungle);
         }
     }
+    */
 
     public void setLogs(String nameLog) {
         this.nameLogs = nameLog;
@@ -317,17 +326,6 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
                         }
                         Log.d("ShowFlow", "FACEBOOK 5");
                     } else {
-                        runAdds_Part2Native();
-                    }
-                    break;
-                case ConstantsAds.VUNGLE:
-                    Log.d("ShowFlow", "VUNGLE  1");
-                    if (vungleNativeAds.isLoadedVungleNativeAds()) {
-                        Log.d("ShowFlow", "VUNGLE 2");
-                        vungleView.setVisibility(View.VISIBLE);
-                        Log.d("ShowFlow", "VUNGLE 3");
-                    } else {
-                        Log.d("ShowFlow", "VUNGLE 4");
                         runAdds_Part2Native();
                     }
                     break;
