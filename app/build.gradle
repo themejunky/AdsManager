@@ -29,11 +29,9 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
     // If AppLovin Demo App is running as a module in the AppLovin development environment
-    if (new File(projectDir, "../../AppLovin-Android-SDK").exists() && new File(projectDir, "../../AppLovin-Android-SDK-Mediation-Adapters").exists()) {
-        compile project(':AppLovin-Android-SDK-Mediation-Adapters') // This compiles SDK project
-    }
-    // Otherwise (AppLovin Demo app is running as a standalone project) - Import latest AppLovin SDK from JCenter
-    else {
-        compile 'com.applovin:applovin-sdk:+'
-    }
+    compile 'com.applovin:applovin-sdk:+' //applovin sdk
+    //compile 'com.tapjoy:tapjoy-android-sdk:11.12.0@aar' //tapjoy sdk
+    //compile 'com.tapjoy:tapjoy-android-sdk:11.11.1@aar' //tapjoy sdk
+    //compile files('libs/tapjoyconnectlibrary.jar')
+    //compile files('libs/mopub-tapjoy-adapters-11.11.0.0.jar')
 }

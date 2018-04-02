@@ -43,7 +43,6 @@ public class VungleAdsInterstitial extends android.app.Activity {
                         // Load an ad using a Placement ID
                         Log.d("InfoAds","placementID3 "+placementID);
                         vunglePub.loadAd(placementID);
-                        //showVungle();
                     }
                 }
                 @Override
