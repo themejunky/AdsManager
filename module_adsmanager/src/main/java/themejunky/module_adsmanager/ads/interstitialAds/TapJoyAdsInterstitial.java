@@ -1,6 +1,9 @@
 package themejunky.module_adsmanager.ads.interstitialAds;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import com.tapjoy.TJActionRequest;
@@ -17,6 +20,8 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
     public static TapJoyAdsInterstitial instance = null;
     private final AdsListenerManager.ListenerLogs listenerLogs;
     private Context context;
+    public static final String TAG = "TapjoyEasyApp";
+    private TJPlacement examplePlacement;
 
     public TapJoyAdsInterstitial(AdsListenerManager.ListenerLogs listenerLogs) {
         this.listenerLogs = listenerLogs;
@@ -34,27 +39,28 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
         //connectFlags.put(TapjoyConnectFlag.ENABLE_LOGGING, "true");      // remember to turn this off for your production builds!
         listenerLogs.logs("TapJoy inter: initialized");
 
-        Tapjoy.connect(context, "IeqSOuOsTTyeh7oo8am8vgECt6nMg1MriaFZM0cq3mpDb9IVWJf-37EN3YCW", connectFlags, new TJConnectListener() {
+        String tapjoySDKKey = "u6SfEbh_TA-WMiGqgQ3W8QECyiQIURFEeKm0zbOggubusy-o5ZfXp33sTXaD";
+
+        //Tapjoy.setGcmSender("34027022155");
+
+        // NOTE: This is the only step required if you're an advertiser.
+        Tapjoy.connect(context, tapjoySDKKey, connectFlags, new TJConnectListener() {
             @Override
             public void onConnectSuccess() {
-                listenerLogs.logs("TapJoy inter: onConnectSuccess");
-                this.onConnectSuccess();
+                TapJoyAdsInterstitial.this.onConnectSuccess();
             }
 
             @Override
             public void onConnectFailure() {
-                listenerLogs.logs("TapJoy inter: onConnectFailure");
-                this.onConnectFailure();
+                TapJoyAdsInterstitial.this.onConnectFail();
             }
         });
     }
 
     /*
-
-
     public void showTapJoy() {
-       //if (vunglePub.isAdPlayable(placementID)) {
-            Log.d("InfoAds","isAdPlayable true");
+        //if (vunglePub.isAdPlayable(placementID)) {
+        Log.d("InfoAds","isAdPlayable true");
     }
 
     public boolean isLoadedTapJoy() {
@@ -66,8 +72,207 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
             return false;
         }
     }
-
     */
+
+
+    /**
+     * Handles a successful connect to Tapjoy. Pre-loads direct play placement
+     * and sets up Tapjoy listeners
+     */
+    public void onConnectSuccess() {
+        listenerLogs.logs("Tapjoy SDK connected");
+        requestPlacement();
+    }
+
+    /**
+     * Handles a failed connect to Tapjoy
+     */
+    public void onConnectFail() {
+        Log.i(TAG, "Tapjoy connect call failed");
+    }
+
+    /**
+     * Notify Tapjoy the start of this activity for session tracking
+     */
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Tapjoy.onActivityStart(this);
+    }
+
+    /**
+     * Notify Tapjoy the end of this activity for session tracking
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Tapjoy.onActivityStop(this);
+    }
+
+
+    private void requestPlacement() {
+        // Grab placement name from input field
+        String placementName = "video_unit";
+
+        examplePlacement = Tapjoy.getPlacement(placementName, TapJoyAdsInterstitial.this);
+
+        // Set Video Listener to anonymous callback
+        examplePlacement.setVideoListener(new TJPlacementVideoListener() {
+            @Override
+            public void onVideoStart(TJPlacement placement) {
+                Log.i(TAG, "Video has started has started for: " + placement.getName());
+            }
+
+            @Override
+            public void onVideoError(TJPlacement placement, String message) {
+                Log.i(TAG, "Video error: " + message + " for " + placement.getName());
+            }
+
+            @Override
+            public void onVideoComplete(TJPlacement placement) {
+                Log.i(TAG, "Video has completed for: " + placement.getName());
+            }
+
+        });
+
+        // Construct TJPlacement
+        examplePlacement = Tapjoy.getPlacement(placementName, new TJPlacementListener() {
+            @Override
+            public void onRequestSuccess(TJPlacement placement) {
+                //updateTextInUI("onRequestSuccess for placement " + placement.getName());
+
+                if (!placement.isContentAvailable()) {
+                    //updateTextInUI("No content available for placement " + placement.getName());
+                } else {
+
+                }
+
+            }
+
+            @Override
+            public void onRequestFailure(TJPlacement placement, TJError error) {
+                Log.i(TAG, "onRequestFailure for placement " + placement.getName() + " -- error: " + error.message);
+            }
+
+            @Override
+            public void onContentReady(TJPlacement placement) {
+                listenerLogs.logs("TapJoy onContentReady for placement, show video");
+                examplePlacement.showContent();
+            }
+
+            @Override
+            public void onContentShow(TJPlacement placement) {
+                Log.i(TAG, "onContentShow for placement " + placement.getName());
+            }
+
+            @Override
+            public void onContentDismiss(TJPlacement placement) {
+                Log.i(TAG, "onContentDismiss for placement " + placement.getName());
+            }
+
+            @Override
+            public void onPurchaseRequest(TJPlacement placement, TJActionRequest request, String productId) {
+                // Dismiss the placement content
+                Intent intent = new Intent(getApplicationContext(), TapJoyAdsInterstitial.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+
+                String message = "onPurchaseRequest -- product id: " + productId + ", token: " + request.getToken() + ", request id: " + request.getRequestId();
+                AlertDialog dialog = new AlertDialog.Builder(TapJoyAdsInterstitial.this).setTitle("Got on purchase request").setMessage(message)
+                        .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.dismiss();
+                            }
+                        }).create();
+                dialog.show();
+
+                // Your app must call either callback.completed() or callback.cancelled() to complete the lifecycle of the request
+                request.completed();
+            }
+
+            @Override
+            public void onRewardRequest(TJPlacement placement, TJActionRequest request, String itemId, int quantity) {
+                // Dismiss the placement content
+                Intent intent = new Intent(getApplicationContext(), TapJoyAdsInterstitial.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+
+                String message = "onRewardRequest -- item id: " + itemId + ", quantity: " + quantity + ", token: " + request.getToken() + ", request id: " + request.getRequestId();
+                AlertDialog dialog = new AlertDialog.Builder(TapJoyAdsInterstitial.this).setTitle("Got on reward request").setMessage(message)
+                        .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.dismiss();
+                            }
+                        }).create();
+                dialog.show();
+
+                // Your app must call either callback.completed() or callback.cancelled() to complete the lifecycle of the request
+                request.completed();
+            }
+        });
+
+        // Add this class as a video listener
+        examplePlacement.setVideoListener(this);
+
+        Log.i(TAG, "Requesting placement content");
+        examplePlacement.requestContent();
+    }
+
+
+
+
+    /*
+     * TJPlacement callbacks
+     */
+    @Override
+    public void onRequestSuccess(TJPlacement placement) {
+        // If content is not available you can note it here and act accordingly as best suited for your app
+        Log.i(TAG, "Tapjoy on request success, contentAvailable: " + placement.isContentAvailable());
+    }
+
+    @Override
+    public void onRequestFailure(TJPlacement placement, TJError error) {
+        Log.i(TAG, "Tapjoy send event " + placement.getName() + " failed with error: " + error.message);
+    }
+
+    @Override
+    public void onContentReady(TJPlacement placement) {
+    }
+
+    @Override
+    public void onContentShow(TJPlacement placement) {
+    }
+
+    @Override
+    public void onContentDismiss(TJPlacement placement) {
+        Log.i(TAG, "Tapjoy direct play content did disappear");
+    }
+
+    @Override
+    public void onPurchaseRequest(TJPlacement placement, TJActionRequest request, String productId) {
+    }
+
+    @Override
+    public void onRewardRequest(TJPlacement placement, TJActionRequest request, String itemId, int quantity) {
+    }
+
+    /**
+     * Video listener callbacks
+     */
+    @Override
+    public void onVideoStart(TJPlacement placement) {
+        Log.i(TAG, "Video has started has started for: " + placement.getName());
+    }
+
+    @Override
+    public void onVideoError(TJPlacement placement, String errorMessage) {
+        Log.i(TAG, "Video error: " + errorMessage +  " for " + placement.getName());
+    }
+
+    @Override
+    public void onVideoComplete(TJPlacement placement) {
+        Log.i(TAG, "Video has completed for: " + placement.getName());
+    }
 
 
 
@@ -76,53 +281,5 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
         return instance;
     }
 
-    @Override
-    public void onRequestSuccess(TJPlacement tjPlacement) {
-        Log.d("InfoAds","TapJoy onRequestSuccess");
-    }
 
-    @Override
-    public void onRequestFailure(TJPlacement tjPlacement, TJError tjError) {
-        Log.d("InfoAds","TapJoy onRequestFailure");
-    }
-
-    @Override
-    public void onContentReady(TJPlacement tjPlacement) {
-        Log.d("InfoAds","TapJoy onContentReady");
-    }
-
-    @Override
-    public void onContentShow(TJPlacement tjPlacement) {
-
-    }
-
-    @Override
-    public void onContentDismiss(TJPlacement tjPlacement) {
-
-    }
-
-    @Override
-    public void onPurchaseRequest(TJPlacement tjPlacement, TJActionRequest tjActionRequest, String s) {
-
-    }
-
-    @Override
-    public void onRewardRequest(TJPlacement tjPlacement, TJActionRequest tjActionRequest, String s, int i) {
-
-    }
-
-    @Override
-    public void onVideoStart(TJPlacement tjPlacement) {
-        Log.d("InfoAds","TapJoy onVideoStart");
-    }
-
-    @Override
-    public void onVideoError(TJPlacement tjPlacement, String s) {
-        Log.d("InfoAds","TapJoy onVideoError");
-    }
-
-    @Override
-    public void onVideoComplete(TJPlacement tjPlacement) {
-        Log.d("InfoAds","TapJoy onVideoComplete");
-    }
 }

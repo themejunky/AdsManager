@@ -181,8 +181,6 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         viewButtons = v;
         switch (viewButtons.getId()) {
             case R.id.applyid:
-                startActivity(new Intent(this,TapjoyTest.class));
-                /*
                 if(moduleAdsManager.isSomeAdLoaded()){
                     Log.d("TestButton", "1");
                     moduleAdsManager.setInterFlowAndShowAds(flowAds,"apply");
@@ -191,7 +189,6 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
                     Log.d("TestButton", "3");
                     Toast.makeText(this, "Apply", Toast.LENGTH_SHORT).show();
                 }
-                */
                 break;
             case R.id.rateId:
                 if(moduleAdsManager.isSomeAdLoaded()){
