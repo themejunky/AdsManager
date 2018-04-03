@@ -33,13 +33,10 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
         context = getApplicationContext();
     }
 
-    public void initTapJoy(Context context, final AdsListenerManager.ListenerAds listenerAds) {
+    public void initTapJoy(Context context, final String tapjoySDKKey, final AdsListenerManager.ListenerAds listenerAds) {
         Tapjoy.setDebugEnabled(true);
 
         listenerLogs.logs("TapJoy inter: initialized");
-
-        String tapjoySDKKey = "-tazSvhKQ8uLbrUPeqk5UAEC37cK55SKS2cPyPt70bLW5xuBQrDrGdkXx8ha";
-        //String tapjoySDKKey = "u6SfEbh_TA-WMiGqgQ3W8QECyiQIURFEeKm0zbOggubusy-o5ZfXp33sTXaD";
 
         // NOTE: This is the only step required if you're an advertiser.
         Hashtable<String, Object> connectFlags = new Hashtable<String, Object>();
