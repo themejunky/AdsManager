@@ -407,6 +407,17 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
                         runAdds_Part2Inter();
                     }
                     break;
+                case ConstantsAds.TAPJOY:
+                    Log.d("ShowFlow", "TAPJOY INTER 1");
+                    if(tapjoyAds.isLoadedTapJoy()){
+                        Log.d("ShowFlow", "TAPJOY INTER 2");
+                        tapjoyAds.showTapJoy();
+                        Log.d("ShowFlow", "TAPJOY INTER 3");
+                    }else{
+                        Log.d("ShowFlow", "TAPJOY INTER 4");
+                        runAdds_Part2Inter();
+                    }
+                    break;
                 default:
                     runAdds_Part2Inter();
                     break;

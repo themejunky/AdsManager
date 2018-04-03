@@ -30,8 +30,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     // If AppLovin Demo App is running as a module in the AppLovin development environment
     compile 'com.applovin:applovin-sdk:+' //applovin sdk
-    //compile 'com.tapjoy:tapjoy-android-sdk:11.12.0@aar' //tapjoy sdk
-    //compile 'com.tapjoy:tapjoy-android-sdk:11.11.1@aar' //tapjoy sdk
-    //compile files('libs/tapjoyconnectlibrary.jar')
-    //compile files('libs/mopub-tapjoy-adapters-11.11.0.0.jar')
+    //compile files('libs/tapjoyconnectlibrary.jar') //tap joy sdk
 }

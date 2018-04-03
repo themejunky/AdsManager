@@ -10,4 +10,5 @@ public class ConstantsAds {
     public static final String APPNEXT = "appnext";
     public static final String VUNGLE = "vungle";
     public static final String APPLOVIN = "applovin";
+    public static final String TAPJOY = "tapjoy";
 }

@@ -37,13 +37,14 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initView();
-        flowAds.add("tapjoy");
         //flowAds.add("applovin");
         //flowAds.add("facebook");
+        flowAds.add("tapjoy");
         //flowAds.add("vungle");
-        //flowAds.add("admob");
-        //flowAds.add("appnext");
+        flowAds.add("admob");
+        flowAds.add("appnext");
 
 
         moduleAdsManager = ModuleAdsManager.getInstance(this,true);
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         moduleAdsManager.initInterstitialFacebookAds("989309397888813_993580754128344");
         moduleAdsManager.initInterstitialAppNextAds("8106d659-a20b-4640-943b-d6b0aab18d08");
 
-        moduleAdsManager.initInterstitialVungle("5abb495d1a839166af6a8e62","REDHD-4036329"); //red velvet
+        //moduleAdsManager.initInterstitialVungle("5abb495d1a839166af6a8e62","REDHD-4036329"); //red velvet
         //moduleAdsManager.initInterstitialVungle("5abb495d1a839166af6a8e62","DEFAULT-6433071"); //red velvet default
         //moduleAdsManager.initInterstitialVungle("5916309cb46f6b5a3e00009c","DEFAULT32590"); //test vungle ad
 

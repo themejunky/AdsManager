@@ -20,8 +20,8 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
     public static TapJoyAdsInterstitial instance = null;
     private final AdsListenerManager.ListenerLogs listenerLogs;
     private Context context;
-    public static final String TAG = "TapjoyEasyApp";
     private TJPlacement examplePlacement;
+    private boolean isSdkConnected = false;
 
     public TapJoyAdsInterstitial(AdsListenerManager.ListenerLogs listenerLogs) {
         this.listenerLogs = listenerLogs;
@@ -34,16 +34,15 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
     }
 
     public void initTapJoy(Context context, final AdsListenerManager.ListenerAds listenerAds) {
-        Hashtable<String, Object> connectFlags = new Hashtable<String, Object>();
         Tapjoy.setDebugEnabled(true);
-        //connectFlags.put(TapjoyConnectFlag.ENABLE_LOGGING, "true");      // remember to turn this off for your production builds!
+
         listenerLogs.logs("TapJoy inter: initialized");
 
-        String tapjoySDKKey = "u6SfEbh_TA-WMiGqgQ3W8QECyiQIURFEeKm0zbOggubusy-o5ZfXp33sTXaD";
-
-        //Tapjoy.setGcmSender("34027022155");
+        String tapjoySDKKey = "-tazSvhKQ8uLbrUPeqk5UAEC37cK55SKS2cPyPt70bLW5xuBQrDrGdkXx8ha";
+        //String tapjoySDKKey = "u6SfEbh_TA-WMiGqgQ3W8QECyiQIURFEeKm0zbOggubusy-o5ZfXp33sTXaD";
 
         // NOTE: This is the only step required if you're an advertiser.
+        Hashtable<String, Object> connectFlags = new Hashtable<String, Object>();
         Tapjoy.connect(context, tapjoySDKKey, connectFlags, new TJConnectListener() {
             @Override
             public void onConnectSuccess() {
@@ -57,38 +56,38 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
         });
     }
 
-    /*
-    public void showTapJoy() {
-        //if (vunglePub.isAdPlayable(placementID)) {
-        Log.d("InfoAds","isAdPlayable true");
-    }
+
 
     public boolean isLoadedTapJoy() {
-        if (vunglePub != null && vunglePub.isAdPlayable(placementID)) {
-            Log.d("InfoAds","isLoadedVungle true");
+        if (isSdkConnected) {
+            Log.d("InfoAds","isAdPlayable TapJoy true");
             return true;
         } else {
-            Log.d("InfoAds","isLoadedVungle false");
+            Log.d("InfoAds","isAdPlayable TapJoy false");
             return false;
         }
     }
-    */
 
+    public void showTapJoy() {
+        Log.d("ShowFlow","requestPlacement "+isSdkConnected);
+        requestPlacement();
+    }
 
     /**
      * Handles a successful connect to Tapjoy. Pre-loads direct play placement
      * and sets up Tapjoy listeners
      */
     public void onConnectSuccess() {
+        isSdkConnected = true;
         listenerLogs.logs("Tapjoy SDK connected");
-        requestPlacement();
     }
 
     /**
      * Handles a failed connect to Tapjoy
      */
     public void onConnectFail() {
-        Log.i(TAG, "Tapjoy connect call failed");
+        isSdkConnected = false;
+        listenerLogs.logs("Tapjoy connect call failed");
     }
 
     /**
@@ -120,17 +119,18 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
         examplePlacement.setVideoListener(new TJPlacementVideoListener() {
             @Override
             public void onVideoStart(TJPlacement placement) {
-                Log.i(TAG, "Video has started has started for: " + placement.getName());
+                listenerLogs.logs("Video has started has started for: " + placement.getName());
             }
 
             @Override
             public void onVideoError(TJPlacement placement, String message) {
-                Log.i(TAG, "Video error: " + message + " for " + placement.getName());
+                listenerLogs.logs("Video error: " + message + " for " + placement.getName());
             }
 
             @Override
             public void onVideoComplete(TJPlacement placement) {
-                Log.i(TAG, "Video has completed for: " + placement.getName());
+                listenerLogs.isClosedInterAds();
+                listenerLogs.logs("Video has completed for: " + placement.getName());
             }
 
         });
@@ -139,19 +139,17 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
         examplePlacement = Tapjoy.getPlacement(placementName, new TJPlacementListener() {
             @Override
             public void onRequestSuccess(TJPlacement placement) {
-                //updateTextInUI("onRequestSuccess for placement " + placement.getName());
 
-                if (!placement.isContentAvailable()) {
-                    //updateTextInUI("No content available for placement " + placement.getName());
-                } else {
-
+                if (placement.isContentAvailable()) {
+                    examplePlacement.showContent();
+                    Log.d("ShowFlow","showContent");
                 }
 
             }
 
             @Override
             public void onRequestFailure(TJPlacement placement, TJError error) {
-                Log.i(TAG, "onRequestFailure for placement " + placement.getName() + " -- error: " + error.message);
+                listenerLogs.logs("onRequestFailure for placement " + placement.getName() + " -- error: " + error.message);
             }
 
             @Override
@@ -162,12 +160,12 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
 
             @Override
             public void onContentShow(TJPlacement placement) {
-                Log.i(TAG, "onContentShow for placement " + placement.getName());
+                listenerLogs.logs("onContentShow for placement " + placement.getName());
             }
 
             @Override
             public void onContentDismiss(TJPlacement placement) {
-                Log.i(TAG, "onContentDismiss for placement " + placement.getName());
+                listenerLogs.logs("onContentDismiss for placement " + placement.getName());
             }
 
             @Override
@@ -214,7 +212,7 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
         // Add this class as a video listener
         examplePlacement.setVideoListener(this);
 
-        Log.i(TAG, "Requesting placement content");
+        listenerLogs.logs("Requesting placement content");
         examplePlacement.requestContent();
     }
 
@@ -227,12 +225,12 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
     @Override
     public void onRequestSuccess(TJPlacement placement) {
         // If content is not available you can note it here and act accordingly as best suited for your app
-        Log.i(TAG, "Tapjoy on request success, contentAvailable: " + placement.isContentAvailable());
+        listenerLogs.logs("Tapjoy on request success, contentAvailable: " + placement.isContentAvailable());
     }
 
     @Override
     public void onRequestFailure(TJPlacement placement, TJError error) {
-        Log.i(TAG, "Tapjoy send event " + placement.getName() + " failed with error: " + error.message);
+        listenerLogs.logs("Tapjoy send event " + placement.getName() + " failed with error: " + error.message);
     }
 
     @Override
@@ -245,7 +243,7 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
 
     @Override
     public void onContentDismiss(TJPlacement placement) {
-        Log.i(TAG, "Tapjoy direct play content did disappear");
+        listenerLogs.logs("Tapjoy direct play content did disappear");
     }
 
     @Override
@@ -261,17 +259,18 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
      */
     @Override
     public void onVideoStart(TJPlacement placement) {
-        Log.i(TAG, "Video has started has started for: " + placement.getName());
+        listenerLogs.logs("Video has started has started for: " + placement.getName());
     }
 
     @Override
     public void onVideoError(TJPlacement placement, String errorMessage) {
-        Log.i(TAG, "Video error: " + errorMessage +  " for " + placement.getName());
+        listenerLogs.logs("Video error: " + errorMessage +  " for " + placement.getName());
     }
 
     @Override
     public void onVideoComplete(TJPlacement placement) {
-        Log.i(TAG, "Video has completed for: " + placement.getName());
+        listenerLogs.isClosedInterAds();
+        listenerLogs.logs("Video has completed for: " + placement.getName());
     }
 
 
