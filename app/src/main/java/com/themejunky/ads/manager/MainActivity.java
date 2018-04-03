@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         //moduleAdsManager.initInterstitialVungle("5916309cb46f6b5a3e00009c","DEFAULT32590"); //test vungle ad
 
         //moduleAdsManager.initInterstitialAppLovin();
-        moduleAdsManager.initInterstitialTapJoy("IeqSOuOsTTyeh7oo8am8vgECt6nMg1MriaFZM0cq3mpDb9IVWJf-37EN3YCW"); //voice keyboard
-        //moduleAdsManager.initInterstitialTapJoy("u6SfEbh_TA-WMiGqgQ3W8QECyiQIURFEeKm0zbOggubusy-o5ZfXp33sTXaD"; //default
+        //moduleAdsManager.initInterstitialTapJoy("IeqSOuOsTTyeh7oo8am8vgECt6nMg1MriaFZM0cq3mpDb9IVWJf-37EN3YCW"); //voice keyboard
+        moduleAdsManager.initInterstitialTapJoy("u6SfEbh_TA-WMiGqgQ3W8QECyiQIURFEeKm0zbOggubusy-o5ZfXp33sTXaD"); //default
 
         containerFacebook.removeAllViews();
         containerFacebook.addView(moduleAdsManager.getAllViewAds("facebook"));
