@@ -22,6 +22,7 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
     private Context context;
     private TJPlacement examplePlacement;
     private boolean isSdkConnected = false;
+    private boolean isAdAvailable = false;
 
     public TapJoyAdsInterstitial(AdsListenerManager.ListenerLogs listenerLogs) {
         this.listenerLogs = listenerLogs;
@@ -33,21 +34,23 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
         context = getApplicationContext();
     }
 
-    public void initTapJoy(Context context, final String tapjoySDKKey, final AdsListenerManager.ListenerAds listenerAds) {
+    public void initTapJoy(Context context, final String tapjoySDKKey) {
         Tapjoy.setDebugEnabled(true);
 
-        listenerLogs.logs("TapJoy : initialized");
+        listenerLogs.logs("TapJoy : initialized "+tapjoySDKKey);
 
         // NOTE: This is the only step required if you're an advertiser.
         Hashtable<String, Object> connectFlags = new Hashtable<String, Object>();
         Tapjoy.connect(context, tapjoySDKKey, connectFlags, new TJConnectListener() {
             @Override
             public void onConnectSuccess() {
+                listenerLogs.logs("TapJoy : onConnectSuccess "+tapjoySDKKey);
                 TapJoyAdsInterstitial.this.onConnectSuccess();
             }
 
             @Override
             public void onConnectFailure() {
+                listenerLogs.logs("TapJoy : onConnectFailure "+tapjoySDKKey);
                 TapJoyAdsInterstitial.this.onConnectFail();
             }
         });
@@ -57,17 +60,19 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
 
     public boolean isLoadedTapJoy() {
         if (isSdkConnected) {
-            this.listenerLogs.logs("TapJoy isAdPlayable TapJoy true");
+            this.listenerLogs.logs("TapJoy isSdkConnected "+isSdkConnected);
             return true;
         } else {
-            this.listenerLogs.logs("TapJoy isAdPlayable TapJoy false");
+            this.listenerLogs.logs("TapJoy isSdkConnected "+isSdkConnected);
             return false;
         }
     }
 
     public void showTapJoy() {
-        this.listenerLogs.logs("TapJoy requestPlacement "+isSdkConnected);
-        requestPlacement();
+        this.listenerLogs.logs("TapJoy requestPlacement isAdAvailable "+isAdAvailable);
+        if (isAdAvailable) {
+            requestPlacement();
+        }
     }
 
     /**
@@ -223,6 +228,11 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
     public void onRequestSuccess(TJPlacement placement) {
         // If content is not available you can note it here and act accordingly as best suited for your app
         listenerLogs.logs("Tapjoy on request success, contentAvailable: " + placement.isContentAvailable());
+        if (!placement.isContentAvailable()){
+            isAdAvailable = false;
+        } else {
+            isAdAvailable = true;
+        }
     }
 
     @Override
