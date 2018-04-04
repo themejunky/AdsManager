@@ -105,6 +105,7 @@ public class AdmobAdsInterstitial {
 
     public void requestNewInterstitial(String testDeviceId) {
         AdRequest adRequest;
+        /*
         if (testDeviceId != null)
             adRequest = new AdRequest.Builder()
                     .addTestDevice(testDeviceId)
@@ -112,6 +113,8 @@ public class AdmobAdsInterstitial {
         else
             adRequest = new AdRequest.Builder()
                     .build();
+                    */
+        adRequest = new AdRequest.Builder().build();
         interstitialAdmob.loadAd(adRequest);
     }
 
