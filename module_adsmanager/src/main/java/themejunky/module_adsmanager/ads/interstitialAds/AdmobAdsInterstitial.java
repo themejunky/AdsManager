@@ -27,6 +27,7 @@ public class AdmobAdsInterstitial {
     private List<String> logs = new ArrayList<>();
     private AdsListenerManager.ListenerAds listenerAds;
     private MobileAds mobileAds;
+    private boolean IAdmobIsLoaded = false;
 
     public AdmobAdsInterstitial(AdsListenerManager.ListenerLogs listenerLogs){
         this.listenerLogs = listenerLogs;
@@ -79,6 +80,7 @@ public class AdmobAdsInterstitial {
                     super.onAdLoaded();
                     listenerLogs.logs("Admob Inter: is Loaded");
                     listenerAds.loadedInterAds();
+                    IAdmobIsLoaded = true;
 
                 }
             };
@@ -89,8 +91,8 @@ public class AdmobAdsInterstitial {
     }
 
     public boolean isLoadedAdmob() {
-        listenerLogs.logs("Admob Inter: is really Loaded? "+interstitialAdmob.isLoaded());
-        if (interstitialAdmob!=null && interstitialAdmob.isLoaded()) {
+        listenerLogs.logs("Admob Inter: is really Loaded? "+interstitialAdmob.isLoaded()+ " IAdmobIsLoaded "+IAdmobIsLoaded);
+        if (interstitialAdmob!=null && IAdmobIsLoaded) {
             return true;
         } else {
             return false;
