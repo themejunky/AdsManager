@@ -177,7 +177,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     }
 
     public void initInterstitialTapJoy(String tapjoySDKKey){
-        tapjoyAds.initTapJoy(activity, tapjoySDKKey, listenerAds);
+        tapjoyAds.initTapJoy(activity, tapjoySDKKey);
     }
 
     public void setAdmobeMute(Context context) {
