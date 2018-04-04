@@ -28,7 +28,4 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-    // If AppLovin Demo App is running as a module in the AppLovin development environment
-    compile 'com.applovin:applovin-sdk:+' //applovin sdk
-    //compile files('libs/tapjoyconnectlibrary.jar') //tap joy sdk
 }
