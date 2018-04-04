@@ -59,20 +59,16 @@ public class TapJoyAdsInterstitial extends android.app.Activity implements TJPla
 
 
     public boolean isLoadedTapJoy() {
-        if (isSdkConnected) {
-            this.listenerLogs.logs("TapJoy isSdkConnected "+isSdkConnected);
+        this.listenerLogs.logs("TapJoy isSdkConnected "+isSdkConnected+" isAdAvailable "+isAdAvailable);
+        if (isSdkConnected && isAdAvailable) {
             return true;
         } else {
-            this.listenerLogs.logs("TapJoy isSdkConnected "+isSdkConnected);
             return false;
         }
     }
 
     public void showTapJoy() {
-        this.listenerLogs.logs("TapJoy requestPlacement isAdAvailable "+isAdAvailable);
-        if (isAdAvailable) {
             requestPlacement();
-        }
     }
 
     /**
