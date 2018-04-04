@@ -83,12 +83,13 @@ public class AdmobAdsInterstitial {
                 }
             };
             interstitialAdmob.setAdListener(adListener);
-            requestNewInterstitial(null);
-        }
+            requestNewInterstitial();
+
 
     }
 
     public boolean isLoadedAdmob() {
+        listenerLogs.logs("Admob Inter: is really Loaded? "+interstitialAdmob.isLoaded());
         if (interstitialAdmob!=null && interstitialAdmob.isLoaded()) {
             return true;
         } else {
@@ -103,17 +104,8 @@ public class AdmobAdsInterstitial {
     }
 
 
-    public void requestNewInterstitial(String testDeviceId) {
+    public void requestNewInterstitial() {
         AdRequest adRequest;
-        /*
-        if (testDeviceId != null)
-            adRequest = new AdRequest.Builder()
-                    .addTestDevice(testDeviceId)
-                    .build();
-        else
-            adRequest = new AdRequest.Builder()
-                    .build();
-                    */
         adRequest = new AdRequest.Builder().build();
         interstitialAdmob.loadAd(adRequest);
     }
