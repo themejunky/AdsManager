@@ -27,6 +27,7 @@ import java.util.ArrayList;
 
 import themejunky.module_adsmanager.R;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
+import themejunky.module_adsmanager.ads.interstitialAds.AppnextAdsInterstitial;
 
 import static android.R.attr.button;
 
@@ -37,8 +38,8 @@ import static android.R.attr.button;
 public class AppnextNativeAds {
     public static AppnextNativeAds instance = null;
     private final Context context;
-    private final AdsListenerManager.ListenerLogs logsListener;
-    private final AdsListenerManager.ListenerAds loadListener;
+    private AdsListenerManager.ListenerAds listenerAds;
+    private AdsListenerManager.ListenerLogs listenerLogs;
     public NativeAd nativeAd;
     public MediaView mediaView;
     private TextView textView;
@@ -54,11 +55,10 @@ public class AppnextNativeAds {
     private View view2;
 
 
-    public AppnextNativeAds(Context context, AdsListenerManager.ListenerLogs logs, AdsListenerManager.ListenerAds loadListener) {
+    public AppnextNativeAds(Context context, AdsListenerManager.ListenerLogs listenerLogs, AdsListenerManager.ListenerAds listenerAds) {
         this.context = context;
-        this.logsListener = logs;
-        this.loadListener = loadListener;
-
+        this.listenerLogs = listenerLogs;
+        this.listenerAds = listenerAds;
     }
 
 
@@ -102,8 +102,8 @@ public class AppnextNativeAds {
                 nativeAd.registerClickableViews(viewArrayList);
                 nativeAd.setNativeAdView(nativeAdView);
                 if(nativeAd.getAdTitle()!=null){
-                    logsListener.logs("Appnex: onAdLoaded");
-                    loadListener.loadNativeAds("appnext");
+                    listenerLogs.logs("Appnex: onAdLoaded");
+                    listenerAds.loadNativeAds("appnext");
                     Log.d("loadsometd","is text Loaded");
                 }else{
                     Log.d("loadsometd","is  text not Loaded");
@@ -120,7 +120,7 @@ public class AppnextNativeAds {
             @Override
             public void onError(NativeAd nativeAd, AppnextError appnextError) {
                 super.onError(nativeAd, appnextError);
-                logsListener.logs("Appnex: onError: " +appnextError.getErrorMessage());
+                listenerLogs.logs("Appnex: onError: " +appnextError.getErrorMessage());
             }
 
             @Override
@@ -157,6 +157,14 @@ public class AppnextNativeAds {
         }else {
             return false;
         }
+    }
+
+    public static synchronized AppnextNativeAds getInstance(Context activity, AdsListenerManager.ListenerLogs listenerLogs, AdsListenerManager.ListenerAds listenerAds){
+        if (instance==null){
+            instance = new AppnextNativeAds(activity,listenerLogs,listenerAds);
+        }
+        return instance;
+
     }
 
 }

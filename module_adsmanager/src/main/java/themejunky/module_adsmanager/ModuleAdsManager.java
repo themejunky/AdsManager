@@ -76,14 +76,18 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     public void initializeInterlAds(boolean isFacebook) {
         if (showAds) {
             if (isFacebook) {
-                facebookAds = FacebookAdsInterstitial.getmInstance(this);
-                admobAds = AdmobAdsInterstitial.getmInstance(this);
-                appnextAds = AppnextAdsInterstitial.getInstance(this);
+                facebookAds = FacebookAdsInterstitial.getmInstance(this, listenerAds);
+                admobAds = AdmobAdsInterstitial.getmInstance(this, listenerAds);
+                appnextAds = AppnextAdsInterstitial.getInstance(this, listenerAds);
             } else {
-                admobAds = AdmobAdsInterstitial.getmInstance(this);
-                appnextAds = AppnextAdsInterstitial.getInstance(this);
+                admobAds = AdmobAdsInterstitial.getmInstance(this, listenerAds);
+                appnextAds = AppnextAdsInterstitial.getInstance(this, listenerAds);
             }
         }
+    }
+
+    public void setListenerAds(AdsListenerManager.ListenerAds listenerAds) {
+        this.listenerAds = listenerAds;
     }
 
     public void setNativeFlowAndShowAds(List<String> flowAds, View facebookView, View admobView, View appnextView) {
@@ -119,7 +123,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     public void initInterstitialFacebookAds(String keyFacebook) {
         if (showAds) {
             if (keyFacebook != null && !keyFacebook.equals("")) {
-                facebookAds.initFacebookInterstitial(activity, keyFacebook, listenerAds);
+                facebookAds.initFacebookInterstitial(activity, keyFacebook);
             }
         }
     }
@@ -127,7 +131,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     public void initInterstitialAdmobAds(String keyAdmob) {
         if (showAds) {
             if (keyAdmob != null && !keyAdmob.equals("")) {
-                admobAds.initAdmobInterstitial(activity, keyAdmob, listenerAds);
+                admobAds.initAdmobInterstitial(activity, keyAdmob);
             }
         }
     }
@@ -135,7 +139,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     public void initInterstitialAppNextAds(String keyAppNext) {
         if (showAds) {
             if (keyAppNext != null && !keyAppNext.equals("")) {
-                appnextAds.initAppnext(activity, keyAppNext, listenerAds);
+                appnextAds.initAppnext(activity, keyAppNext);
             }
         }
     }
@@ -173,11 +177,6 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
         return facebookAds.isFacebookLoaded()|| admobAds.isLoadedAdmob() || appnextAds.isLoadedAppNext();
     }
 
-
-    public void setListenerAds(AdsListenerManager.ListenerAds listenerAds) {
-        this.listenerAds = listenerAds;
-    }
-
     public void initFacebookNativeAds(View view, String keynativeFacebook) {
         if (!isFacebookInitialized) {
             facebookNativeAds.initFacebookNative(view, keynativeFacebook);
@@ -213,16 +212,17 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     private void runAdds_Part1Native() {
         this.next = -1;
         runAdds_Part2Native();
-
+        Log.d("ShowFlow", "flow: runAdds_Part1Native");
     }
 
     private void runAdds_Part1Inter() {
         this.next = -1;
         runAdds_Part2Inter();
-
+        Log.d("ShowFlow", "flow: runAdds_Part1Inter");
     }
 
     private void runAdds_Part2Native() {
+        Log.d("ShowFlow", "flow: runAdds_Part2Native");
         this.next++;
         if (next < addsFlow.size() && activity != null) {
             Log.d("ShowFlow", "flow: " + addsFlow.get(next));

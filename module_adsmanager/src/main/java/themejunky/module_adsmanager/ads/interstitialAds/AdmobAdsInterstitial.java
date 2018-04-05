@@ -18,18 +18,17 @@ import themejunky.module_adsmanager.ads.AdsListenerManager;
  */
 
 public class AdmobAdsInterstitial {
-
-
-    private final AdsListenerManager.ListenerLogs listenerLogs;
     public InterstitialAd interstitialAdmob;
     private static AdmobAdsInterstitial mInstance = null;
     public static String adUnitId;
     private List<String> logs = new ArrayList<>();
     private AdsListenerManager.ListenerAds listenerAds;
+    private AdsListenerManager.ListenerLogs listenerLogs;
     private MobileAds mobileAds;
 
-    public AdmobAdsInterstitial(AdsListenerManager.ListenerLogs listenerLogs){
+    public AdmobAdsInterstitial(AdsListenerManager.ListenerLogs listenerLogs,AdsListenerManager.ListenerAds listenerAds){
         this.listenerLogs = listenerLogs;
+        this.listenerAds = listenerAds;
     }
 
     public void setAdmobInterMuted(Context context){
@@ -38,7 +37,7 @@ public class AdmobAdsInterstitial {
     }
 
 
-    public void initAdmobInterstitial(Context context, String adUnitId, final AdsListenerManager.ListenerAds listenerAds) {
+    public void initAdmobInterstitial(Context context, String adUnitId ) {
         this.listenerAds = listenerAds;
         interstitialAdmob = new com.google.android.gms.ads.InterstitialAd(context);
         if (adUnitId != null) {
@@ -116,8 +115,8 @@ public class AdmobAdsInterstitial {
         interstitialAdmob.loadAd(adRequest);
     }
 
-    public synchronized static AdmobAdsInterstitial getmInstance(AdsListenerManager.ListenerLogs listenerLogs) {
-        if (mInstance == null) mInstance = new AdmobAdsInterstitial(listenerLogs);
+    public synchronized static AdmobAdsInterstitial getmInstance(AdsListenerManager.ListenerLogs listenerLogs,AdsListenerManager.ListenerAds listenerAds) {
+        if (mInstance == null) mInstance = new AdmobAdsInterstitial(listenerLogs,listenerAds);
         return mInstance;
 
     }

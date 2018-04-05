@@ -19,20 +19,18 @@ import themejunky.module_adsmanager.ads.AdsListenerManager;
  */
 
 public class AppnextAdsInterstitial {
-
-
     public static AppnextAdsInterstitial instance = null;
-    private final AdsListenerManager.ListenerLogs listenerLogs;
-
     public Interstitial interstitialAppnext;
+    private AdsListenerManager.ListenerAds listenerAds;
+    private AdsListenerManager.ListenerLogs listenerLogs;
 
-
-    public AppnextAdsInterstitial(AdsListenerManager.ListenerLogs listenerLogs) {
+    public AppnextAdsInterstitial(AdsListenerManager.ListenerLogs listenerLogs, AdsListenerManager.ListenerAds listenerAds) {
+        this.listenerAds = listenerAds;
         this.listenerLogs = listenerLogs;
     }
 
     //initAppnext(activity,"8106d659-a20b-4640-943b-d6b0aab18d08");
-    public void initAppnext(Context context, String placementID, final AdsListenerManager.ListenerAds listenerAds) {
+    public void initAppnext(Context context, String placementID) {
         Appnext.init(context);
         interstitialAppnext = new Interstitial(context, placementID);
         listenerLogs.logs("Appnext inter: initialized");
@@ -80,8 +78,8 @@ public class AppnextAdsInterstitial {
         }
     }
 
-    public synchronized static AppnextAdsInterstitial getInstance(AdsListenerManager.ListenerLogs listenerLogs) {
-        if (instance == null) instance = new AppnextAdsInterstitial(listenerLogs);
+    public synchronized static AppnextAdsInterstitial getInstance(AdsListenerManager.ListenerLogs listenerLogs, AdsListenerManager.ListenerAds listenerAds) {
+        if (instance == null) instance = new AppnextAdsInterstitial(listenerLogs, listenerAds);
         return instance;
     }
 }

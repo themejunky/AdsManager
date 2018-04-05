@@ -14,22 +14,20 @@ import themejunky.module_adsmanager.ads.AdsListenerManager;
 
 
 public class FacebookAdsInterstitial {
-
-    private AdsListenerManager.ListenerLogs listenerLogs;
     public static FacebookAdsInterstitial mInstance = null;
     private InterstitialAd interstitialAd;
     private AdsListenerManager.ListenerAds listenerAds;
+    private AdsListenerManager.ListenerLogs listenerLogs;
 
-    public FacebookAdsInterstitial(AdsListenerManager.ListenerLogs listenerLogs){
+    public FacebookAdsInterstitial(AdsListenerManager.ListenerLogs listenerLogs, AdsListenerManager.ListenerAds listenerAds){
         this.listenerLogs = listenerLogs;
+        this.listenerAds = listenerAds;
         AdSettings.addTestDevice("f5726d6130e7bc96ef669e32ea0ae59e");
     }
 
 
 
-    public void initFacebookInterstitial(Context activity, String keyFacebook, final AdsListenerManager.ListenerAds listenerAds) {
-        this.listenerAds = listenerAds;
-
+    public void initFacebookInterstitial(Context activity, String keyFacebook) {
         interstitialAd = new InterstitialAd(activity, keyFacebook);
         listenerLogs.logs("Facebook:  initialized");
         interstitialAd.setAdListener(new InterstitialAdListener() {
@@ -93,8 +91,8 @@ public class FacebookAdsInterstitial {
         }
     }
 
-    public synchronized static FacebookAdsInterstitial getmInstance(AdsListenerManager.ListenerLogs listenerLogs) {
-        if (mInstance == null) mInstance = new FacebookAdsInterstitial(listenerLogs);
+    public synchronized static FacebookAdsInterstitial getmInstance(AdsListenerManager.ListenerLogs listenerLogs,AdsListenerManager.ListenerAds listenerAds) {
+        if (mInstance == null) mInstance = new FacebookAdsInterstitial(listenerLogs,listenerAds);
         return mInstance;
     }
 

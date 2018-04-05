@@ -28,18 +28,18 @@ public class FacebookNativeAds {
     private static final String TAG ="Module_ManagerNativeAds" ;
     private static FacebookNativeAds instance = null;
     private final Context activity;
-    private final AdsListenerManager.ListenerLogs logsListener;
-    private final AdsListenerManager.ListenerAds loadListener;
+    private AdsListenerManager.ListenerAds listenerAds;
+    private AdsListenerManager.ListenerLogs listenerLogs;
     public NativeAd nativeAd;
     private LinearLayout nativeAdContainer;
     private LinearLayout adView;
 
 
 
-    public FacebookNativeAds (Context activity, AdsListenerManager.ListenerLogs logs, AdsListenerManager.ListenerAds loadListener){
+    public FacebookNativeAds (Context activity, AdsListenerManager.ListenerLogs listenerLogs, AdsListenerManager.ListenerAds listenerAds){
         this.activity = activity;
-        this.logsListener = logs;
-        this.loadListener = loadListener;
+        this.listenerLogs = listenerLogs;
+        this.listenerAds = listenerAds;
         AdSettings.addTestDevice("f5726d6130e7bc96ef669e32ea0ae59e");
 
     }
@@ -49,7 +49,7 @@ public class FacebookNativeAds {
         nativeAd.setAdListener(new AdListener() {
             @Override
             public void onError(Ad ad, AdError adError) {
-                logsListener.logs("Facebook: error -  "+adError.getErrorMessage());
+                listenerLogs.logs("Facebook: error -  "+adError.getErrorMessage());
                 Log.d(TAG,"Facebook errror: "+adError.getErrorMessage());
 
             }
@@ -57,8 +57,8 @@ public class FacebookNativeAds {
             @Override
             public void onAdLoaded(Ad ad) {
                 Log.d(TAG,"Facebook loaded");
-                loadListener.loadNativeAds("facebook");
-                logsListener.logs("Facebook: onAdLoaded");
+                listenerAds.loadNativeAds("facebook");
+                listenerLogs.logs("Facebook: onAdLoaded");
                 nativeAdContainer = (LinearLayout) view.findViewById(R.id.native_ad_container);
                 nativeAdContainer.setOrientation(LinearLayout.VERTICAL);
                 LayoutInflater inflater = LayoutInflater.from(activity);
@@ -112,9 +112,9 @@ public class FacebookNativeAds {
         nativeAd.loadAd();
     }
 
-    public static synchronized FacebookNativeAds getmInstance(Context activity, AdsListenerManager.ListenerLogs logs,AdsListenerManager.ListenerAds loadListener) {
+    public static synchronized FacebookNativeAds getmInstance(Context activity, AdsListenerManager.ListenerLogs listenerLogs,AdsListenerManager.ListenerAds listenerAds) {
         if(instance == null) {
-            instance = new FacebookNativeAds(activity,logs,loadListener);
+            instance = new FacebookNativeAds(activity,listenerLogs,listenerAds);
         }
 
         return instance;
