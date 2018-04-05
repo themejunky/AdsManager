@@ -82,6 +82,9 @@ public class AdmobAdsInterstitial {
                     listenerAds.loadedInterAds();
                     IAdmobIsLoaded = true;
 
+                    if (!isLoadedAdmob()){
+                        showAdmobAds();
+                    }
                 }
             };
             interstitialAdmob.setAdListener(adListener);
