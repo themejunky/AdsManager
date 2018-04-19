@@ -1,13 +1,15 @@
-package themejunky.module_adsmanager;
+package themejunky.module_adsmanager.managers;
 
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import themejunky.module_adsmanager.R;
 import themejunky.module_adsmanager.ads.interstitialAds.AdmobAdsInterstitial;
 import themejunky.module_adsmanager.ads.interstitialAds.FacebookAdsInterstitial;
 import themejunky.module_adsmanager.ads.nativeAds.AdmobNativeAds;
@@ -22,7 +24,7 @@ import themejunky.module_adsmanager.utils.ConstantsAds;
  * Created by Alin on 11/16/2017.
  */
 
-public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
+public class ModuleAdsManager  implements AdsListenerManager.ListenerLogs,AdsListenerManager.ListenerAds {
 
     public static ModuleAdsManager instance = null;
     private final boolean showAds;
@@ -42,6 +44,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     private AppnextAdsInterstitial appnextAds;
     private AdsListenerManager.ListenerAds listenerAds;
     private AppnextNativeAds appnextNativeAds;
+    private View containerView;
 
 
     public ModuleAdsManager(Context activity, boolean showAds) {
@@ -49,30 +52,12 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
         this.showAds = showAds;
     }
 
-    public void initializeNativeAds(boolean isNewInstance, boolean isFacebook) {
-        if (showAds) {
-            if (isNewInstance) {
-                if (isFacebook) {
-                    appnextNativeAds = new AppnextNativeAds(activity, this, listenerAds);
-                    admobNativeAds = new AdmobNativeAds(activity, this, listenerAds);
-                    facebookNativeAds = new FacebookNativeAds(activity, this, listenerAds);
-                } else {
-                    appnextNativeAds = new AppnextNativeAds(activity, this, listenerAds);
-                    admobNativeAds = new AdmobNativeAds(activity, this, listenerAds);
-                }
-            } else {
-                if (isFacebook) {
-                    appnextNativeAds = new AppnextNativeAds(activity, this, listenerAds);
-                    admobNativeAds = AdmobNativeAds.getInstance(activity, this, listenerAds);
-                    facebookNativeAds = new FacebookNativeAds(activity, this, listenerAds);
-                } else {
-                    appnextNativeAds = new AppnextNativeAds(activity, this, listenerAds);
-                    admobNativeAds = AdmobNativeAds.getInstance(activity, this, listenerAds);
-                }
-            }
-        }
-    }
 
+
+
+    public void setViewNativeAdmob(View containerView){
+        this.containerView = containerView;
+    }
     public void initializeInterlAds(boolean isFacebook) {
         if (showAds) {
             if (isFacebook) {
@@ -96,6 +81,11 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
         this.appnextView = appnextView;
         addsFlow = flowAds;
         runAdds_Part1Native();
+
+    }
+
+    public void setNaiveAdsFlow(List<String> flowAds){
+        addsFlow = flowAds;
 
     }
 
@@ -184,19 +174,12 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
         }
     }
 
-    public void initAdmobNativeAds(View view, String idUnitAdmob, int typeAdmobAds) {
-        if (!isAdmobInitialized) {
-            admobNativeAds.initAdmobNativeAdvance(view, idUnitAdmob, typeAdmobAds);
-            isAdmobInitialized = true;
-        }
 
-    }
-
-    public void initAdmobNativeAds(View view, String idUnitAdmob) {
+/*    public void initAdmobNativeAds(String idUnitAdmob) {
         if (showAds) {
-            admobNativeAds.initAdmobNativeAdvance(view, idUnitAdmob);
+            admobNativeAds.initAdmobNativeAdvance(idUnitAdmob,this);
         }
-    }
+    }*/
 
     public void initAppnextNativeAds(View view, String idAppnext) {
         if (showAds) {
@@ -222,20 +205,19 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     }
 
     private void runAdds_Part2Native() {
-        Log.d("ShowFlow", "flow: runAdds_Part2Native");
         this.next++;
         if (next < addsFlow.size() && activity != null) {
-            Log.d("ShowFlow", "flow: " + addsFlow.get(next));
+            Log.d(nameLogs, "flow: " + "Flow: "+addsFlow.get(next));
             switch (addsFlow.get(next)) {
 
                 case ConstantsAds.ADMOB:
-                    Log.d("ShowFlow", "ADMOB 1");
-                    if (admobNativeAds.isLoaded) {
-                        Log.d("ShowFlow", "ADMOB 2");
-                        admobView.setVisibility(View.VISIBLE);
-                        Log.d("ShowFlow", "ADMOB 3");
+                    Log.d(nameLogs, "Admob Native 1");
+                    if (admobNativeAds.getViewNativeAd()!=null && containerView!=null ) {
+                        Log.d(nameLogs, "Admob Native 2");
+                        ((RelativeLayout)containerView).addView(admobNativeAds.getViewNativeAd());
+                        Log.d(nameLogs, "Admob Native 2");
                     } else {
-                        Log.d("ShowFlow", "ADMOB 4");
+                        Log.d(nameLogs, "Admob Native 4");
                         runAdds_Part2Native();
                     }
                     break;
@@ -333,6 +315,7 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     }
 
 
+
     public synchronized static ModuleAdsManager getInstance(Context activity, boolean showAds) {
         if (instance == null) instance = new ModuleAdsManager(activity, showAds);
         return instance;
@@ -346,5 +329,32 @@ public class ModuleAdsManager implements AdsListenerManager.ListenerLogs {
     @Override
     public void isClosedInterAds() {
         listenerAds.afterInterstitialIsClosed(action);
+    }
+
+    @Override
+    public void afterInterstitialIsClosed(String action) {
+
+    }
+
+    @Override
+    public void loadedInterAds() {
+
+    }
+
+    @Override
+    public void loadInterFailed() {
+
+    }
+
+    @Override
+    public void loadNativeAds(String type) {
+        Log.d(nameLogs,"nume incarcat "+type);
+        runAdds_Part1Native();
+        if(admobNativeAds.getViewNativeAd()!=null){
+            Log.d(nameLogs,"nu este null");
+        }else {
+            Log.d(nameLogs,"este null");
+        }
+
     }
 }

@@ -16,9 +16,10 @@ public interface AdsListenerManager {
             void loadedInterAds();
             void loadInterFailed();
             void loadNativeAds(String type);
-
-
         }
+    interface ListenerNativeAds{
+        void loadNativeAds(String type);
+    }
 
 
 }

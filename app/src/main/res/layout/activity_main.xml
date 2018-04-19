@@ -9,7 +9,7 @@
     tools:context="com.themejunky.ads.manager.ApplyActivity">
 
     <ImageView
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/loadingId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,28 +50,14 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_alignParentBottom="true"
-        android:visibility="gone"
         android:id="@+id/containerAdmob"
         android:layout_width="wrap_content"
-        android:layout_height="250dp"/>
-
-    <RelativeLayout
-        android:visibility="gone"
-        android:layout_below="@id/containerAdmob"
-        android:id="@+id/containerFacebook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-
-    <RelativeLayout
-        android:layout_alignParentBottom="true"
-        android:visibility="gone"
-        android:layout_below="@id/containerAdmob"
-        android:id="@+id/containerAppnext"
-        android:layout_width="wrap_content"
         android:layout_height="250dp"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/layoutButonsId"
+        android:visibility="visible" />
+
+
 
 
 

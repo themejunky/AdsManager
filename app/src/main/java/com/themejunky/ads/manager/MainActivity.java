@@ -1,7 +1,6 @@
 package com.themejunky.ads.manager;
 
 
-import android.app.MediaRouteButton;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,8 +15,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import themejunky.module_adsmanager.ModuleAdsManager;
+import themejunky.module_adsmanager.managers.ModuleAdsManager;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
+import themejunky.module_adsmanager.managers.ModuleSuperManager;
 import themejunky.module_adsmanager.utils.Action;
 
 
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     private ImageView splash;
     private LinearLayout layoutButtons;
     private byte nrFailedLoad=0;
-    private RelativeLayout containerFacebook,containerAdmob ,containerAppnext;
+    private RelativeLayout containerFacebook,mContainerAdmob ,containerAppnext;
 
 
     @Override
@@ -40,12 +40,27 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         initView();
         flowAds.add("admob");
 
+        ModuleSuperManager moduleSuperManager = new ModuleSuperManager(this,true);
+        moduleSuperManager.setLogName("testeLogs");
+        moduleSuperManager.managerNative.initNativeAdmob("ca-app-pub-8562466601970101/5081303159");
+        moduleSuperManager.managerNative.setViewNativeAdmob(findViewById(R.id.containerAdmob));
+
+
+
+
+      /*  moduleAdsManager = ModuleAdsManager.getInstance(this,true);
+      //  moduleAdsManager.initNativeAdmob(this,"ca-app-pub-8562466601970101/5081303159");
+        moduleAdsManager.setLogs("testlog");
+
+        moduleAdsManager.setNaiveAdsFlow(flowAds);
+        moduleAdsManager.initNativeAdmob(this,"ca-app-pub-8562466601970101/5081303159");
+        //moduleAdsManager.setViewAdmobNative( findViewById(R.id.containerAdmob));*/
 
 
 
 
 
-        moduleAdsManager = ModuleAdsManager.getInstance(this,true);
+      /*  moduleAdsManager = ModuleAdsManager.getInstance(this,true);
         moduleAdsManager.setListenerAds(this);
         moduleAdsManager.initializeInterlAds(true);
         moduleAdsManager.initializeNativeAds(true,false);
@@ -64,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
         moduleAdsManager.setLogs("InfoAds");
         moduleAdsManager.initAdmobNativeAds(containerAdmob,"ca-app-pub-8562466601970101/5081303159");
-        moduleAdsManager.initAppnextNativeAds(containerAppnext,"cdd052e2-9394-407c-99d4-323439dd7398");
+        moduleAdsManager.initAppnextNativeAds(containerAppnext,"cdd052e2-9394-407c-99d4-323439dd7398");*/
 
        //moduleAdsManager.initFacebookNativeAds(containerFacebook,"989309397888813_993580754128344");
     }
@@ -75,9 +90,6 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         getMore = (Button) findViewById(R.id.getmoreId);
         splash = (ImageView)findViewById(R.id.loadingId);
         layoutButtons = (LinearLayout) findViewById(R.id.layoutButonsId);
-        containerFacebook = (RelativeLayout) findViewById(R.id.containerFacebook);
-        containerAdmob = (RelativeLayout) findViewById(R.id.containerAdmob);
-        containerAppnext = (RelativeLayout) findViewById(R.id.containerAppnext);
 
         Log.d("TestLogs2","onCreate");
 
@@ -150,12 +162,12 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
     @Override
     public void loadNativeAds(String type) {
-        if (type.equals("admob") && flowAds.size() > 0) {
+    /*    if (type.equals("admob") && flowAds.size() > 0) {
             moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob,containerAppnext);
 
         }else if(type.equals("appnext") && flowAds.size() > 0){
             moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob,containerAppnext);
-        }
+        }*/
     }
 
 
@@ -196,6 +208,6 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     @Override
     protected void onPause() {
         super.onPause();
-        moduleAdsManager.setAdmobeMute(this);
+        //moduleAdsManager.setAdmobeMute(this);
     }
 }

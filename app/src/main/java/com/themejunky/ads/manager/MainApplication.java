@@ -5,7 +5,7 @@ import android.app.Application;
 import java.util.ArrayList;
 import java.util.List;
 
-import themejunky.module_adsmanager.ModuleAdsManager;
+import themejunky.module_adsmanager.managers.ModuleAdsManager;
 
 /**
  * Created by Junky2 on 8/2/2017.
