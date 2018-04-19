@@ -19,19 +19,61 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+//    productFlavors {
+//
+//        //Admob & AppNext & Facebook
+//        ads_all {
+//
+//        }
+//
+//        //Admob & AppNext
+//        ads_admob_appnext {
+//
+//        }
+//
+//        //Facebook
+//        ads_facebook {
+//
+//        }
+//
+//        //Admob & AppNext & Facebook
+//        ads_admob_appnext_facebook {
+//
+//        }
+//    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:25.3.1'
 
+    compile 'com.android.support:appcompat-v7:26.1.0'
+
+//    //FL-All
+//    ads_allCompile 'com.google.android.gms:play-services-ads:12.0.1'
+//    ads_allCompile 'com.appnext.sdk:ads:2.2.5.468' // Mandatory
+//    ads_allCompile 'com.appnext.sdk:native-ads2:2.+'
+//    ads_allCompile 'com.facebook.android:audience-network-sdk:4.26.0'
+//    //FL-Alin
+//    ads_admob_appnextCompile 'com.google.android.gms:play-services-ads:12.0.1'
+//    ads_admob_appnextCompile 'com.appnext.sdk:ads:2.2.5.468' // Mandatory
+//    ads_admob_appnextCompile 'com.appnext.sdk:native-ads2:2.+'
+//    //FL-Damian
+//    ads_facebookCompile 'com.facebook.android:audience-network-sdk:4.26.0'
+//    //FL-Cornel
+//    ads_admob_appnext_facebookCompile 'com.google.android.gms:play-services-ads:12.0.1'
+//    ads_admob_appnext_facebookCompile 'com.appnext.sdk:ads:2.2.5.468' // Mandatory
+//    ads_admob_appnext_facebookCompile 'com.appnext.sdk:native-ads2:2.+'
+//    ads_admob_appnext_facebookCompile 'com.facebook.android:audience-network-sdk:4.26.0'
+
+
+    //AppNext
     compile 'com.appnext.sdk:ads:2.2.5.468' // Mandatory
     compile 'com.appnext.sdk:native-ads2:2.+'
-    compile 'com.facebook.android:audience-network-sdk:4.26.0'
-    compile 'com.google.android.gms:play-services-ads:12.0.1'
 
-    testCompile 'junit:junit:4.12'
+    //Facebook
+    compile 'com.facebook.android:audience-network-sdk:4.26.0'
+
+    //Admob
+    compile 'com.google.android.gms:play-services-ads:12.0.1'
 }

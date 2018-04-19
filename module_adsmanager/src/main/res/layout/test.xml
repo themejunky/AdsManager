@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/nAddd"
+        ></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/nAddd1"
+        ></LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/nAds0"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#404040"/>
+
+
+    <RelativeLayout
+        android:id="@+id/nAds"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#404040"/>
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:visibility="visible"
+        android:id="@+id/containerAdmob"
+        android:layout_width="wrap_content"
+        android:tag="masinuta_1"
+        android:layout_height="250dp">
+
+         <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:tag="masinuta_4"
+            android:id="@+id/containerAdmobNativeAds"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_below="@id/containerAdmob"
+        android:id="@+id/containerFacebook"
+        android:layout_width="wrap_content"
+        android:tag="masinuta_2"
+        android:layout_height="wrap_content">
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:layout_below="@id/containerAdmob"
+        android:tag="masinuta_3"
+        android:id="@+id/containerAppnext"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        />
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#404040"/>
+</LinearLayout>
+
