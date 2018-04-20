@@ -5,7 +5,6 @@ import android.content.Context;
 
 
 import com.appnext.ads.interstitial.Interstitial;
-import com.appnext.ads.interstitial.InterstitialConfig;
 import com.appnext.base.Appnext;
 import com.appnext.core.callbacks.OnAdClosed;
 import com.appnext.core.callbacks.OnAdError;
@@ -45,13 +44,12 @@ public class AppnextAdsInterstitial {
             @Override
             public void adError(String s) {
                 listenerLogs.logs("Appnext inter error: " + s.toString());
-                listenerAds.loadInterFailed();
             }
         });
         interstitialAppnext.setOnAdLoadedCallback(new OnAdLoaded() {
             @Override
             public void adLoaded(String s) {
-                listenerAds.loadedInterAds();
+                if(listenerAds!=null)listenerAds.loadedInterstitialAds();
                 listenerLogs.logs("Appnext inter: is Loaded");
             }
         });

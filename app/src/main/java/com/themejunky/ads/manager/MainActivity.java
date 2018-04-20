@@ -15,7 +15,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import themejunky.module_adsmanager.managers.ModuleAdsManager;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
 import themejunky.module_adsmanager.managers.ModuleSuperManager;
 import themejunky.module_adsmanager.utils.Action;
@@ -24,7 +23,7 @@ import themejunky.module_adsmanager.utils.Action;
 public class MainActivity extends AppCompatActivity implements AdsListenerManager.ListenerAds,View.OnClickListener {
 
     private List<String>flowAds = new ArrayList<>();
-    private ModuleAdsManager moduleAdsManager;
+    private  ModuleSuperManager moduleSuperManager;
     private Button apply,rate,getMore;
     private View viewButtons;
     private ImageView splash;
@@ -38,12 +37,23 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+
         flowAds.add("admob");
 
-        ModuleSuperManager moduleSuperManager = new ModuleSuperManager(this,true);
-        moduleSuperManager.setLogName("testeLogs");
-        moduleSuperManager.managerNative.initNativeAdmob("ca-app-pub-8562466601970101/5081303159");
-        moduleSuperManager.managerNative.setViewNativeAdmob(findViewById(R.id.containerAdmob));
+
+        moduleSuperManager = new ModuleSuperManager(this,true);
+        moduleSuperManager.setLogName("logtest");
+
+        moduleSuperManager.getManagerNative().setViewNative(findViewById(R.id.containerAdmob));
+        moduleSuperManager.getManagerNative().setNativeFlow(flowAds);
+
+        moduleSuperManager.getManagerNative().iniNativeFacebook("833164856890775_838240766383184");
+        moduleSuperManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159");
+        moduleSuperManager.getManagerNative().iniNativeAppnext("cdd052e2-9394-407c-99d4-323439dd7398");
+
+        moduleSuperManager.getManagerInterstitial().initInterstitialAdmob("ca-app-pub-5322508131338449/2877444211");
+
+
 
 
 
@@ -86,16 +96,12 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
     public void initView(){
         apply = (Button) findViewById(R.id.applyid);
-        rate = (Button) findViewById(R.id.rateId);
-        getMore = (Button) findViewById(R.id.getmoreId);
-        splash = (ImageView)findViewById(R.id.loadingId);
-        layoutButtons = (LinearLayout) findViewById(R.id.layoutButonsId);
+
 
         Log.d("TestLogs2","onCreate");
 
         apply.setOnClickListener(this);
-        rate.setOnClickListener(this);
-        getMore.setOnClickListener(this);
+
     }
 
 
@@ -121,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     }
 
     @Override
-    public void loadedInterAds() {
+    public void loadedInterstitialAds() {
 
         if (splash.getVisibility()== View.VISIBLE ) {
             Log.d("TestLogs","intra in metoda loaded");
@@ -131,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
             // showAds(this,"in");
 
-            moduleAdsManager.setInterFlowAndShowAds(flowAds,"NADA");
 
         } else {
             Log.d("loadereee","ai disparut");
@@ -139,29 +144,9 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
     }
 
-    @Override
-    public void loadInterFailed() {
-        Log.d("TestLogs","loadeFailed");
-        Log.d("TestLogs", "" +(View.GONE));
-        Log.d("TestLogs", String.valueOf(splash.getVisibility()));
-        nrFailedLoad++;
-        if(nrFailedLoad==3){
-            Log.d("TestLogs","inra in metoda faild 1");
-            splash.setVisibility(View.GONE);
-            Log.d("TestLogs","inra in metoda faild 2");
-            layoutButtons.setVisibility(View.VISIBLE);
-            layoutButtons.bringToFront();
-            Log.d("TestLogs","inra in metoda faild 3");
-
-
-
-            nrFailedLoad=0;
-        }
-        Log.d("TestLogs", "nr: "+String.valueOf(nrFailedLoad));
-    }
 
     @Override
-    public void loadNativeAds(String type) {
+    public void loadedNativeAds(String type) {
     /*    if (type.equals("admob") && flowAds.size() > 0) {
             moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob,containerAppnext);
 
@@ -176,38 +161,17 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         viewButtons = v;
         switch (viewButtons.getId()) {
             case R.id.applyid:
-                if(moduleAdsManager.isSomeAdLoaded()){
+                if ( moduleSuperManager.getManagerInterstitial().isSomeAdLoaded()) {
                     Log.d("TestButton", "1");
-                    moduleAdsManager.setInterFlowAndShowAds(flowAds,"apply");
+                    moduleSuperManager.getManagerInterstitial().showInterstitial(flowAds,"intro");
                     Log.d("TestButton", "2");
-                }else {
+                } else {
                     Log.d("TestButton", "3");
                     Toast.makeText(this, "Apply", Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.rateId:
-                if(moduleAdsManager.isSomeAdLoaded()){
-                    moduleAdsManager.setInterFlowAndShowAds(flowAds,"rate");
-                    // mam.setAction("rate");
-                }else {
-                    Toast.makeText(this, "Rate", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.getmoreId:
-                if(moduleAdsManager.isSomeAdLoaded()){
-                    moduleAdsManager.setInterFlowAndShowAds(flowAds,"more");
-                    // mam.setAction("more");
-                }else {
-                    Toast.makeText(this, "GetMore", Toast.LENGTH_SHORT).show();
-                }
-                break;
-
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //moduleAdsManager.setAdmobeMute(this);
-    }
+
 }

@@ -30,29 +30,31 @@ import themejunky.module_adsmanager.ads.AdsListenerManager;
 
 public class AdmobNativeAds extends NativeBase {
 
-    public static AdmobNativeAds instance = null;
+    private static AdmobNativeAds instance = null;
+    private final AdsListenerManager.NativeListener nativeListener;
     private AdsListenerManager.ListenerLogs listenerLogs;
     private AdLoader adLoader;
 
-    public AdmobNativeAds(Context context, String key, AdsListenerManager.ListenerLogs listenerLogs, AdsListenerManager.ListenerNativeAds listenerNativeAds) {
+
+    public AdmobNativeAds(Context context, String key, AdsListenerManager.ListenerLogs listenerLogs, AdsListenerManager.NativeListener listenerNativeAds) {
         nContext = context;
+        this.nativeListener = listenerNativeAds;
         this.listenerLogs = listenerLogs;
-        initAdmobNativeAdvance(key, listenerNativeAds);
+        initAdmobNativeAdvance(key);
     }
 
-    public View getViewNativeAd() {
-        return mAdView;
-    }
 
-    public void initAdmobNativeAdvance(String idUnitAdmob, final AdsListenerManager.ListenerNativeAds listenerNativeAds) {
+
+    public void initAdmobNativeAdvance(String idUnitAdmob) {
         adLoader = new AdLoader.Builder(nContext, idUnitAdmob)
                 .forContentAd(new NativeContentAd.OnContentAdLoadedListener() {
 
                     @Override
                     public void onContentAdLoaded(NativeContentAd contentAd) {
                         mAdView = mInflateLayout(R.layout.ad_content);
-                        listenerNativeAds.loadNativeAds("admob");
-                        listenerLogs.logs("Admob: ad_content loaded");
+                        if(listenerAds!=null) listenerAds.loadedNativeAds("admob");
+                        listenerLogs.logs("Admob Native: ad_content Loaded");
+                        nativeListener.nativeLoaded();
                         populateContentAdView(contentAd, (NativeContentAdView) mAdView);
 
                     }
@@ -61,8 +63,9 @@ public class AdmobNativeAds extends NativeBase {
                     @Override
                     public void onAppInstallAdLoaded(NativeAppInstallAd appInstallAd) {
                         mAdView = mInflateLayout(R.layout.ad_app_install);
-                        listenerLogs.logs("Admob: ad_app_install loaded");
-                        listenerNativeAds.loadNativeAds("admob");
+                        listenerLogs.logs("Admob Native: ad_app_install Loaded");
+                        nativeListener.nativeLoaded();
+                        listenerAds.loadedNativeAds("admob");
                         populateAppInstallAdView(appInstallAd, (NativeAppInstallAdView) mAdView);
 
                     }
@@ -72,19 +75,19 @@ public class AdmobNativeAds extends NativeBase {
                     public void onAdFailedToLoad(int errorCode) {
                         switch (errorCode) {
                             case AdRequest.ERROR_CODE_INTERNAL_ERROR:
-                                listenerLogs.logs("Admob: Failed to received ad! Internal error code: '%s'." + errorCode);
+                                listenerLogs.logs("Admob Native: Failed to received ad! Internal error code: '%s'." + errorCode);
                                 break;
                             case AdRequest.ERROR_CODE_INVALID_REQUEST:
-                                listenerLogs.logs("Admob: Failed to received ad! Invalid request error code: '%s'." + errorCode);
+                                listenerLogs.logs("Admob Native: Failed to received ad! Invalid request error code: '%s'." + errorCode);
                                 break;
                             case AdRequest.ERROR_CODE_NETWORK_ERROR:
-                                listenerLogs.logs("Admob: Failed to received ad! Network error code: '%s'." + errorCode);
+                                listenerLogs.logs("Admob Native: Failed to received ad! Network error code: '%s'." + errorCode);
                                 break;
                             case AdRequest.ERROR_CODE_NO_FILL:
-                                listenerLogs.logs("Admob: Failed to received ad! No fill error code: '%s'." + errorCode);
+                                listenerLogs.logs("Admob Native: Failed to received ad! No fill error code: '%s'." + errorCode);
                                 break;
                             default:
-                                listenerLogs.logs("Admob: Failed to received ad! Error code: '%s'." + errorCode);
+                                listenerLogs.logs("Admob Native: Failed to received ad! Error code: '%s'." + errorCode);
                         }
                     }
                 })
@@ -200,9 +203,9 @@ public class AdmobNativeAds extends NativeBase {
     }
 
 
-    public static synchronized AdmobNativeAds getInstance(Context activity, String keyId, AdsListenerManager.ListenerLogs listenerLogs, AdsListenerManager.ListenerNativeAds listenerNativeAds) {
+    public static synchronized AdmobNativeAds getInstance(Context activity, String keyId, AdsListenerManager.ListenerLogs listenerLogs, AdsListenerManager.NativeListener nativeListener) {
         if (instance == null) {
-            instance = new AdmobNativeAds(activity, keyId, listenerLogs, listenerNativeAds);
+            instance = new AdmobNativeAds(activity, keyId, listenerLogs, nativeListener);
         }
         return instance;
 

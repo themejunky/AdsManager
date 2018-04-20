@@ -1,29 +1,28 @@
 package themejunky.module_adsmanager.managers;
 
-import android.content.Context;
-import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import themejunky.module_adsmanager.ads.AdsListenerManager;
+
 /**
  * Created by Junky2 on 4/19/2018.
  */
 
-public class ManagerBase extends SlaveListener{
-    protected View mContainerView;
-    protected Context mContext;
+public class ManagerBase extends SlaveListener {
     protected int next;
     protected static List<String> addsFlow = new ArrayList<>();
-    protected String nameLogs;
+    public static String nameLogs="debugTest";
+    public static String action="debugTest";
     protected View containerNativeView;
+    protected AdsListenerManager.ListenerAds listenerAds ;
 
 
-    @Override
-    public void logs(String logs) {
-        Log.d(nameLogs, logs);
-    }
+
+
+
 
 
 }

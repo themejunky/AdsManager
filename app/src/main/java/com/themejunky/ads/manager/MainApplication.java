@@ -5,7 +5,6 @@ import android.app.Application;
 import java.util.ArrayList;
 import java.util.List;
 
-import themejunky.module_adsmanager.managers.ModuleAdsManager;
 
 /**
  * Created by Junky2 on 8/2/2017.
@@ -14,7 +13,6 @@ import themejunky.module_adsmanager.managers.ModuleAdsManager;
 public class MainApplication extends Application {
     public List<String> flowAdsInceput = new ArrayList<>();
     public List<String> flowAdsSfarsit = new ArrayList<>();
-    public ModuleAdsManager Mam;
     @Override
     public void onCreate() {
         super.onCreate();

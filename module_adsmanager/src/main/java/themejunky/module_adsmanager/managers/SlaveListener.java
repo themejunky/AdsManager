@@ -6,7 +6,7 @@ import themejunky.module_adsmanager.ads.AdsListenerManager;
  * Created by Junky2 on 4/19/2018.
  */
 
-public class SlaveListener implements AdsListenerManager.ListenerNativeAds,AdsListenerManager.ListenerLogs{
+public  class SlaveListener implements AdsListenerManager.NativeListener,AdsListenerManager.ListenerLogs {
     @Override
     public void logs(String logs) {
 
@@ -18,7 +18,7 @@ public class SlaveListener implements AdsListenerManager.ListenerNativeAds,AdsLi
     }
 
     @Override
-    public void loadNativeAds(String type) {
+    public void nativeLoaded() {
 
     }
 }

@@ -1,6 +1,5 @@
 package themejunky.module_adsmanager.ads.interstitialAds;
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.facebook.ads.Ad;
@@ -8,7 +7,6 @@ import com.facebook.ads.AdError;
 import com.facebook.ads.AdSettings;
 import com.facebook.ads.InterstitialAd;
 import com.facebook.ads.InterstitialAdListener;
-import com.google.android.gms.ads.AdRequest;
 
 import themejunky.module_adsmanager.ads.AdsListenerManager;
 
@@ -47,13 +45,12 @@ public class FacebookAdsInterstitial {
             @Override
             public void onError(Ad ad, AdError adError) {
                 listenerLogs.logs("Faceboook error: "+ adError.getErrorMessage());
-                listenerAds.loadInterFailed();
 
             }
 
             @Override
             public void onAdLoaded(Ad ad) {
-                listenerAds.loadedInterAds();
+                if(listenerAds!=null)listenerAds.loadedInterstitialAds();
                 listenerLogs.logs("Faceboook: is Loaded");
             }
 
