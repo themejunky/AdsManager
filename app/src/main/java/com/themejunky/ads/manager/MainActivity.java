@@ -37,21 +37,36 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+      //  flowAds.add("admob");
+        flowAds.add("appnext");
+        flowAds.add("facebook");
 
-        flowAds.add("admob");
+       moduleSuperManager = new ModuleSuperManager();
+        moduleSuperManager.setListenerAds(this);
+        moduleSuperManager.initManagers(this,true);
+        moduleSuperManager.setLogName("wwawq");
 
-
-        moduleSuperManager = new ModuleSuperManager(this,true);
-        moduleSuperManager.setLogName("logtest");
-
-        moduleSuperManager.getManagerNative().setViewNative(findViewById(R.id.containerAdmob));
         moduleSuperManager.getManagerNative().setNativeFlow(flowAds);
-
         moduleSuperManager.getManagerNative().iniNativeFacebook("833164856890775_838240766383184");
         moduleSuperManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159");
         moduleSuperManager.getManagerNative().iniNativeAppnext("cdd052e2-9394-407c-99d4-323439dd7398");
 
+        moduleSuperManager.getManagerInterstitial().setInterstitialFlow(flowAds);
+        moduleSuperManager.getManagerInterstitial().initInterstitialAppnext("95620754-d968-4e6a-a5da-7ece51d9cacd");
+       // moduleSuperManager.getManagerInterstitial().initInterstitialFacebook("156810341634297_156813291634002");
         moduleSuperManager.getManagerInterstitial().initInterstitialAdmob("ca-app-pub-5322508131338449/2877444211");
+       /* moduleSuperManager.getManagerInterstitial().initInterstitialAdmob("ca-app-pub-5322508131338449/2877444211");
+        moduleSuperManager.getManagerInterstitial().initInterstitialAppnext("95620754-d968-4e6a-a5da-7ece51d9cacd");*/
+        //  moduleSuperManager.getManagerNative().setViewNative(findViewById(R.id.containerAdmob));
+
+         // moduleSuperManager.getManagerNative().setNativeFlow(flowAds);
+
+  /*      moduleSuperManager.getManagerNative().iniNativeFacebook("833164856890775_838240766383184");
+        moduleSuperManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159");
+        moduleSuperManager.getManagerNative().iniNativeAppnext("cdd052e2-9394-407c-99d4-323439dd7398");*//*
+
+        moduleSuperManager.getManagerInterstitial().initInterstitialAdmob("ca-app-pub-5322508131338449/2877444211");
+        moduleSuperManager.getManagerInterstitial().initInterstitialAppnext("8106d659-a20b-4640-943b-d6b0aab18d08");*/
 
 
 
@@ -107,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
     @Override
     public void afterInterstitialIsClosed(String action) {
-        Log.d("TestLogs","loadedAds");
+        Log.d("TestLogs","afterInterstitialIsClosed");
         switch (action){
             case Action.APPLY:
                 startActivity(new Intent(this,ApplyActivity.class));
@@ -129,18 +144,6 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     @Override
     public void loadedInterstitialAds() {
 
-        if (splash.getVisibility()== View.VISIBLE ) {
-            Log.d("TestLogs","intra in metoda loaded");
-            Log.d("loadereee","dispari");
-            splash.setVisibility(View.GONE);
-            layoutButtons.setVisibility(View.VISIBLE);
-
-            // showAds(this,"in");
-
-
-        } else {
-            Log.d("loadereee","ai disparut");
-        }
 
     }
 

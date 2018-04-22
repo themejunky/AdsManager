@@ -1,6 +1,7 @@
 package themejunky.module_adsmanager.ads.interstitialAds;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -8,35 +9,37 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
 import themejunky.module_adsmanager.ads.AdsListenerManager;
+import themejunky.module_adsmanager.managers.ManagerBase;
 
 
 /**
  * Created by Alin on 4/24/2017.
  */
 
-public class AdmobInterstitialAds extends InterstitialBase {
+public class AdmobInterstitialAds extends ManagerBase {
+    private final Context context;
     public InterstitialAd interstitialAdmob;
     private static AdmobInterstitialAds mInstance = null;
     public static String adUnitId;
-    private AdsListenerManager.ListenerAds listenerAds;
     private AdsListenerManager.ListenerLogs listenerLogs;
 
 
-    public AdmobInterstitialAds(Context context, String adUnitId, AdsListenerManager.ListenerLogs listenerLogs, AdsListenerManager.ListenerAds listenerAds){
-        nContext = context;
+    public AdmobInterstitialAds(Context context, String adUnitId, AdsListenerManager.ListenerLogs listenerLogs){
+        this.context = context;
         this.listenerLogs = listenerLogs;
-        this.listenerAds = listenerAds;
         initAdmobInterstitial(adUnitId);
+        Log.d("TestLogs","AdmobInterstitialAds "+nameLogs);
     }
 
     public void setAdmobInterMuted(){
-        MobileAds.initialize(nContext);
+        MobileAds.initialize(context);
         MobileAds.setAppMuted(true);
     }
 
 
     public void initAdmobInterstitial(String adUnitId ) {
-        interstitialAdmob = new com.google.android.gms.ads.InterstitialAd(nContext);
+        Log.d("TestLogs","initAdmobInterstitial "+nameLogs);
+        interstitialAdmob = new com.google.android.gms.ads.InterstitialAd(context);
         if (adUnitId != null) {
             interstitialAdmob.setAdUnitId(adUnitId);
             listenerLogs.logs("Admob Interstitial: initialized");
@@ -103,8 +106,8 @@ public class AdmobInterstitialAds extends InterstitialBase {
         interstitialAdmob.loadAd(adRequest);
     }
 
-    public synchronized static AdmobInterstitialAds getmInstance(Context context, String adUnitId, AdsListenerManager.ListenerLogs listenerLogs, AdsListenerManager.ListenerAds listenerAds) {
-        if (mInstance == null) mInstance = new AdmobInterstitialAds(context,adUnitId,listenerLogs,listenerAds);
+    public synchronized static AdmobInterstitialAds getInstance(Context context, String adUnitId, AdsListenerManager.ListenerLogs listenerLogs) {
+        if (mInstance == null) mInstance = new AdmobInterstitialAds(context,adUnitId,listenerLogs);
         return mInstance;
 
     }

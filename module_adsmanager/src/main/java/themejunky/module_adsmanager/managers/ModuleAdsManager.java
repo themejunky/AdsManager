@@ -38,7 +38,7 @@ public class ModuleAdsManager  implements AdsListenerManager.ListenerLogs,AdsLis
     private LayoutInflater factory;
     private int next;
     private Context activity;
-    private static List<String> addsFlow = new ArrayList<>();
+    private static List<String> addsFlowNative = new ArrayList<>();
     private View inflateView;
     private boolean isFacebookInitialized, isAdmobInitialized;
     private FacebookAdsInterstitial facebookAds;
@@ -82,19 +82,19 @@ public class ModuleAdsManager  implements AdsListenerManager.ListenerLogs,AdsLis
         this.facebookView = facebookView;
         this.admobView = admobView;
         this.appnextView = appnextView;
-        addsFlow = flowAds;
+        addsFlowNative = flowAds;
         runAdds_Part1Native();
 
     }
 
     public void setNaiveAdsFlow(List<String> flowAds){
-        addsFlow = flowAds;
+        addsFlowNative = flowAds;
 
     }
 
     public void setInterFlowAndShowAds(List<String> flowAds, String action) {
         this.action = action;
-        addsFlow = flowAds;
+        addsFlowNative = flowAds;
         runAdds_Part1Inter();
 
     }
@@ -201,9 +201,9 @@ public class ModuleAdsManager  implements AdsListenerManager.ListenerLogs,AdsLis
 
     private void runAdds_Part2Native() {
         this.next++;
-        if (next < addsFlow.size() && activity != null) {
-            Log.d(nameLogs, "flow: " + "Flow: "+addsFlow.get(next));
-            switch (addsFlow.get(next)) {
+        if (next < addsFlowNative.size() && activity != null) {
+            Log.d(nameLogs, "flow: " + "Flow: "+addsFlowNative.get(next));
+            switch (addsFlowNative.get(next)) {
 
                 case ConstantsAds.ADMOB:
                     Log.d(nameLogs, "Admob Native 1");
@@ -259,8 +259,8 @@ public class ModuleAdsManager  implements AdsListenerManager.ListenerLogs,AdsLis
     private void runAdds_Part2Inter() {
 
         this.next++;
-        if (next < addsFlow.size() && activity != null) {
-            switch (addsFlow.get(next)) {
+        if (next < addsFlowNative.size() && activity != null) {
+            switch (addsFlowNative.get(next)) {
 
                 case ConstantsAds.ADMOB:
                     Log.d("ShowFlow", "ADMOB INTER 1");

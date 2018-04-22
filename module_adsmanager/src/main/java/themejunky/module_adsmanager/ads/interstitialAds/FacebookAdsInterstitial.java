@@ -1,6 +1,7 @@
 package themejunky.module_adsmanager.ads.interstitialAds;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
@@ -9,25 +10,30 @@ import com.facebook.ads.InterstitialAd;
 import com.facebook.ads.InterstitialAdListener;
 
 import themejunky.module_adsmanager.ads.AdsListenerManager;
+import themejunky.module_adsmanager.managers.ManagerBase;
 
 
-public class FacebookAdsInterstitial {
+public class FacebookAdsInterstitial extends ManagerBase {
     public static FacebookAdsInterstitial mInstance = null;
+    private final Context context;
     private InterstitialAd interstitialAd;
-    private AdsListenerManager.ListenerAds listenerAds;
     private AdsListenerManager.ListenerLogs listenerLogs;
 
-    public FacebookAdsInterstitial(AdsListenerManager.ListenerLogs listenerLogs, AdsListenerManager.ListenerAds listenerAds){
+    public FacebookAdsInterstitial(Context context, String keyFacebook,AdsListenerManager.ListenerLogs listenerLogs){
         this.listenerLogs = listenerLogs;
-        this.listenerAds = listenerAds;
+        this.context = context;
+        initFacebookInterstitial(keyFacebook);
         AdSettings.addTestDevice("f5726d6130e7bc96ef669e32ea0ae59e");
     }
 
 
 
-    public void initFacebookInterstitial(Context activity, String keyFacebook) {
-        interstitialAd = new InterstitialAd(activity, keyFacebook);
+    public void initFacebookInterstitial(String keyFacebook) {
+        Log.d("oopo","1");
+        interstitialAd = new InterstitialAd(context, keyFacebook);
+        Log.d("oopo","2");
         listenerLogs.logs("Facebook:  initialized");
+        Log.d("oopo","3");
         interstitialAd.setAdListener(new InterstitialAdListener() {
 
             @Override
@@ -45,13 +51,14 @@ public class FacebookAdsInterstitial {
             @Override
             public void onError(Ad ad, AdError adError) {
                 listenerLogs.logs("Faceboook error: "+ adError.getErrorMessage());
-
+                Log.d("oopo","Faceboook error: "+ adError.getErrorMessage());
             }
 
             @Override
             public void onAdLoaded(Ad ad) {
                 if(listenerAds!=null)listenerAds.loadedInterstitialAds();
                 listenerLogs.logs("Faceboook: is Loaded");
+                Log.d("oopo","Faceboook: is Loaded");
             }
 
             @Override
@@ -64,8 +71,9 @@ public class FacebookAdsInterstitial {
 
             }
         });
+        Log.d("oopo","4");
         interstitialAd.loadAd();
-
+        Log.d("oopo","5");
     }
 
     public  void showInterstitialFacebook() {
@@ -88,8 +96,8 @@ public class FacebookAdsInterstitial {
         }
     }
 
-    public synchronized static FacebookAdsInterstitial getmInstance(AdsListenerManager.ListenerLogs listenerLogs,AdsListenerManager.ListenerAds listenerAds) {
-        if (mInstance == null) mInstance = new FacebookAdsInterstitial(listenerLogs,listenerAds);
+    public synchronized static FacebookAdsInterstitial getInstance(Context context, String keyFacebook,AdsListenerManager.ListenerLogs listenerLogs) {
+        if (mInstance == null) mInstance = new FacebookAdsInterstitial(context,keyFacebook,listenerLogs);
         return mInstance;
     }
 
