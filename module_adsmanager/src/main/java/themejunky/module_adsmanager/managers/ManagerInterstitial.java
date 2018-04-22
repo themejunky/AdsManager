@@ -26,10 +26,6 @@ public class ManagerInterstitial extends ManagerBase {
         this.mContext = nContext;
     }
 
-    public void setInterstitialFlow(List<String> flow){
-        addsFlowInterstitial = flow;
-    }
-
     public void initInterstitialAdmob(String keyInterstitialAdmob) {
         admobInterstitialAds = AdmobInterstitialAds.getInstance(mContext, keyInterstitialAdmob, this);
         Log.d("TestLogs","initInterstitialAdmob "+nameLogs);
