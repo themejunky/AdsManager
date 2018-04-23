@@ -1,9 +1,6 @@
 package themejunky.module_adsmanager;
 
 import android.content.Context;
-import android.util.Log;
-
-
 import themejunky.module_adsmanager.ads.AdsListenerManager;
 import themejunky.module_adsmanager.managers.ManagerBase;
 import themejunky.module_adsmanager.managers.ManagerInterstitial;
@@ -21,23 +18,20 @@ public class ModuleAdsManager extends ManagerBase implements AdsListenerManager.
 
     /**
      * @param nContext - context
-     * @param showAds - show native and interstitial ads
      * @param reloaded - reload ads every time an interstitial is closed
      */
-    public void initManagers(Context nContext, boolean showAds,boolean reloaded){
-        if (showAds){
+    public void initManagers(Context nContext,boolean reloaded){
             isReloaded = reloaded;
             managerNative = ManagerNative.getInstance(nContext);
             managerInterstitial = ManagerInterstitial.getInstance(nContext);
-        }
     }
 
     public ManagerNative getManagerNative() {
-        return managerNative;
+            return managerNative;
     }
 
     public ManagerInterstitial getManagerInterstitial() {
-        return managerInterstitial;
+            return managerInterstitial;
     }
 
     public void setLogName(String nNameLog){

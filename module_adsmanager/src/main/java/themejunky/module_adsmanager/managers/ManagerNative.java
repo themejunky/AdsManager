@@ -47,7 +47,7 @@ public class ManagerNative extends ManagerBase {
     }
 
     public void setNativeFlow(List<String> flow){
-        addsFlowNative = flow;
+        if(flow!=null && flow.size()>0)addsFlowNative = flow;
     }
 
     private void runAdds_Part1Native() {

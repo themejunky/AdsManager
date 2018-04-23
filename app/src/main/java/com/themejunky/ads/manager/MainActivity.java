@@ -46,18 +46,17 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
        moduleAdsManager = new ModuleAdsManager();
         moduleAdsManager.setListenerAds(this);
-        moduleAdsManager.initManagers(this,true,true);
+        moduleAdsManager.initManagers(this,true);
         moduleAdsManager.setLogName("wwawq");
 
         moduleAdsManager.getManagerNative().setNativeFlow(flowAds);
-
-
+        moduleAdsManager.getManagerNative().setViewNative(findViewById(R.id.containerAdmob));
 
         moduleAdsManager.getManagerNative().iniNativeFacebook("833164856890775_838240766383184");
         moduleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159");
         moduleAdsManager.getManagerNative().iniNativeAppnext("cdd052e2-9394-407c-99d4-323439dd7398");
 
-        moduleAdsManager.getManagerNative().setViewNative(findViewById(R.id.containerAdmob));
+
         moduleAdsManager.getManagerInterstitial().initInterstitialAppnext("95620754-d968-4e6a-a5da-7ece51d9cacd");
         moduleAdsManager.getManagerInterstitial().initInterstitialFacebook("156810341634297_156813291634002");
         moduleAdsManager.getManagerInterstitial().initInterstitialAdmob("ca-app-pub-5322508131338449/2877444211");
