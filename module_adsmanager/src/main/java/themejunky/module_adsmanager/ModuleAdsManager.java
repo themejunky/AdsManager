@@ -20,10 +20,9 @@ public class ModuleAdsManager extends ManagerBase implements AdsListenerManager.
     private ManagerInterstitial managerInterstitial;
 
     /**
-     *
-     * @param nContext
-     * @param showAds
-     * @param reloaded
+     * @param nContext - context
+     * @param showAds - show native and interstitial ads
+     * @param reloaded - reload ads every time an interstitial is closed
      */
     public void initManagers(Context nContext, boolean showAds,boolean reloaded){
         if (showAds){

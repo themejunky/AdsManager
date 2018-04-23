@@ -43,8 +43,6 @@ public class AdmobNativeAds extends NativeBase {
         initAdmobNativeAdvance(key);
     }
 
-
-
     public void initAdmobNativeAdvance(String idUnitAdmob) {
         adLoader = new AdLoader.Builder(nContext, idUnitAdmob)
                 .forContentAd(new NativeContentAd.OnContentAdLoadedListener() {

@@ -8,11 +8,7 @@
     android:gravity="center"
     tools:context="com.themejunky.ads.manager.ApplyActivity">
 
-    <RelativeLayout
-        android:id="@+id/relativeId"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#80000000">
+
 
 
     <Button
@@ -30,8 +26,6 @@
         android:layout_alignParentBottom="true"
         android:visibility="visible" />
 
-
-    </RelativeLayout>
 
 
 </RelativeLayout>

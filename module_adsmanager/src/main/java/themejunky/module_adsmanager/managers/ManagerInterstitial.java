@@ -29,16 +29,13 @@ public class ManagerInterstitial extends ManagerBase {
     }
 
     public void initInterstitialAdmob(String keyInterstitialAdmob) {
-        admobInterstitialAds = AdmobInterstitialAds.getInstance(mContext, keyInterstitialAdmob, this);
-    }
+        admobInterstitialAds = AdmobInterstitialAds.getInstance(mContext, keyInterstitialAdmob, this);}
 
     public void initInterstitialAppnext(String keyInterstitialAppnext) {
-        appnextAdsInterstitial = AppnextAdsInterstitial.getInstance(mContext, keyInterstitialAppnext, this);
-    }
+        appnextAdsInterstitial = AppnextAdsInterstitial.getInstance(mContext, keyInterstitialAppnext, this);}
 
     public void initInterstitialFacebook(String keyInterstitialFacebook) {
-        facebookAdsInterstitial = FacebookAdsInterstitial.getInstance(mContext, keyInterstitialFacebook, this);
-    }
+        facebookAdsInterstitial = FacebookAdsInterstitial.getInstance(mContext, keyInterstitialFacebook, this);}
 
     public boolean isSomeAdLoaded() {
 

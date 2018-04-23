@@ -8,17 +8,11 @@ import themejunky.module_adsmanager.ads.AdsListenerManager;
 
 public  class SlaveListener implements AdsListenerManager.NativeListener,AdsListenerManager.ListenerLogs {
     @Override
-    public void logs(String logs) {
-
-    }
+    public void logs(String logs) {}
 
     @Override
-    public void isClosedInterAds() {
-
-    }
+    public void isClosedInterAds() {}
 
     @Override
-    public void nativeLoaded() {
-
-    }
+    public void nativeLoaded() {}
 }
