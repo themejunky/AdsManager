@@ -46,7 +46,7 @@ public class ModuleAdsManager extends ManagerBase implements AdsListenerManager.
     }
 
     public void setListenerAds(AdsListenerManager.ListenerAds nListenerAds){
-       if(listenerAds!=null) listenerAds = nListenerAds;
+        if(nListenerAds!=null) listenerAds = nListenerAds;
     }
 
     @Override

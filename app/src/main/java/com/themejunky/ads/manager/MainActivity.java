@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
        moduleAdsManager = new ModuleAdsManager();
         moduleAdsManager.setListenerAds(this);
-        moduleAdsManager.initManagers(this,false,false);
+        moduleAdsManager.initManagers(this,true,true);
         moduleAdsManager.setLogName("wwawq");
 
         moduleAdsManager.getManagerNative().setNativeFlow(flowAds);

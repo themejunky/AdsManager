@@ -38,6 +38,11 @@ public class AdmobInterstitialAds extends ManagerBase {
 
 
     public void initAdmobInterstitial(String adUnitId ) {
+        if(listenerAds==null){
+            Log.d("Adwda","initAdmobInterstitial Este null");
+        }else {
+            Log.d("Adwda","initAdmobInterstitial Nu este null");
+        }
         Log.d("TestLogs","initAdmobInterstitial "+nameLogs);
         interstitialAdmob = new com.google.android.gms.ads.InterstitialAd(context);
         if (adUnitId != null) {
