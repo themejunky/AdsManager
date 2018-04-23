@@ -16,7 +16,7 @@ import themejunky.module_adsmanager.managers.ManagerBase;
 public class FacebookAdsInterstitial extends ManagerBase {
     public static FacebookAdsInterstitial mInstance = null;
     private final Context context;
-    private InterstitialAd interstitialAd;
+    public InterstitialAd interstitialAd;
     private AdsListenerManager.ListenerLogs listenerLogs;
 
     public FacebookAdsInterstitial(Context context, String keyFacebook,AdsListenerManager.ListenerLogs listenerLogs){
@@ -43,7 +43,10 @@ public class FacebookAdsInterstitial extends ManagerBase {
 
             @Override
             public void onInterstitialDismissed(Ad ad) {
-                interstitialAd.loadAd();
+
+                if(isReloaded){
+                    interstitialAd.loadAd();
+                }
                 listenerLogs.logs("Facebook : dismissed!");
                 listenerLogs.isClosedInterAds();
             }
@@ -58,7 +61,6 @@ public class FacebookAdsInterstitial extends ManagerBase {
             public void onAdLoaded(Ad ad) {
                 if(listenerAds!=null)listenerAds.loadedInterstitialAds();
                 listenerLogs.logs("Faceboook: is Loaded");
-                Log.d("oopo","Faceboook: is Loaded");
             }
 
             @Override

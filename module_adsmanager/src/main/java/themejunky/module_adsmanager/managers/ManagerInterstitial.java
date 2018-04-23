@@ -3,6 +3,8 @@ package themejunky.module_adsmanager.managers;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.android.gms.ads.AdRequest;
+
 import java.util.List;
 
 import themejunky.module_adsmanager.ads.interstitialAds.AdmobInterstitialAds;
@@ -28,7 +30,6 @@ public class ManagerInterstitial extends ManagerBase {
 
     public void initInterstitialAdmob(String keyInterstitialAdmob) {
         admobInterstitialAds = AdmobInterstitialAds.getInstance(mContext, keyInterstitialAdmob, this);
-        Log.d("TestLogs","initInterstitialAdmob "+nameLogs);
     }
 
     public void initInterstitialAppnext(String keyInterstitialAppnext) {
@@ -53,6 +54,11 @@ public class ManagerInterstitial extends ManagerBase {
 
     }
 
+    public void reLoadedInterstitial(){
+        admobInterstitialAds.interstitialAdmob.loadAd(new AdRequest.Builder().addTestDevice("74df1a5b43f90b50dd8ea33699814380").build());
+        facebookAdsInterstitial.interstitialAd.loadAd();
+    }
+
     private void runAdds_Part1Interstitial() {
         next = -1;
         runAdds_Part2Interstitial();
@@ -62,7 +68,6 @@ public class ManagerInterstitial extends ManagerBase {
         this.action = action;
         addsFlowInterstitial = flow;
         runAdds_Part1Interstitial();
-
     }
 
     private void runAdds_Part2Interstitial() {

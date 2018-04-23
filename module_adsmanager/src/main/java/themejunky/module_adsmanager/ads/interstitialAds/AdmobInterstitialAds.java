@@ -47,7 +47,9 @@ public class AdmobInterstitialAds extends ManagerBase {
                 @Override
                 public void onAdClosed() {
                     super.onAdClosed();
-                    interstitialAdmob.loadAd(new AdRequest.Builder().addTestDevice("74df1a5b43f90b50dd8ea33699814380").build());
+                    if(isReloaded){
+                        interstitialAdmob.loadAd(new AdRequest.Builder().addTestDevice("74df1a5b43f90b50dd8ea33699814380").build());
+                    }
                     listenerLogs.logs("Admob Interstitial: Closed");
                     listenerLogs.isClosedInterAds();
                 }

@@ -16,20 +16,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import themejunky.module_adsmanager.ads.AdsListenerManager;
-import themejunky.module_adsmanager.managers.ModuleSuperManager;
+import themejunky.module_adsmanager.ModuleAdsManager;
 import themejunky.module_adsmanager.utils.Action;
 
 
 public class MainActivity extends AppCompatActivity implements AdsListenerManager.ListenerAds,View.OnClickListener {
 
     private List<String>flowAds = new ArrayList<>();
-    private  ModuleSuperManager moduleSuperManager;
+    private ModuleAdsManager moduleAdsManager;
     private Button apply,rate,getMore;
     private View viewButtons;
     private ImageView splash;
     private LinearLayout layoutButtons;
     private byte nrFailedLoad=0;
     private RelativeLayout containerFacebook,mContainerAdmob ,containerAppnext;
+    private boolean isLoaded;
 
 
     @Override
@@ -37,76 +38,34 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-      //  flowAds.add("admob");
-        flowAds.add("appnext");
+
         flowAds.add("facebook");
-
-       moduleSuperManager = new ModuleSuperManager();
-        moduleSuperManager.setListenerAds(this);
-        moduleSuperManager.initManagers(this,true);
-        moduleSuperManager.setLogName("wwawq");
-
-        moduleSuperManager.getManagerNative().setNativeFlow(flowAds);
-        moduleSuperManager.getManagerNative().iniNativeFacebook("833164856890775_838240766383184");
-        moduleSuperManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159");
-        moduleSuperManager.getManagerNative().iniNativeAppnext("cdd052e2-9394-407c-99d4-323439dd7398");
-
-        moduleSuperManager.getManagerInterstitial().setInterstitialFlow(flowAds);
-        moduleSuperManager.getManagerInterstitial().initInterstitialAppnext("95620754-d968-4e6a-a5da-7ece51d9cacd");
-       // moduleSuperManager.getManagerInterstitial().initInterstitialFacebook("156810341634297_156813291634002");
-        moduleSuperManager.getManagerInterstitial().initInterstitialAdmob("ca-app-pub-5322508131338449/2877444211");
-       /* moduleSuperManager.getManagerInterstitial().initInterstitialAdmob("ca-app-pub-5322508131338449/2877444211");
-        moduleSuperManager.getManagerInterstitial().initInterstitialAppnext("95620754-d968-4e6a-a5da-7ece51d9cacd");*/
-        //  moduleSuperManager.getManagerNative().setViewNative(findViewById(R.id.containerAdmob));
-
-         // moduleSuperManager.getManagerNative().setNativeFlow(flowAds);
-
-  /*      moduleSuperManager.getManagerNative().iniNativeFacebook("833164856890775_838240766383184");
-        moduleSuperManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159");
-        moduleSuperManager.getManagerNative().iniNativeAppnext("cdd052e2-9394-407c-99d4-323439dd7398");*//*
-
-        moduleSuperManager.getManagerInterstitial().initInterstitialAdmob("ca-app-pub-5322508131338449/2877444211");
-        moduleSuperManager.getManagerInterstitial().initInterstitialAppnext("8106d659-a20b-4640-943b-d6b0aab18d08");*/
+        flowAds.add("admob");
+        flowAds.add("appnext");
 
 
-
-
-
-
-      /*  moduleAdsManager = ModuleAdsManager.getInstance(this,true);
-      //  moduleAdsManager.initNativeAdmob(this,"ca-app-pub-8562466601970101/5081303159");
-        moduleAdsManager.setLogs("testlog");
-
-        moduleAdsManager.setNaiveAdsFlow(flowAds);
-        moduleAdsManager.initNativeAdmob(this,"ca-app-pub-8562466601970101/5081303159");
-        //moduleAdsManager.setViewAdmobNative( findViewById(R.id.containerAdmob));*/
-
-
-
-
-
-      /*  moduleAdsManager = ModuleAdsManager.getInstance(this,true);
+       moduleAdsManager = new ModuleAdsManager();
         moduleAdsManager.setListenerAds(this);
-        moduleAdsManager.initializeInterlAds(true);
-        moduleAdsManager.initializeNativeAds(true,false);
+        moduleAdsManager.initManagers(this,false,false);
+        moduleAdsManager.setLogName("wwawq");
 
-        moduleAdsManager.initInterstitialAdmobAds("ca-app-pub-5322508131338449/2877444211");
-        moduleAdsManager.initInterstitialFacebookAds("989309397888813_993580754128344");
-        moduleAdsManager.initInterstitialAppNextAds("8106d659-a20b-4640-943b-d6b0aab18d08");
-
-        containerFacebook.removeAllViews();
-        containerFacebook.addView(moduleAdsManager.getAllViewAds("facebook"));
-        containerAdmob.removeAllViews();
-        containerAdmob.addView(moduleAdsManager.getAllViewAds("admob"));
-        containerAppnext.removeAllViews();
-        containerAppnext.addView(moduleAdsManager.getAllViewAds("appnext"));
+        moduleAdsManager.getManagerNative().setNativeFlow(flowAds);
+        moduleAdsManager.getManagerNative().setViewNative(findViewById(R.id.containerAdmob));
 
 
-        moduleAdsManager.setLogs("InfoAds");
-        moduleAdsManager.initAdmobNativeAds(containerAdmob,"ca-app-pub-8562466601970101/5081303159");
-        moduleAdsManager.initAppnextNativeAds(containerAppnext,"cdd052e2-9394-407c-99d4-323439dd7398");*/
+        moduleAdsManager.getManagerNative().iniNativeFacebook("833164856890775_838240766383184");
+        moduleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159");
+        moduleAdsManager.getManagerNative().iniNativeAppnext("cdd052e2-9394-407c-99d4-323439dd7398");
 
-       //moduleAdsManager.initFacebookNativeAds(containerFacebook,"989309397888813_993580754128344");
+        moduleAdsManager.getManagerInterstitial().initInterstitialAppnext("95620754-d968-4e6a-a5da-7ece51d9cacd");
+        moduleAdsManager.getManagerInterstitial().initInterstitialFacebook("156810341634297_156813291634002");
+        moduleAdsManager.getManagerInterstitial().initInterstitialAdmob("ca-app-pub-5322508131338449/2877444211");
+
+
+
+
+
+
     }
 
     public void initView(){
@@ -143,8 +102,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
     @Override
     public void loadedInterstitialAds() {
-
-
+        isLoaded=true;
     }
 
 
@@ -164,9 +122,11 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         viewButtons = v;
         switch (viewButtons.getId()) {
             case R.id.applyid:
-                if ( moduleSuperManager.getManagerInterstitial().isSomeAdLoaded()) {
+                moduleAdsManager.getManagerInterstitial().reLoadedInterstitial();
+
+                if ( moduleAdsManager.getManagerInterstitial().isSomeAdLoaded()) {
                     Log.d("TestButton", "1");
-                    moduleSuperManager.getManagerInterstitial().showInterstitial(flowAds,"intro");
+                    moduleAdsManager.getManagerInterstitial().showInterstitial(flowAds,"intro");
                     Log.d("TestButton", "2");
                 } else {
                     Log.d("TestButton", "3");

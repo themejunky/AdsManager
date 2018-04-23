@@ -34,17 +34,13 @@ public class AppnextAdsInterstitial extends ManagerBase {
 
     //initAppnext(activity,"8106d659-a20b-4640-943b-d6b0aab18d08");
     public void initAppnext(String placementID) {
-        Log.d("aew3we","1");
         Appnext.init(context);
         Log.d("aew3we","2");
         interstitialAppnext = new Interstitial(context, placementID);
-        Log.d("aew3we","3");
         listenerLogs.logs("Appnext inter: initialized");
-        Log.d("aew3we","4");
         interstitialAppnext.setOnAdClosedCallback(new OnAdClosed() {
             @Override
             public void onAdClosed() {
-                Log.d("aew3we","5");
                 listenerLogs.logs("Appnext inter: Closed");
                 listenerLogs.isClosedInterAds();
             }
@@ -62,15 +58,10 @@ public class AppnextAdsInterstitial extends ManagerBase {
                 listenerLogs.logs("Appnext inter: is Loaded");
             }
         });
-        Log.d("aew3we","5");
         interstitialAppnext.setBackButtonCanClose(true);
-        Log.d("aew3we","6");
         interstitialAppnext.setMute(true);
-        Log.d("aew3we","7");
         interstitialAppnext.setAutoPlay(true);
-        Log.d("aew3we","8");
         interstitialAppnext.loadAd();
-        Log.d("aew3we","9");
 
     }
 

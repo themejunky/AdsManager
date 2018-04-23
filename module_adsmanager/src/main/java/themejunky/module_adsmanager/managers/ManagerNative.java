@@ -23,7 +23,6 @@ public class ManagerNative extends ManagerBase {
     private AppnextNativeAds appnextNativeAds;
     private FacebookNativeAds facebookNativeAds;
     private static ManagerNative instance =null;
-    private boolean isOneLoaded=true;
 
     public ManagerNative(Context nContext){
         this.mContext = nContext;
@@ -41,14 +40,16 @@ public class ManagerNative extends ManagerBase {
     }
 
     public void setViewNative(View nContainerView){
-        containerNativeView=nContainerView ;
+        Log.d("wawa","2");
+        if(admobNativeAds!=null && containerNativeView!=null){
+            containerNativeView=nContainerView ;
+        }
     }
 
     @Override
     public void nativeLoaded() {
         runAdds_Part1Native();
     }
-
 
 
     public void setNativeFlow(List<String> flow){

@@ -20,6 +20,7 @@ public class ManagerBase extends SlaveListener {
     public static String action="debugTest";
     protected View containerNativeView;
     protected static AdsListenerManager.ListenerAds listenerAds ;
+    protected static boolean isReloaded;
 
 
 
