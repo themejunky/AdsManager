@@ -48,19 +48,21 @@ public class AppnextNativeAds extends NativeBase {
 
     public void initAppnextNativeAdvance(String idUnitAppnext) {
         Appnext.init(nContext);
-
-        mAdView = mInflateLayout(R.layout.ad_appnext);
-        setViews(mAdView);
-
-        mediaView.setMute(true);
-        mediaView.setAutoPLay(true);
-        mediaView.setClickEnabled(true);
         nativeAd = new NativeAd(nContext, idUnitAppnext);
 
         nativeAd.setAdListener(new NativeAdListener() {
             @Override
             public void onAdLoaded(NativeAd nativeAd) {
                 super.onAdLoaded(nativeAd);
+
+                mAdView = mInflateLayout(R.layout.ad_appnext);
+                setViews(mAdView);
+
+                mediaView.setMute(true);
+                mediaView.setAutoPLay(true);
+                mediaView.setClickEnabled(true);
+
+                listenerLogs.logs("Appnex Native: Loaded");
                 nativeAd.setMediaView(mediaView);
                 nativeAd.downloadAndDisplayImage(imageView, nativeAd.getIconURL());
                 textView.setText(nativeAd.getAdTitle());
@@ -68,13 +70,10 @@ public class AppnextNativeAds extends NativeBase {
                 description.setText(nativeAd.getAdDescription());
                 nativeAd.registerClickableViews(viewArrayList);
                 nativeAd.setNativeAdView(nativeAdView);
-                if(nativeAd.getAdTitle()!=null){
-                    listenerLogs.logs("Appnex Native: Loaded");
-                    isAppnextNativeLoaded = true;
-                    if(listenerAds!=null) listenerAds.loadedNativeAds("appnext");
-                    nativeListener.nativeLoaded();
+                isAppnextNativeLoaded = true;
+                if(listenerAds!=null) listenerAds.loadedNativeAds("appnext");
+                nativeListener.nativeLoaded();
 
-                }
 
             }
 
