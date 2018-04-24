@@ -52,9 +52,8 @@ public class AdmobNativeAds extends NativeBase {
                         mAdView = mInflateLayout(R.layout.ad_content);
                         if(listenerAds!=null) listenerAds.loadedNativeAds("admob");
                         listenerLogs.logs("Admob Native: ad_content Loaded");
-                        nativeListener.nativeLoaded();
                         populateContentAdView(contentAd, (NativeContentAdView) mAdView);
-
+                        nativeListener.nativeLoaded();
                     }
                 })
                 .forAppInstallAd(new NativeAppInstallAd.OnAppInstallAdLoadedListener() {
@@ -62,10 +61,9 @@ public class AdmobNativeAds extends NativeBase {
                     public void onAppInstallAdLoaded(NativeAppInstallAd appInstallAd) {
                         mAdView = mInflateLayout(R.layout.ad_app_install);
                         listenerLogs.logs("Admob Native: ad_app_install Loaded");
-                        nativeListener.nativeLoaded();
                         listenerAds.loadedNativeAds("admob");
                         populateAppInstallAdView(appInstallAd, (NativeAppInstallAdView) mAdView);
-
+                        nativeListener.nativeLoaded();
                     }
                 })
                 .withAdListener(new AdListener() {

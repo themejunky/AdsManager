@@ -56,7 +56,7 @@ public class FacebookNativeAds extends NativeBase {
                 }
 
                 listenerLogs.logs("Facebook Native: onAdLoaded");
-                nativeListener.nativeLoaded();
+
                 mAdView = mInflateLayout(R.layout.native_ad);
             /*    nativeAdContainer = (LinearLayout) view.findViewById(R.id.native_ad_container);
                 nativeAdContainer.setOrientation(LinearLayout.VERTICAL);
@@ -96,6 +96,10 @@ public class FacebookNativeAds extends NativeBase {
                 clickableViews.add(nativeAdTitle);
                 clickableViews.add(nativeAdCallToAction);
                 nativeAd.registerViewForInteraction(mAdView,clickableViews);
+
+
+                nativeListener.nativeLoaded();
+                Log.d("testare","incarcat FB : "+mAdView);
             }
 
             @Override

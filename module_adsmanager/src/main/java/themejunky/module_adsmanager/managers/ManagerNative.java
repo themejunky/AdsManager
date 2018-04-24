@@ -24,6 +24,8 @@ public class ManagerNative extends ManagerBase {
     private FacebookNativeAds facebookNativeAds;
     private static ManagerNative instance =null;
 
+    private boolean wasShown = false;
+
     public ManagerNative(Context nContext){
         this.mContext = nContext;
     }
@@ -43,19 +45,24 @@ public class ManagerNative extends ManagerBase {
 
     @Override
     public void nativeLoaded() {
-        runAdds_Part1Native();
+        if (!wasShown) {
+            Log.d("testare_flow","intrat");
+            runAdds_Part1Native();
+        } else {
+            Log.d("testare_flow","teapa");
+        }
     }
 
     public void setNativeFlow(List<String> flow){
         if(flow!=null && flow.size()>0)addsFlowNative = flow;
     }
 
-    private void runAdds_Part1Native() {
+    private synchronized void runAdds_Part1Native() {
         next=-1;
         runAdds_Part2Native();
     }
 
-    private void runAdds_Part2Native() {
+    private synchronized void runAdds_Part2Native() {
         next++;
         if (next < addsFlowNative.size()) {
             switch (addsFlowNative.get(next)) {
@@ -75,6 +82,7 @@ public class ManagerNative extends ManagerBase {
                     if (admobNativeAds.getViewNativeAd()!=null && containerNativeView!=null ) {
                         ((RelativeLayout)containerNativeView).removeAllViews();
                         ((RelativeLayout)containerNativeView).addView(admobNativeAds.getViewNativeAd());
+                        wasShown=true;
                     } else {
                         runAdds_Part2Native();
                     }
@@ -94,6 +102,7 @@ public class ManagerNative extends ManagerBase {
                    if (appnextNativeAds.getViewNativeAd()!=null && containerNativeView!=null ) {
                        ((RelativeLayout)containerNativeView).removeAllViews();
                        ((RelativeLayout)containerNativeView).addView(appnextNativeAds.getViewNativeAd());
+                       wasShown=true;
                    } else {
                        runAdds_Part2Native();
                    }
@@ -115,6 +124,7 @@ public class ManagerNative extends ManagerBase {
                      if (facebookNativeAds.getViewNativeAd()!=null && containerNativeView!=null ) {
                          ((RelativeLayout)containerNativeView).removeAllViews();
                          ((RelativeLayout)containerNativeView).addView(facebookNativeAds.getViewNativeAd());
+                         wasShown=true;
                      } else {
                          runAdds_Part2Native();
                      }
