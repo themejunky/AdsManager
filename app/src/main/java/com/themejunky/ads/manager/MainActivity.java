@@ -3,6 +3,7 @@ package com.themejunky.ads.manager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -23,7 +24,7 @@ import themejunky.module_adsmanager.utils.Action;
 public class MainActivity extends AppCompatActivity implements AdsListenerManager.ListenerAds, View.OnClickListener {
 
     private List<String> flowAds = new ArrayList<>();
-    private ModuleAdsManager moduleAdsManager;
+    private ModuleAdsManager mModuleAdsManager;
     private Button apply, rate, getMore;
     private View viewButtons;
     private ImageView splash;
@@ -43,25 +44,27 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         flowAds.add("facebook");
         flowAds.add("appnext");
 
+        mModuleAdsManager = ((MainApplication)getApplication()).moduleAdsManager;
+        mModuleAdsManager.setListenerAds(this);
+        mModuleAdsManager.getManagerNative().setViewNative(findViewById(R.id.containerAdmob));
+        mModuleAdsManager.getManagerNative().setNativeFlow(flowAds);
 
-        moduleAdsManager = new ModuleAdsManager();
-        moduleAdsManager.setListenerAds(this);
-        moduleAdsManager.initManagers(this, true);
-        moduleAdsManager.setLogName("wwawq");
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mModuleAdsManager.getManagerNative().showNativeAds();
+            }
+        },5000);
 
-        moduleAdsManager.getManagerNative().setNativeFlow(flowAds);
 
 
-        moduleAdsManager.getManagerNative().iniNativeFacebook("833164856890775_838240766383184");
-        moduleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159");
-        moduleAdsManager.getManagerNative().iniNativeAppnext("cdd052e2-9394-407c-99d4-323439dd7398");
 
 //
 //        moduleAdsManager.getManagerInterstitial().initInterstitialAppnext("95620754-d968-4e6a-a5da-7ece51d9cacd");
 //        moduleAdsManager.getManagerInterstitial().initInterstitialFacebook("156810341634297_156813291634002");
 //        moduleAdsManager.getManagerInterstitial().initInterstitialAdmob("ca-app-pub-5322508131338449/2877444211");
 
-        moduleAdsManager.getManagerNative().setViewNative(findViewById(R.id.containerAdmob));
+
     }
 
     public void initView() {
@@ -117,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     public void onClick(View v) {
         viewButtons = v;
         switch (viewButtons.getId()) {
-            case R.id.applyid:
+           /* case R.id.applyid:
                 moduleAdsManager.getManagerInterstitial().reLoadedInterstitial();
 
                 if (moduleAdsManager.getManagerInterstitial().isSomeAdLoaded()) {
@@ -128,13 +131,13 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
                     Log.d("TestButton", "3");
                     Toast.makeText(this, "Apply", Toast.LENGTH_SHORT).show();
                 }
-                break;
+                break;*/
         }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        moduleAdsManager.getManagerInterstitial().showInterstitial(flowAds, Action.BACK);
+       // moduleAdsManager.getManagerInterstitial().showInterstitial(flowAds, Action.BACK);
     }
 }

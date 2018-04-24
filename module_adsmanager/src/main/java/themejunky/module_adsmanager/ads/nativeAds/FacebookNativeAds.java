@@ -98,7 +98,6 @@ public class FacebookNativeAds extends NativeBase {
                 nativeAd.registerViewForInteraction(mAdView,clickableViews);
 
 
-                nativeListener.nativeLoaded();
                 Log.d("testare","incarcat FB : "+mAdView);
             }
 

@@ -44,6 +44,7 @@ public class AdmobNativeAds extends NativeBase {
     }
 
     public void initAdmobNativeAdvance(String idUnitAdmob) {
+
         adLoader = new AdLoader.Builder(nContext, idUnitAdmob)
                 .forContentAd(new NativeContentAd.OnContentAdLoadedListener() {
 
@@ -53,7 +54,6 @@ public class AdmobNativeAds extends NativeBase {
                         if(listenerAds!=null) listenerAds.loadedNativeAds("admob");
                         listenerLogs.logs("Admob Native: ad_content Loaded");
                         populateContentAdView(contentAd, (NativeContentAdView) mAdView);
-                        nativeListener.nativeLoaded();
                     }
                 })
                 .forAppInstallAd(new NativeAppInstallAd.OnAppInstallAdLoadedListener() {

@@ -72,7 +72,6 @@ public class AppnextNativeAds extends NativeBase {
                 nativeAd.setNativeAdView(nativeAdView);
                 isAppnextNativeLoaded = true;
                 if(listenerAds!=null) listenerAds.loadedNativeAds("appnext");
-                nativeListener.nativeLoaded();
 
 
             }

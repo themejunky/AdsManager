@@ -30,28 +30,39 @@ public class ManagerNative extends ManagerBase {
         this.mContext = nContext;
     }
 
-    public void initNativeAdmob(String keyAdmob){
-        admobNativeAds = AdmobNativeAds.getInstance(mContext,keyAdmob,this,this);}
+    public void initNativeAdmob(String keyAdmob,boolean newInstance) {
+        if (newInstance) {
+            admobNativeAds = AdmobNativeAds.getInstance(mContext, keyAdmob, this, this);
+        } else {
+            admobNativeAds = new AdmobNativeAds(mContext, keyAdmob, this, this);
+        }
+    }
 
-    public void iniNativeAppnext (String keyAppnext){
-        appnextNativeAds = AppnextNativeAds.getInstance(mContext,keyAppnext,this,this);}
+    public void iniNativeAppnext (String keyAppnext,boolean newInstance){
+        if (newInstance) {
+            appnextNativeAds = new AppnextNativeAds(mContext,keyAppnext,this,this);
+        } else {
+            appnextNativeAds = AppnextNativeAds.getInstance(mContext,keyAppnext,this,this);
+        }
+    }
 
-    public void iniNativeFacebook (String keyFacebook){
-        facebookNativeAds = FacebookNativeAds.getmInstance(mContext,keyFacebook,this,this);}
+    public void iniNativeFacebook (String keyFacebook,boolean newInstance){
+        if (newInstance) {
+            facebookNativeAds = new FacebookNativeAds(mContext,keyFacebook,this,this);
+        } else {
+            facebookNativeAds = FacebookNativeAds.getmInstance(mContext,keyFacebook,this,this);
+        }
+    }
 
     public void setViewNative(View nContainerView){
         if(nContainerView!=null) containerNativeView=nContainerView ;
     }
 
-    @Override
-    public void nativeLoaded() {
-        if (!wasShown) {
-            Log.d("testare_flow","intrat");
-            runAdds_Part1Native();
-        } else {
-            Log.d("testare_flow","teapa");
-        }
+    public void showNativeAds(){
+        Log.d("wwawq","showNativeAds");
+        runAdds_Part1Native();
     }
+
 
     public void setNativeFlow(List<String> flow){
         if(flow!=null && flow.size()>0)addsFlowNative = flow;
