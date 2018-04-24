@@ -20,16 +20,16 @@ import themejunky.module_adsmanager.ModuleAdsManager;
 import themejunky.module_adsmanager.utils.Action;
 
 
-public class MainActivity extends AppCompatActivity implements AdsListenerManager.ListenerAds,View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements AdsListenerManager.ListenerAds, View.OnClickListener {
 
-    private List<String>flowAds = new ArrayList<>();
+    private List<String> flowAds = new ArrayList<>();
     private ModuleAdsManager moduleAdsManager;
-    private Button apply,rate,getMore;
+    private Button apply, rate, getMore;
     private View viewButtons;
     private ImageView splash;
     private LinearLayout layoutButtons;
-    private byte nrFailedLoad=0;
-    private RelativeLayout containerFacebook,mContainerAdmob ,containerAppnext;
+    private byte nrFailedLoad = 0;
+    private RelativeLayout containerFacebook, mContainerAdmob, containerAppnext;
     private boolean isLoaded;
 
 
@@ -43,10 +43,9 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         flowAds.add("admob");
 
 
-
-       moduleAdsManager = new ModuleAdsManager();
+        moduleAdsManager = new ModuleAdsManager();
         moduleAdsManager.setListenerAds(this);
-        moduleAdsManager.initManagers(this,true);
+        moduleAdsManager.initManagers(this, true);
         moduleAdsManager.setLogName("wwawq");
 
         moduleAdsManager.getManagerNative().setNativeFlow(flowAds);
@@ -62,17 +61,13 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         moduleAdsManager.getManagerInterstitial().initInterstitialAdmob("ca-app-pub-5322508131338449/2877444211");
 
 
-
-
-
-
     }
 
-    public void initView(){
+    public void initView() {
         apply = (Button) findViewById(R.id.applyid);
 
 
-        Log.d("TestLogs2","onCreate");
+        Log.d("TestLogs2", "onCreate");
 
         apply.setOnClickListener(this);
 
@@ -81,10 +76,10 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
     @Override
     public void afterInterstitialIsClosed(String action) {
-        Log.d("TestLogs","afterInterstitialIsClosed");
-        switch (action){
+        Log.d("TestLogs", "afterInterstitialIsClosed");
+        switch (action) {
             case Action.APPLY:
-                startActivity(new Intent(this,ApplyActivity.class));
+                startActivity(new Intent(this, ApplyActivity.class));
                 break;
             case "rate":
                 Toast.makeText(this, "Rate", Toast.LENGTH_SHORT).show();
@@ -93,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
                 Toast.makeText(this, "GetMore", Toast.LENGTH_SHORT).show();
                 break;
             case "back":
-
+                finish();
                 break;
 
         }
@@ -102,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
     @Override
     public void loadedInterstitialAds() {
-        isLoaded=true;
+        isLoaded = true;
     }
 
 
@@ -124,9 +119,9 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
             case R.id.applyid:
                 moduleAdsManager.getManagerInterstitial().reLoadedInterstitial();
 
-                if ( moduleAdsManager.getManagerInterstitial().isSomeAdLoaded()) {
+                if (moduleAdsManager.getManagerInterstitial().isSomeAdLoaded()) {
                     Log.d("TestButton", "1");
-                    moduleAdsManager.getManagerInterstitial().showInterstitial(flowAds,"intro");
+                    moduleAdsManager.getManagerInterstitial().showInterstitial(flowAds, Action.APPLY);
                     Log.d("TestButton", "2");
                 } else {
                     Log.d("TestButton", "3");
@@ -136,5 +131,9 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        moduleAdsManager.getManagerInterstitial().showInterstitial(flowAds, Action.BACK);
+    }
 }

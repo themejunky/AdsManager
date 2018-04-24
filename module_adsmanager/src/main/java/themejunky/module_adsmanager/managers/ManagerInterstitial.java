@@ -22,7 +22,6 @@ public class ManagerInterstitial extends ManagerBase {
     private AdmobInterstitialAds admobInterstitialAds;
     private AppnextAdsInterstitial appnextAdsInterstitial;
     private FacebookAdsInterstitial facebookAdsInterstitial;
-    private String action;
 
     public ManagerInterstitial(Context nContext) {
         this.mContext = nContext;
@@ -62,9 +61,12 @@ public class ManagerInterstitial extends ManagerBase {
     }
 
     public void showInterstitial(List<String> flow, String action) {
-        this.action = action;
-        addsFlowInterstitial = flow;
-        runAdds_Part1Interstitial();
+        if(flow!=null && action!=null){
+            nAction = action;
+            addsFlowInterstitial = flow;
+            runAdds_Part1Interstitial();
+        }
+
     }
 
     private void runAdds_Part2Interstitial() {
@@ -125,7 +127,7 @@ public class ManagerInterstitial extends ManagerBase {
 
     @Override
     public void isClosedInterAds() {
-        if (listenerAds != null) listenerAds.afterInterstitialIsClosed(action);
+        if (listenerAds != null) listenerAds.afterInterstitialIsClosed(nAction);
     }
 
     public static synchronized ManagerInterstitial getInstance(Context nContext) {

@@ -35,7 +35,6 @@ public class AppnextAdsInterstitial extends ManagerBase {
     //initAppnext(activity,"8106d659-a20b-4640-943b-d6b0aab18d08");
     public void initAppnext(String placementID) {
         Appnext.init(context);
-        Log.d("aew3we","2");
         interstitialAppnext = new Interstitial(context, placementID);
         listenerLogs.logs("Appnext inter: initialized");
         interstitialAppnext.setOnAdClosedCallback(new OnAdClosed() {

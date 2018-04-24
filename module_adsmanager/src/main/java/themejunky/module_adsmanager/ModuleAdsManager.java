@@ -42,9 +42,4 @@ public class ModuleAdsManager extends ManagerBase implements AdsListenerManager.
         if(nListenerAds!=null) listenerAds = nListenerAds;
     }
 
-    @Override
-    public void isClosedInterAds() {
-        if(listenerAds!=null)listenerAds.afterInterstitialIsClosed(action);
-
-    }
 }

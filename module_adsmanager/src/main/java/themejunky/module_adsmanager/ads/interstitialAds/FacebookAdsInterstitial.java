@@ -29,16 +29,13 @@ public class FacebookAdsInterstitial extends ManagerBase {
 
 
     public void initFacebookInterstitial(String keyFacebook) {
-        Log.d("oopo","1");
         interstitialAd = new InterstitialAd(context, keyFacebook);
-        Log.d("oopo","2");
-        listenerLogs.logs("Facebook:  initialized");
-        Log.d("oopo","3");
+        listenerLogs.logs("Facebook Interstitial:  initialized");
         interstitialAd.setAdListener(new InterstitialAdListener() {
 
             @Override
             public void onInterstitialDisplayed(Ad ad) {
-                listenerLogs.logs("Facebook: displayed!");
+                listenerLogs.logs("Facebook Interstitial: displayed!");
             }
 
             @Override
@@ -47,25 +44,24 @@ public class FacebookAdsInterstitial extends ManagerBase {
                 if(isReloaded){
                     interstitialAd.loadAd();
                 }
-                listenerLogs.logs("Facebook : dismissed!");
+                listenerLogs.logs("Facebook Interstitial: dismissed!");
                 listenerLogs.isClosedInterAds();
             }
 
             @Override
             public void onError(Ad ad, AdError adError) {
-                listenerLogs.logs("Faceboook error: "+ adError.getErrorMessage());
-                Log.d("oopo","Faceboook error: "+ adError.getErrorMessage());
+                listenerLogs.logs("Faceboook Interstitial error: "+ adError.getErrorMessage());
             }
 
             @Override
             public void onAdLoaded(Ad ad) {
                 if(listenerAds!=null)listenerAds.loadedInterstitialAds();
-                listenerLogs.logs("Faceboook: is Loaded");
+                listenerLogs.logs("Faceboook Interstitial: is Loaded");
             }
 
             @Override
             public void onAdClicked(Ad ad) {
-                listenerLogs.logs("Faceboook: clicked");
+                listenerLogs.logs("Faceboook Interstitial: clicked");
             }
 
             @Override
@@ -73,18 +69,16 @@ public class FacebookAdsInterstitial extends ManagerBase {
 
             }
         });
-        Log.d("oopo","4");
         interstitialAd.loadAd();
-        Log.d("oopo","5");
     }
 
     public  void showInterstitialFacebook() {
 
         if (interstitialAd !=null && interstitialAd.isAdLoaded()) {
             interstitialAd.show();
-            listenerLogs.logs("Faceboook: is shown");
+            listenerLogs.logs("Faceboook Interstitial: is shown");
         } else {
-            listenerLogs.logs("Faceboook: show failed");
+            listenerLogs.logs("Faceboook Interstitial: show failed");
 
 
         }
