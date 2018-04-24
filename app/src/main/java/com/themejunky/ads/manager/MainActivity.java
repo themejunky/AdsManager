@@ -60,9 +60,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
 
 //
-//        moduleAdsManager.getManagerInterstitial().initInterstitialAppnext("95620754-d968-4e6a-a5da-7ece51d9cacd");
-//        moduleAdsManager.getManagerInterstitial().initInterstitialFacebook("156810341634297_156813291634002");
-//        moduleAdsManager.getManagerInterstitial().initInterstitialAdmob("ca-app-pub-5322508131338449/2877444211");
+//
 
 
     }
@@ -120,24 +118,24 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     public void onClick(View v) {
         viewButtons = v;
         switch (viewButtons.getId()) {
-           /* case R.id.applyid:
-                moduleAdsManager.getManagerInterstitial().reLoadedInterstitial();
+            case R.id.applyid:
+                mModuleAdsManager.getManagerInterstitial().reLoadedInterstitial();
 
-                if (moduleAdsManager.getManagerInterstitial().isSomeAdLoaded()) {
+                if (mModuleAdsManager.getManagerInterstitial().isSomeAdLoaded()) {
                     Log.d("TestButton", "1");
-                    moduleAdsManager.getManagerInterstitial().showInterstitial(flowAds, Action.APPLY);
+                    mModuleAdsManager.getManagerInterstitial().showInterstitial(flowAds, Action.APPLY);
                     Log.d("TestButton", "2");
                 } else {
                     Log.d("TestButton", "3");
                     Toast.makeText(this, "Apply", Toast.LENGTH_SHORT).show();
                 }
-                break;*/
-        }
+                break;
+    }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-       // moduleAdsManager.getManagerInterstitial().showInterstitial(flowAds, Action.BACK);
+        mModuleAdsManager.getManagerInterstitial().showInterstitial(flowAds, Action.BACK);
     }
 }

@@ -78,18 +78,6 @@ public class ManagerNative extends ManagerBase {
         if (next < addsFlowNative.size()) {
             switch (addsFlowNative.get(next)) {
                 case ConstantsAds.ADMOB:
-                    if(admobNativeAds.getViewNativeAd()!=null){
-                        Log.d("asdfasdf","ADMOB getViewNativeAd nu este null");
-                    }else {
-                        Log.d("asdfasdf","ADMOB getViewNativeAd este null");
-                    }
-
-                    if(containerNativeView!=null){
-                        Log.d("asdfasdf","ADMOB containerNativeView nu este null");
-                    }else {
-                        Log.d("asdfasdf","ADMOB containerNativeView este null");
-                    }
-
                     if (admobNativeAds.getViewNativeAd()!=null && containerNativeView!=null ) {
                         ((RelativeLayout)containerNativeView).removeAllViews();
                         ((RelativeLayout)containerNativeView).addView(admobNativeAds.getViewNativeAd());
@@ -99,17 +87,6 @@ public class ManagerNative extends ManagerBase {
                     }
                     break;
                case ConstantsAds.APPNEXT:
-                   if(admobNativeAds.getViewNativeAd()!=null){
-                       Log.d("asdfasdf","APPNEXT getViewNativeAd nu este null");
-                   }else {
-                       Log.d("asdfasdf","APPNEXT getViewNativeAd este null");
-                   }
-
-                   if(containerNativeView!=null){
-                       Log.d("asdfasdf","APPNEXT containerNativeView nu este null");
-                   }else {
-                       Log.d("asdfasdf","APPNEXT containerNativeView este null");
-                   }
                    if (appnextNativeAds.getViewNativeAd()!=null && containerNativeView!=null ) {
                        ((RelativeLayout)containerNativeView).removeAllViews();
                        ((RelativeLayout)containerNativeView).addView(appnextNativeAds.getViewNativeAd());
