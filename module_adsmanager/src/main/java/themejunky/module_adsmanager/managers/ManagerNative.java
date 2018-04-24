@@ -61,15 +61,15 @@ public class ManagerNative extends ManagerBase {
             switch (addsFlowNative.get(next)) {
                 case ConstantsAds.ADMOB:
                     if(admobNativeAds.getViewNativeAd()!=null){
-                        Log.d("asdfasdf","getViewNativeAd nu este null");
+                        Log.d("asdfasdf","ADMOB getViewNativeAd nu este null");
                     }else {
-                        Log.d("asdfasdf","getViewNativeAd este null");
+                        Log.d("asdfasdf","ADMOB getViewNativeAd este null");
                     }
 
                     if(containerNativeView!=null){
-                        Log.d("asdfasdf","containerNativeView nu este null");
+                        Log.d("asdfasdf","ADMOB containerNativeView nu este null");
                     }else {
-                        Log.d("asdfasdf","containerNativeView este null");
+                        Log.d("asdfasdf","ADMOB containerNativeView este null");
                     }
 
                     if (admobNativeAds.getViewNativeAd()!=null && containerNativeView!=null ) {
@@ -80,6 +80,17 @@ public class ManagerNative extends ManagerBase {
                     }
                     break;
                case ConstantsAds.APPNEXT:
+                   if(admobNativeAds.getViewNativeAd()!=null){
+                       Log.d("asdfasdf","APPNEXT getViewNativeAd nu este null");
+                   }else {
+                       Log.d("asdfasdf","APPNEXT getViewNativeAd este null");
+                   }
+
+                   if(containerNativeView!=null){
+                       Log.d("asdfasdf","APPNEXT containerNativeView nu este null");
+                   }else {
+                       Log.d("asdfasdf","APPNEXT containerNativeView este null");
+                   }
                    if (appnextNativeAds.getViewNativeAd()!=null && containerNativeView!=null ) {
                        ((RelativeLayout)containerNativeView).removeAllViews();
                        ((RelativeLayout)containerNativeView).addView(appnextNativeAds.getViewNativeAd());
@@ -88,6 +99,17 @@ public class ManagerNative extends ManagerBase {
                    }
                     break;
                  case ConstantsAds.FACEBOOK:
+                     if(admobNativeAds.getViewNativeAd()!=null){
+                         Log.d("asdfasdf","FACEBOOK getViewNativeAd nu este null");
+                     }else {
+                         Log.d("asdfasdf","FACEBOOK getViewNativeAd este null");
+                     }
+
+                     if(containerNativeView!=null){
+                         Log.d("asdfasdf","FACEBOOK containerNativeView nu este null");
+                     }else {
+                         Log.d("asdfasdf","FACEBOOK containerNativeView este null");
+                     }
                      if(facebookNativeAds.getViewNativeAd()==null){
                      }
                      if (facebookNativeAds.getViewNativeAd()!=null && containerNativeView!=null ) {

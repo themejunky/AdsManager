@@ -55,7 +55,7 @@ public class FacebookNativeAds extends NativeBase {
                     listenerAds.loadedNativeAds("facebook");
                 }
 
-                listenerLogs.logs("Facebook: onAdLoaded");
+                listenerLogs.logs("Facebook Native: onAdLoaded");
                 nativeListener.nativeLoaded();
                 mAdView = mInflateLayout(R.layout.native_ad);
             /*    nativeAdContainer = (LinearLayout) view.findViewById(R.id.native_ad_container);
