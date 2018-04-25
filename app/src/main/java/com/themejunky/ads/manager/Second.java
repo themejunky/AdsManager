@@ -42,7 +42,7 @@ public class Second extends AppCompatActivity implements AdsListenerManager.List
         mModuleAdsManager.getManagerNative().setNativeFlow(flowAds);
         mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
         try {
-            //  moduleAdsManager.getManagerNative().iniNativeAppnext(this,"cdd052e2-9394-407c-99d4-323439dd7398",false);
+            mModuleAdsManager.getManagerNative().iniNativeAppnext(this,"cdd052e2-9394-407c-99d4-323439dd7398",false);
 
         }
         catch (Exception e) {

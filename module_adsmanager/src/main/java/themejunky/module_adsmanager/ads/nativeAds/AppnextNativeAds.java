@@ -49,20 +49,20 @@ public class AppnextNativeAds extends NativeBase {
 
     private void init(String idUnitAppnext) {
 
+
+        Log.d("testing","step 0");
         Appnext.init(nContext);
-
-
-
-
-        Log.d("testaree","1 : "+nativeAd);
-
+        Log.d("testing","step 1" );
         nativeAd = new NativeAd(nContext, idUnitAppnext);
-        Log.d("testaree","2");
+        Log.d("testing","step 2");
+
+
+
+
         nativeAd.setAdListener(new NativeAdListener() {
             @Override
             public void onAdLoaded(NativeAd nativeAd) {
                 super.onAdLoaded(nativeAd);
-                Log.d("testaree","3");
                 mAdView = mInflateLayout(R.layout.ad_appnext);
                 setViews(mAdView);
 
