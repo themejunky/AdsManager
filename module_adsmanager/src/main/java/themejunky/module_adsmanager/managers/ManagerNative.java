@@ -1,11 +1,13 @@
 package themejunky.module_adsmanager.managers;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import java.util.Calendar;
 import java.util.List;
 
 import themejunky.module_adsmanager.ads.nativeAds.AdmobNativeAds;
@@ -158,24 +160,35 @@ public class ManagerNative extends ManagerBase {
         }
     }
 
-    public void showAds(List<String> nFlow, ViewGroup nContainer) {
+    public void showAds(final List<String> nFlow, final ViewGroup nContainer) {
         mChoosenAd = null;
         next = -1;
-
+        Log.d("loop",""+ Calendar.getInstance().getTime());
         if (((appnextNativeAds!=null &&appnextNativeAds.getViewNativeAd() != null) || (admobNativeAds!=null && admobNativeAds.getViewNativeAd() != null) || (facebookNativeAds!=null && facebookNativeAds.getViewNativeAd() != null)) && (nFlow != null && nFlow.size() > 0)) {
-            Log.d("mChoosenAd","null 1");
             addsFlowNative = nFlow;
             runAdds_Part2Native_Test();
+
+            if (mChoosenAd!=null && nContainer!=null) {
+                nContainer.removeAllViews();
+                nContainer.addView(mChoosenAd);
+            } else {
+                Log.d("loop","nasoale "+ Calendar.getInstance().getTime());
+            }
+        } else if (nContainer!=null) {
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    showAds(nFlow,nContainer);
+                }
+            }, 250);
+        }
+        else {
+            Log.d("loop","nasoale "+ Calendar.getInstance().getTime());
         }
 
-        Log.d("mChoosenAd","mChoosenAd : "+mChoosenAd);
 
 
-        if (mChoosenAd!=null && nContainer!=null) {
-            Log.d("mChoosenAd","null 2");
-            nContainer.addView(mChoosenAd);
-        }
-        Log.d("mChoosenAd","null 3");
     }
 
 

@@ -58,15 +58,19 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
        // mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
 //
 
-        Log.d("mChoosenAd","start");
+//        Log.d("mChoosenAd","start");
+//
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                Log.d("mChoosenAd","start 1");
+//                mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
+//            }
+//        },5000);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Log.d("mChoosenAd","start 1");
-                mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
-            }
-        },5000);
+
+        mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
+        startActivity(new Intent(this,Second.class));
 //
 //
 

@@ -37,7 +37,7 @@ public class MainApplication extends Application {
         moduleAdsManager.getManagerNative().iniNativeFacebook("833164856890775_838240766383184",false);
         moduleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159",false);
         try {
-            moduleAdsManager.getManagerNative().iniNativeAppnext(this,"cdd052e2-9394-407c-99d4-323439dd7398",false);
+          //  moduleAdsManager.getManagerNative().iniNativeAppnext(this,"cdd052e2-9394-407c-99d4-323439dd7398",false);
 
         }
         catch (Exception e) {
