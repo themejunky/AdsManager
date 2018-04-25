@@ -1,6 +1,7 @@
 package themejunky.module_adsmanager.ads.nativeAds;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,9 +16,11 @@ import com.appnext.nativeads.NativeAdRequest;
 import com.appnext.nativeads.NativeAdView;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import themejunky.module_adsmanager.R;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
+import themejunky.module_adsmanager.ads.AsyncAppNext;
 
 /**
  * Created by Junky2 on 12/11/2017.
@@ -41,20 +44,25 @@ public class AppnextNativeAds extends NativeBase {
         nContext = context;
         this.listenerLogs = listenerLogs;
         this.nativeListener = nativeListener;
-        initAppnextNativeAdvance(idUnitAppnext);
+        init(idUnitAppnext);
     }
 
+    private void init(String idUnitAppnext) {
 
-
-    public void initAppnextNativeAdvance(String idUnitAppnext) {
         Appnext.init(nContext);
-        nativeAd = new NativeAd(nContext, idUnitAppnext);
 
+
+
+
+        Log.d("testaree","1 : "+nativeAd);
+
+        nativeAd = new NativeAd(nContext, idUnitAppnext);
+        Log.d("testaree","2");
         nativeAd.setAdListener(new NativeAdListener() {
             @Override
             public void onAdLoaded(NativeAd nativeAd) {
                 super.onAdLoaded(nativeAd);
-
+                Log.d("testaree","3");
                 mAdView = mInflateLayout(R.layout.ad_appnext);
                 setViews(mAdView);
 
@@ -62,7 +70,6 @@ public class AppnextNativeAds extends NativeBase {
                 mediaView.setAutoPLay(true);
                 mediaView.setClickEnabled(true);
 
-                listenerLogs.logs("Appnex Native: Loaded");
                 nativeAd.setMediaView(mediaView);
                 nativeAd.downloadAndDisplayImage(imageView, nativeAd.getIconURL());
                 textView.setText(nativeAd.getAdTitle());
@@ -71,28 +78,31 @@ public class AppnextNativeAds extends NativeBase {
                 nativeAd.registerClickableViews(viewArrayList);
                 nativeAd.setNativeAdView(nativeAdView);
                 isAppnextNativeLoaded = true;
+
                 if(listenerAds!=null) listenerAds.loadedNativeAds("appnext");
-
-
+                listenerLogs.logs("Appnex Native: Loaded");
             }
 
             @Override
             public void onAdClicked(NativeAd nativeAd) {
                 super.onAdClicked(nativeAd);
+                Log.d("testaree","4");
             }
 
             @Override
             public void onError(NativeAd nativeAd, AppnextError appnextError) {
                 super.onError(nativeAd, appnextError);
+                Log.d("testaree","5");
                 listenerLogs.logs("Appnex Native: onError: " +appnextError.getErrorMessage());
             }
 
             @Override
             public void adImpression(NativeAd nativeAd) {
                 super.adImpression(nativeAd);
+                Log.d("testaree","6");
             }
         });
-
+        Log.d("testaree","7");
         nativeAd.loadAd(new NativeAdRequest()
                 // optional - config your ad request:
                 .setPostback("")
@@ -102,14 +112,15 @@ public class AppnextNativeAds extends NativeBase {
                 .setVideoLength(NativeAdRequest.VideoLength.SHORT)
                 .setVideoQuality(NativeAdRequest.VideoQuality.HIGH)
         );
+        Log.d("testaree","8");
     }
     private void setViews(View views) {
-        nativeAdView = (NativeAdView) views.findViewById(R.id.na_view);
-        imageView = (ImageView) views.findViewById(R.id.na_icon);
-        textView = (TextView) views.findViewById(R.id.na_title);
-        mediaView = (MediaView) views.findViewById(R.id.na_media);
-        button = (Button) views.findViewById(R.id.install);
-        description = (TextView) views.findViewById(R.id.description);
+        nativeAdView = views.findViewById(R.id.na_view);
+        imageView =  views.findViewById(R.id.na_icon);
+        textView = views.findViewById(R.id.na_title);
+        mediaView = views.findViewById(R.id.na_media);
+        button = views.findViewById(R.id.install);
+        description = views.findViewById(R.id.description);
         viewArrayList = new ArrayList<>();
         viewArrayList.add(button);
         viewArrayList.add(mediaView);
@@ -121,7 +132,6 @@ public class AppnextNativeAds extends NativeBase {
             instance = new AppnextNativeAds(activity,idUnitAppnext,listenerLogs,nativeListener);
         }
         return instance;
-
     }
 
 }

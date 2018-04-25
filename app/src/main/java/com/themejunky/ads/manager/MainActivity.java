@@ -39,24 +39,36 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-
+        flowAds.add("appnext");
         flowAds.add("admob");
         flowAds.add("facebook");
-        flowAds.add("appnext");
 
+//
         mModuleAdsManager = ((MainApplication)getApplication()).moduleAdsManager;
         mModuleAdsManager.setListenerAds(this);
+
         mModuleAdsManager.getManagerNative().setViewNative(findViewById(R.id.containerAdmob));
         mModuleAdsManager.getManagerNative().setNativeFlow(flowAds);
+
+       // ((RelativeLayout) findViewById(R.id.containerAdmob)).addView(mModuleAdsManager.getManagerNative().getAds(flowAds));
+
+
+     //   ((RelativeLayout) findViewById(R.id.containerAdmob)).addView(mModuleAdsManager.getManagerNative().getAds(flowAds));
+
+       // mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
+//
+
+        Log.d("mChoosenAd","start");
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                mModuleAdsManager.getManagerNative().showNativeAds();
+                Log.d("mChoosenAd","start 1");
+                mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
             }
         },5000);
-
-
+//
+//
 
 
 //

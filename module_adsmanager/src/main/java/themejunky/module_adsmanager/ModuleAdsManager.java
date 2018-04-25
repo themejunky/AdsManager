@@ -6,11 +6,6 @@ import themejunky.module_adsmanager.managers.ManagerBase;
 import themejunky.module_adsmanager.managers.ManagerInterstitial;
 import themejunky.module_adsmanager.managers.ManagerNative;
 
-
-/**
- * Created by Junky2 on 4/19/2018.
- */
-
 public class ModuleAdsManager extends ManagerBase implements AdsListenerManager.ListenerLogs{
 
     private ManagerNative managerNative;

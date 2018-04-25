@@ -35,15 +35,14 @@ public class AdmobNativeAds extends NativeBase {
     private AdsListenerManager.ListenerLogs listenerLogs;
     private AdLoader adLoader;
 
-
     public AdmobNativeAds(Context context, String key, AdsListenerManager.ListenerLogs listenerLogs, AdsListenerManager.NativeListener listenerNativeAds) {
         nContext = context;
         this.nativeListener = listenerNativeAds;
         this.listenerLogs = listenerLogs;
-        initAdmobNativeAdvance(key);
+        init(key);
     }
 
-    public void initAdmobNativeAdvance(String idUnitAdmob) {
+    public void init(String idUnitAdmob) {
 
         adLoader = new AdLoader.Builder(nContext, idUnitAdmob)
                 .forContentAd(new NativeContentAd.OnContentAdLoadedListener() {
@@ -51,19 +50,20 @@ public class AdmobNativeAds extends NativeBase {
                     @Override
                     public void onContentAdLoaded(NativeContentAd contentAd) {
                         mAdView = mInflateLayout(R.layout.ad_content);
+                        populateContentAdView(contentAd, (NativeContentAdView) mAdView);
                         if(listenerAds!=null) listenerAds.loadedNativeAds("admob");
                         listenerLogs.logs("Admob Native: ad_content Loaded");
-                        populateContentAdView(contentAd, (NativeContentAdView) mAdView);
                     }
                 })
                 .forAppInstallAd(new NativeAppInstallAd.OnAppInstallAdLoadedListener() {
                     @Override
                     public void onAppInstallAdLoaded(NativeAppInstallAd appInstallAd) {
                         mAdView = mInflateLayout(R.layout.ad_app_install);
-                        listenerLogs.logs("Admob Native: ad_app_install Loaded");
-                        listenerAds.loadedNativeAds("admob");
+
                         populateAppInstallAdView(appInstallAd, (NativeAppInstallAdView) mAdView);
                         nativeListener.nativeLoaded();
+                        listenerLogs.logs("Admob Native: ad_app_install Loaded");
+                        if(listenerAds!=null) listenerAds.loadedNativeAds("admob");
                     }
                 })
                 .withAdListener(new AdListener() {
@@ -91,10 +91,7 @@ public class AdmobNativeAds extends NativeBase {
                         .build())
                 .build();
         adLoader.loadAd(new AdRequest.Builder().build());
-
-
     }
-
 
     /**
      * Populates a {@link NativeAppInstallAdView} object with data from a given
@@ -160,9 +157,7 @@ public class AdmobNativeAds extends NativeBase {
      * @param nativeContentAd the object containing the ad's assets
      * @param adView          the view to be populated
      */
-    private void populateContentAdView(NativeContentAd nativeContentAd,
-                                       NativeContentAdView adView) {
-
+    private void populateContentAdView(NativeContentAd nativeContentAd, NativeContentAdView adView) {
 
         adView.setHeadlineView(adView.findViewById(R.id.contentad_headline));
         adView.setImageView(adView.findViewById(R.id.contentad_image));
@@ -176,7 +171,6 @@ public class AdmobNativeAds extends NativeBase {
         ((TextView) adView.getBodyView()).setText(nativeContentAd.getBody());
         ((TextView) adView.getCallToActionView()).setText(nativeContentAd.getCallToAction());
         //((TextView) adView.getAdvertiserView()).setText(nativeContentAd.getAdvertiser());
-
 
         List<NativeAd.Image> images = nativeContentAd.getImages();
 
@@ -198,14 +192,10 @@ public class AdmobNativeAds extends NativeBase {
         adView.setNativeAd(nativeContentAd);
     }
 
-
     public static synchronized AdmobNativeAds getInstance(Context activity, String keyId, AdsListenerManager.ListenerLogs listenerLogs, AdsListenerManager.NativeListener nativeListener) {
         if (instance == null) {
             instance = new AdmobNativeAds(activity, keyId, listenerLogs, nativeListener);
         }
         return instance;
-
     }
-
-
 }
