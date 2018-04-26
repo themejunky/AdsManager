@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.appnext.base.Appnext;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,10 +40,15 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Appnext.init(this);
+
         initView();
         flowAds.add("appnext");
         flowAds.add("admob");
         flowAds.add("facebook");
+
+
 
 //
         mModuleAdsManager = ((MainApplication)getApplication()).moduleAdsManager;
@@ -70,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
 
         mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
-        startActivity(new Intent(this,Second.class));
+       // startActivity(new Intent(this,Second.class));
 //
 //
 

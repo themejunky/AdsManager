@@ -2,6 +2,8 @@ package com.themejunky.ads.manager;
 
 import android.app.Application;
 
+import com.appnext.base.Appnext;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,9 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Appnext.init(this);
+
         flowAdsInceput.add("facebook");
         flowAdsInceput.add("appnext");
         flowAdsInceput.add("admob");
@@ -34,8 +39,9 @@ public class MainApplication extends Application {
         moduleAdsManager.setLogName("wwawq");
 
 //
-        moduleAdsManager.getManagerNative().iniNativeFacebook("833164856890775_838240766383184",false);
-        moduleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159",false);
+      //  moduleAdsManager.getManagerNative().iniNativeFacebook("833164856890775_838240766383184",false);
+     //   moduleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159",false);
+        moduleAdsManager.getManagerNative().iniNativeAppnext("cdd052e2-9394-407c-99d4-323439dd7398",true);
         try {
           //  moduleAdsManager.getManagerNative().iniNativeAppnext(this,"cdd052e2-9394-407c-99d4-323439dd7398",false);
 

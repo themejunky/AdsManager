@@ -14,6 +14,7 @@ import com.appnext.nativeads.NativeAd;
 import com.appnext.nativeads.NativeAdListener;
 import com.appnext.nativeads.NativeAdRequest;
 import com.appnext.nativeads.NativeAdView;
+import com.appnext.nativeads.PrivacyIcon;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -48,13 +49,12 @@ public class AppnextNativeAds extends NativeBase {
     }
 
     private void init(String idUnitAppnext) {
-
-
-        Log.d("testing","step 0");
+        Log.d("testing","step 0 ");
         Appnext.init(nContext);
         Log.d("testing","step 1" );
         nativeAd = new NativeAd(nContext, idUnitAppnext);
-        Log.d("testing","step 2");
+        nativeAd.setPrivacyPolicyColor(PrivacyIcon.PP_ICON_COLOR_LIGHT);
+        Log.d("testing","step 2 ");
 
 
 
@@ -63,6 +63,7 @@ public class AppnextNativeAds extends NativeBase {
             @Override
             public void onAdLoaded(NativeAd nativeAd) {
                 super.onAdLoaded(nativeAd);
+                Log.d("testaree","3");
                 mAdView = mInflateLayout(R.layout.ad_appnext);
                 setViews(mAdView);
 
@@ -103,11 +104,12 @@ public class AppnextNativeAds extends NativeBase {
             }
         });
         Log.d("testaree","7");
+
         nativeAd.loadAd(new NativeAdRequest()
                 // optional - config your ad request:
                 .setPostback("")
                 .setCategories("")
-                .setCachingPolicy(NativeAdRequest.CachingPolicy.ALL)
+                .setCachingPolicy(NativeAdRequest.CachingPolicy.STATIC_ONLY)
                 .setCreativeType(NativeAdRequest.CreativeType.ALL)
                 .setVideoLength(NativeAdRequest.VideoLength.SHORT)
                 .setVideoQuality(NativeAdRequest.VideoQuality.HIGH)

@@ -43,8 +43,7 @@ public class ManagerNative extends ManagerBase {
         }
     }
 
-    public void iniNativeAppnext(Context nContext, String keyAppnext, boolean newInstance) {
-        mContext = nContext;
+    public void iniNativeAppnext( String keyAppnext, boolean newInstance) {
         if (newInstance) {
             appnextNativeAds = new AppnextNativeAds(mContext, keyAppnext, this, this);
         } else {
