@@ -44,9 +44,10 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         Appnext.init(this);
 
         initView();
+        flowAds.add("facebook");
         flowAds.add("appnext");
         flowAds.add("admob");
-        flowAds.add("facebook");
+
 
 
 

@@ -51,8 +51,11 @@ public class ManagerInterstitial extends ManagerBase {
     }
 
     public void reLoadedInterstitial(){
-        admobInterstitialAds.interstitialAdmob.loadAd(new AdRequest.Builder().addTestDevice("74df1a5b43f90b50dd8ea33699814380").build());
-        facebookAdsInterstitial.interstitialAd.loadAd();
+        if(admobInterstitialAds!=null){
+            admobInterstitialAds.interstitialAdmob.loadAd(new AdRequest.Builder().addTestDevice("74df1a5b43f90b50dd8ea33699814380").build());
+        }else if(facebookAdsInterstitial!=null){
+            facebookAdsInterstitial.interstitialAd.loadAd();
+        }
     }
 
     private void runAdds_Part1Interstitial() {
