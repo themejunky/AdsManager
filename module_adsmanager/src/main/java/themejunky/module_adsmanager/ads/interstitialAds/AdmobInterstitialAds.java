@@ -96,6 +96,7 @@ public class AdmobInterstitialAds extends ManagerBase {
         if (interstitialAdmob!=null && interstitialAdmob.isLoaded()) {
             listenerLogs.logs("Admob Interstitial: show");
             interstitialAdmob.show();
+
         }
     }
 

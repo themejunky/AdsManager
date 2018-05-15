@@ -44,9 +44,8 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         Appnext.init(this);
 
         initView();
-        flowAds.add("appnext");
-        flowAds.add("admob");
-        flowAds.add("facebook");
+
+        flowAds.add("display");
 
 
 
@@ -142,7 +141,8 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         viewButtons = v;
         switch (viewButtons.getId()) {
             case R.id.applyid:
-                mModuleAdsManager.getManagerInterstitial().reLoadedInterstitial();
+                mModuleAdsManager.getManagerInterstitial().showInterstitial(flowAds, Action.APPLY);
+              /*  mModuleAdsManager.getManagerInterstitial().reLoadedInterstitial();
 
                 if (mModuleAdsManager.getManagerInterstitial().isSomeAdLoaded()) {
                     Log.d("TestButton", "1");
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
                 } else {
                     Log.d("TestButton", "3");
                     Toast.makeText(this, "Apply", Toast.LENGTH_SHORT).show();
-                }
+                }*/
                 break;
     }
     }

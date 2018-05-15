@@ -3,6 +3,11 @@
 
     package="themejunky.module_adsmanager">
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application android:allowBackup="true" android:label="@string/app_name"
         android:supportsRtl="true">
 
@@ -32,6 +37,16 @@
             tools:replace="android:theme"
 
             />
+
+
+        <!--Display.Io-->
+        <activity android:name="io.display.sdk.DioActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name="io.display.sdk.DioTranslucentActivity"
+        android:configChanges="orientation|screenSize|keyboardHidden"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name="io.display.sdk.device.PermissionsHandler" />
+
     </application>
 
 </manifest>

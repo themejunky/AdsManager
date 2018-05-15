@@ -1,1 +1,1 @@
-include ':app', ':module_adsmanager'
+include ':app', ':module_adsmanager', ':io.display.sdk-1.5.8'

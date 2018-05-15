@@ -9,6 +9,7 @@ import java.util.List;
 
 import themejunky.module_adsmanager.ads.interstitialAds.AdmobInterstitialAds;
 import themejunky.module_adsmanager.ads.interstitialAds.AppnextAdsInterstitial;
+import themejunky.module_adsmanager.ads.interstitialAds.DisplayInterstitialAds;
 import themejunky.module_adsmanager.ads.interstitialAds.FacebookAdsInterstitial;
 import themejunky.module_adsmanager.utils.ConstantsAds;
 
@@ -22,6 +23,8 @@ public class ManagerInterstitial extends ManagerBase {
     private AdmobInterstitialAds admobInterstitialAds;
     private AppnextAdsInterstitial appnextAdsInterstitial;
     private FacebookAdsInterstitial facebookAdsInterstitial;
+    private DisplayInterstitialAds displayInterstitialAds;
+    private String placementId;
 
     public ManagerInterstitial(Context nContext) {
         this.mContext = nContext;
@@ -36,23 +39,41 @@ public class ManagerInterstitial extends ManagerBase {
     public void initInterstitialFacebook(String keyInterstitialFacebook) {
         facebookAdsInterstitial = FacebookAdsInterstitial.getInstance(mContext, keyInterstitialFacebook, this);}
 
-    public boolean isSomeAdLoaded() {
+    public void initInterstitialDisplay(String appid,String placementId) {
+        this.placementId = placementId;
+        displayInterstitialAds = DisplayInterstitialAds.getInstance(mContext, appid,this);}
 
+    public boolean isSomeAdLoaded() {
+        Log.d("TestButton", "isSomeAdLoaded 1");
         if(facebookAdsInterstitial!=null && facebookAdsInterstitial.isFacebookLoaded()){
+            Log.d("TestButton", "isSomeAdLoaded facebook");
             return true;
         }else if (admobInterstitialAds!=null && admobInterstitialAds.isLoadedAdmob()){
+            Log.d("TestButton", "isSomeAdLoaded admob");
             return true;
         }else if (appnextAdsInterstitial!=null && appnextAdsInterstitial.isLoadedAppNext()){
             return true;
+        }else if (displayInterstitialAds!=null && displayInterstitialAds.ctrl.isInitialized()){
+            return true;
         }else {
+            Log.d("TestButton", "isSomeAdLoaded false");
             return false;
         }
 
     }
 
+    public void showDisplayIo(String placementId){
+        displayInterstitialAds.showAd(mContext,placementId);
+    }
+
     public void reLoadedInterstitial(){
-        admobInterstitialAds.interstitialAdmob.loadAd(new AdRequest.Builder().addTestDevice("74df1a5b43f90b50dd8ea33699814380").build());
-        facebookAdsInterstitial.interstitialAd.loadAd();
+        if(admobInterstitialAds!=null){
+            admobInterstitialAds.interstitialAdmob.loadAd(new AdRequest.Builder().addTestDevice("74df1a5b43f90b50dd8ea33699814380").build());
+        }else if(facebookAdsInterstitial!=null){
+            facebookAdsInterstitial.interstitialAd.loadAd();
+        }
+
+
     }
 
     private void runAdds_Part1Interstitial() {
@@ -117,6 +138,14 @@ public class ManagerInterstitial extends ManagerBase {
                         Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 4");
                         runAdds_Part2Interstitial();
                     }
+                case ConstantsAds.DISPLAY:
+                    Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 1");
+                    if (displayInterstitialAds != null) {
+                        displayInterstitialAds.showAd(mContext,placementId);
+                    } else {
+                        Log.d(nameLogs, "Flow Interstitial: Display Interstitial 4");
+                        runAdds_Part2Interstitial();
+                    }
                     break;
                 default:
                     runAdds_Part2Interstitial();
@@ -124,6 +153,7 @@ public class ManagerInterstitial extends ManagerBase {
             }
         }
     }
+
 
     @Override
     public void isClosedInterAds() {
@@ -136,6 +166,12 @@ public class ManagerInterstitial extends ManagerBase {
             return new ManagerInterstitial(nContext);
         } else {
             return instance;
+        }
+    }
+
+    public void destroyInterstitial(){
+        if (facebookAdsInterstitial != null) {
+            facebookAdsInterstitial.interstitialAd.destroy();
         }
     }
 }

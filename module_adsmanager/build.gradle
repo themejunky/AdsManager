@@ -22,14 +22,15 @@ android {
 }
 
 dependencies {
-
     compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.appnext.sdk:ads:2+'
+    // Mandatory
+    compile 'com.appnext.sdk:native-ads2:2+'
+    compile 'com.facebook.android:audience-network-sdk:4.27.1'
+    compile 'com.google.android.gms:play-services-ads:15.0.1'
+    compile 'com.google.android.gms:play-services-basement:15.0.1'
+    compile 'com.google.android.gms:play-services-location:15.0.1'
 
-    compile 'com.appnext.sdk:ads:2.2.5.468' // Mandatory
-    compile 'com.appnext.sdk:native-ads2:2.2.5.468'
-    compile 'com.facebook.android:audience-network-sdk:4.26.0'
-    compile 'com.google.android.gms:play-services-ads:15.0.0'
-    compile 'com.google.android.gms:play-services-basement:15.0.0'
-    compile 'com.google.android.gms:play-services-location:15.0.0'
-
+    compile 'com.android.support:support-v4:26.1.0' //and higher
+    compile project(':io.display.sdk-1.5.8')
 }

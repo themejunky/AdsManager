@@ -18,6 +18,7 @@ public class FacebookAdsInterstitial extends ManagerBase {
     private final Context context;
     public InterstitialAd interstitialAd;
     private AdsListenerManager.ListenerLogs listenerLogs;
+    private boolean isLoaded;
 
     public FacebookAdsInterstitial(Context context, String keyFacebook,AdsListenerManager.ListenerLogs listenerLogs){
         this.listenerLogs = listenerLogs;
@@ -55,6 +56,7 @@ public class FacebookAdsInterstitial extends ManagerBase {
 
             @Override
             public void onAdLoaded(Ad ad) {
+                isLoaded =true;
                 if(listenerAds!=null)listenerAds.loadedInterstitialAds();
                 listenerLogs.logs("Faceboook Interstitial: is Loaded");
             }
@@ -74,7 +76,7 @@ public class FacebookAdsInterstitial extends ManagerBase {
 
     public  void showInterstitialFacebook() {
 
-        if (interstitialAd !=null && interstitialAd.isAdLoaded()) {
+        if (interstitialAd !=null && isLoaded) {
             interstitialAd.show();
             listenerLogs.logs("Faceboook Interstitial: is shown");
         } else {
@@ -85,9 +87,14 @@ public class FacebookAdsInterstitial extends ManagerBase {
 
     }
     public boolean isFacebookLoaded(){
-        if(interstitialAd!=null && interstitialAd.isAdLoaded()){
+        if(isLoaded){
+            Log.d("TestButton", "isAdLoaded --- true;");
+        }
+        if(interstitialAd!=null /*&& interstitialAd.isAdLoaded()*/){
+            Log.d("TestButton", "isFacebookLoaded true;");
             return true;
         }else {
+            Log.d("TestButton", "isFacebookLoaded false;");
             return false;
         }
     }
