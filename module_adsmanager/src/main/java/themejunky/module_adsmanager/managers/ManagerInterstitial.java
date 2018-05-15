@@ -72,11 +72,8 @@ public class ManagerInterstitial extends ManagerBase {
         }else if(facebookAdsInterstitial!=null){
             facebookAdsInterstitial.interstitialAd.loadAd();
         }
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 5ce7c3d176bc0134639396cfea6c47aac1b6737a
     }
 
     private void runAdds_Part1Interstitial() {

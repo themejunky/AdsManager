@@ -48,15 +48,9 @@ public class MainApplication extends Application {
 
 
 
-<<<<<<< HEAD
 //        moduleAdsManager.getManagerInterstitial().initInterstitialAppnext("95620754-d968-4e6a-a5da-7ece51d9cacd");
           moduleAdsManager.getManagerInterstitial().initInterstitialFacebook("156810341634297_156813291634002");
 //        moduleAdsManager.getManagerInterstitial().initInterstitialAdmob("ca-app-pub-5322508131338449/2877444211");
-=======
-        moduleAdsManager.getManagerInterstitial().initInterstitialAppnext("95620754-d968-4e6a-a5da-7ece51d9cacd");
-//        moduleAdsManager.getManagerInterstitial().initInterstitialFacebook("156810341634297_156813291634002");
-        moduleAdsManager.getManagerInterstitial().initInterstitialAdmob("ca-app-pub-5322508131338449/2877444211");
->>>>>>> 5ce7c3d176bc0134639396cfea6c47aac1b6737a
 
     }
 }
