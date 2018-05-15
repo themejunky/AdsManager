@@ -34,47 +34,33 @@ public class AppnextAdsInterstitial extends ManagerBase {
 
     //initAppnext(activity,"8106d659-a20b-4640-943b-d6b0aab18d08");
     public void initAppnext(String placementID) {
-        listenerLogs.logs("Appnext inter: 1");
         Appnext.init(context);
-        listenerLogs.logs("Appnext inter: 2");
         interstitialAppnext = new Interstitial(context, placementID);
-        listenerLogs.logs("Appnext inter: 3");
         listenerLogs.logs("Appnext inter: initialized");
         interstitialAppnext.setOnAdClosedCallback(new OnAdClosed() {
             @Override
             public void onAdClosed() {
-                listenerLogs.logs("Appnext inter: 4.0");
                 listenerLogs.logs("Appnext inter: Closed");
                 listenerLogs.isClosedInterAds();
-                listenerLogs.logs("Appnext inter: 4.1");
             }
         });
         interstitialAppnext.setOnAdErrorCallback(new OnAdError() {
             @Override
             public void adError(String s) {
-                listenerLogs.logs("Appnext inter: 4.2");
                 listenerLogs.logs("Appnext inter error: " + s.toString());
-                listenerLogs.logs("Appnext inter: 4.3");
             }
         });
         interstitialAppnext.setOnAdLoadedCallback(new OnAdLoaded() {
             @Override
             public void adLoaded(String s) {
-                listenerLogs.logs("Appnext inter: 4.4");
                 if(listenerAds!=null)listenerAds.loadedInterstitialAds();
-                listenerLogs.logs("Appnext inter: 4.5");
                 listenerLogs.logs("Appnext inter: is Loaded");
             }
         });
-        listenerLogs.logs("Appnext inter: 5");
         interstitialAppnext.setBackButtonCanClose(true);
-        listenerLogs.logs("Appnext inter: 6");
         interstitialAppnext.setMute(true);
-        listenerLogs.logs("Appnext inter: 7");
         interstitialAppnext.setAutoPlay(true);
-        listenerLogs.logs("Appnext inter: 8");
         interstitialAppnext.loadAd();
-        listenerLogs.logs("Appnext inter: 9");
 
     }
 
