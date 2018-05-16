@@ -30,7 +30,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-ads:15.0.1'
     compile 'com.google.android.gms:play-services-basement:15.0.1'
     compile 'com.google.android.gms:play-services-location:15.0.1'
-
-    compile 'com.android.support:support-v4:26.1.0' //and higher
+    compile 'com.android.support:support-v4:26.1.0'
+    //and higher
     compile project(':io.display.sdk-1.5.8')
 }
