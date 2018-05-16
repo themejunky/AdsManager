@@ -44,19 +44,15 @@ public class ManagerInterstitial extends ManagerBase {
         displayInterstitialAds = DisplayInterstitialAds.getInstance(mContext, appid,this);}
 
     public boolean isSomeAdLoaded() {
-        Log.d("TestButton", "isSomeAdLoaded 1");
         if(facebookAdsInterstitial!=null && facebookAdsInterstitial.isFacebookLoaded()){
-            Log.d("TestButton", "isSomeAdLoaded facebook");
             return true;
         }else if (admobInterstitialAds!=null && admobInterstitialAds.isLoadedAdmob()){
-            Log.d("TestButton", "isSomeAdLoaded admob");
             return true;
         }else if (appnextAdsInterstitial!=null && appnextAdsInterstitial.isLoadedAppNext()){
             return true;
         }else if (displayInterstitialAds!=null && displayInterstitialAds.ctrl.isInitialized()){
             return true;
         }else {
-            Log.d("TestButton", "isSomeAdLoaded false");
             return false;
         }
 
@@ -99,6 +95,7 @@ public class ManagerInterstitial extends ManagerBase {
         if (next < addsFlowInterstitial.size()) {
             switch (addsFlowInterstitial.get(next)) {
                 case ConstantsAds.ADMOB:
+
                     Log.d(nameLogs, "Flow Interstitial: Admob Interstitial 1");
                     if (admobInterstitialAds != null) {
                         if (admobInterstitialAds.isLoadedAdmob()) {
@@ -145,7 +142,9 @@ public class ManagerInterstitial extends ManagerBase {
                 case ConstantsAds.DISPLAY:
                     Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 1");
                     if (displayInterstitialAds != null) {
+                        Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 2");
                         displayInterstitialAds.showAd(mContext,placementId);
+                        Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 3");
                     } else {
                         Log.d(nameLogs, "Flow Interstitial: Display Interstitial 4");
                         runAdds_Part2Interstitial();

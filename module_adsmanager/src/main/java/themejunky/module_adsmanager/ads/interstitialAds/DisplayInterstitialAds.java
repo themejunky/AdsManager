@@ -35,7 +35,6 @@ public class DisplayInterstitialAds {
             public void onInit() {
                 super.onInit();
                 listenerLogs.logs("Display.Io Intersitial: onInit");
-                Toast.makeText(context, "Display init", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -61,7 +60,6 @@ public class DisplayInterstitialAds {
             public void onAdReady(String placementId) {
                 super.onAdReady(placementId);
                 listenerLogs.logs("Display.Io Intersitial: onAdReady");
-                Toast.makeText(context, "Display onAdReady", Toast.LENGTH_SHORT).show();
             }
 
             @Override
