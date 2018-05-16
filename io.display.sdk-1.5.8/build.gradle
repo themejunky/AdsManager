@@ -1,2 +1,2 @@
 configurations.maybeCreate("default")
-artifacts.add("default", file('io.display.sdk-1.5.8.jar'))
+artifacts.add("default", file('io.display.sdk-1.5.8.aar'))
