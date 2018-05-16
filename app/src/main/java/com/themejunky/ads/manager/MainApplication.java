@@ -26,6 +26,7 @@ public class MainApplication extends Application {
         Appnext.init(this);
 
         flowAdsInceput.add("display");
+        flowAdsInceput.add("display");
 
 
 
@@ -36,7 +37,7 @@ public class MainApplication extends Application {
 //
         moduleAdsManager.getManagerNative().iniNativeFacebook("833164856890775_838240766383184",false);
         moduleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159",false);
-        moduleAdsManager.getManagerInterstitial().initInterstitialDisplay("6352","3065");
+        moduleAdsManager.getManagerInterstitial().initInterstitialDisplay("6358","3072");
        // moduleAdsManager.getManagerNative().iniNativeAppnext("cdd052e2-9394-407c-99d4-323439dd7398",true);
         try {
           //  moduleAdsManager.getManagerNative().iniNativeAppnext(this,"cdd052e2-9394-407c-99d4-323439dd7398",false);
