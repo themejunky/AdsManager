@@ -141,7 +141,7 @@ public class ManagerInterstitial extends ManagerBase {
                     }
                 case ConstantsAds.DISPLAY:
                     Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 1");
-                    if (displayInterstitialAds.ctrl.isInitialized()) {
+                    if (displayInterstitialAds!=null && displayInterstitialAds.ctrl.isInitialized()) {
                         Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 2");
                         displayInterstitialAds.showAd(mContext,placementId);
                         Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 3");
