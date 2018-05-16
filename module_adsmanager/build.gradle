@@ -9,7 +9,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -25,8 +25,6 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.appnext.sdk:ads:2+'
-    implementation 'com.android.support:support-v4:26.1.0'
-    implementation 'com.android.support:support-core-ui:26.1.0'
     // Mandatory
     compile 'com.appnext.sdk:native-ads2:2+'
     implementation 'com.facebook.android:audience-network-sdk:4.27.1'
@@ -35,5 +33,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:15.0.1'
     implementation 'com.android.support:support-v4:26.1.0'
     implementation 'com.android.support:support-annotations:27.1.1'
-    implementation project(':io.display.sdk-1.5.8')
+    implementation files('libs/io.display.sdk-1.5.8.jar')
 }
