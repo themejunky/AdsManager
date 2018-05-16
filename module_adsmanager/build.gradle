@@ -25,6 +25,8 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.appnext.sdk:ads:2+'
+    compile 'com.android.support:support-v4:26.1.0'
+
     // Mandatory
     compile 'com.appnext.sdk:native-ads2:2+'
     compile 'com.facebook.android:audience-network-sdk:4.27.1'
