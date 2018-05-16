@@ -76,6 +76,10 @@ public class ManagerInterstitial extends ManagerBase {
 
     }
 
+    public void destroyDisplay(){
+        io.display.sdk.Controller.getInstance().onDestroy();
+    }
+
     private void runAdds_Part1Interstitial() {
         next = -1;
         runAdds_Part2Interstitial();
@@ -172,6 +176,8 @@ public class ManagerInterstitial extends ManagerBase {
     public void destroyInterstitial(){
         if (facebookAdsInterstitial != null) {
             facebookAdsInterstitial.interstitialAd.destroy();
+        }else if(displayInterstitialAds!=null){
+            io.display.sdk.Controller.getInstance().onDestroy();
         }
     }
 }
