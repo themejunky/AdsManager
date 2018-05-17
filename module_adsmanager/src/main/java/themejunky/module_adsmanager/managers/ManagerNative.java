@@ -14,6 +14,7 @@ import themejunky.module_adsmanager.ads.nativeAds.AdmobNativeAds;
 import themejunky.module_adsmanager.ads.nativeAds.AppnextNativeAds;
 import themejunky.module_adsmanager.ads.nativeAds.FacebookNativeAds;
 import themejunky.module_adsmanager.utils.ConstantsAds;
+import themejunky.module_adsmanager.utils.Stuff;
 
 /**
  * Created by Junky2 on 4/19/2018.
@@ -83,42 +84,35 @@ public class ManagerNative extends ManagerBase {
         if (next < addsFlowNative.size()) {
             switch (addsFlowNative.get(next)) {
                 case ConstantsAds.ADMOB:
-                    if (admobNativeAds.getViewNativeAd() != null && containerNativeView != null) {
+                    if (admobNativeAds!=null && admobNativeAds.getViewNativeAd() != null && containerNativeView != null) {
+                        Log.d(nameLogs, "AdmobNativeAds: 1" );
                         ((RelativeLayout) containerNativeView).removeAllViews();
                         ((RelativeLayout) containerNativeView).addView(admobNativeAds.getViewNativeAd());
                         wasShown = true;
                     } else {
+                        Log.d(nameLogs, "AdmobNativeAds: 2" );
                         runAdds_Part2Native();
                     }
                     break;
                 case ConstantsAds.APPNEXT:
-                    if (appnextNativeAds.getViewNativeAd() != null && containerNativeView != null) {
+                    if (appnextNativeAds!=null && appnextNativeAds.getViewNativeAd() != null && containerNativeView != null) {
+                        Log.d(nameLogs, "AppnextNativeAds: 1" );
                         ((RelativeLayout) containerNativeView).removeAllViews();
                         ((RelativeLayout) containerNativeView).addView(appnextNativeAds.getViewNativeAd());
                         wasShown = true;
                     } else {
+                        Log.d(nameLogs, "AppnextNativeAds: 2" );
                         runAdds_Part2Native();
                     }
                     break;
                 case ConstantsAds.FACEBOOK:
-                    if (admobNativeAds.getViewNativeAd() != null) {
-                        Log.d("asdfasdf", "FACEBOOK getViewNativeAd nu este null");
-                    } else {
-                        Log.d("asdfasdf", "FACEBOOK getViewNativeAd este null");
-                    }
-
-                    if (containerNativeView != null) {
-                        Log.d("asdfasdf", "FACEBOOK containerNativeView nu este null");
-                    } else {
-                        Log.d("asdfasdf", "FACEBOOK containerNativeView este null");
-                    }
-                    if (facebookNativeAds.getViewNativeAd() == null) {
-                    }
-                    if (facebookNativeAds.getViewNativeAd() != null && containerNativeView != null) {
+                    if (facebookNativeAds!=null && facebookNativeAds.getViewNativeAd() != null && containerNativeView != null) {
+                        Log.d(nameLogs, "FacebookNativeAds: 1" );
                         ((RelativeLayout) containerNativeView).removeAllViews();
                         ((RelativeLayout) containerNativeView).addView(facebookNativeAds.getViewNativeAd());
                         wasShown = true;
                     } else {
+                        Log.d(nameLogs, "FacebookNativeAds: 2" );
                         runAdds_Part2Native();
                     }
                     break;

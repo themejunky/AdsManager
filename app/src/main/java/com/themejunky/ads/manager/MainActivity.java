@@ -3,6 +3,7 @@ package com.themejunky.ads.manager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -44,7 +45,8 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
         initView();
 
-        flowAds.add("display");
+        flowAds.add("admob");
+        flowAds.add("appnext");
 
 
 
@@ -52,8 +54,11 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         mModuleAdsManager = ((MainApplication)getApplication()).moduleAdsManager;
         mModuleAdsManager.setListenerAds(this);
 
-        mModuleAdsManager.getManagerNative().setViewNative(findViewById(R.id.containerAdmob));
-        mModuleAdsManager.getManagerNative().setNativeFlow(flowAds);
+       // mModuleAdsManager.getManagerNative().setViewNative(findViewById(R.id.containerAdmob));
+      //  mModuleAdsManager.getManagerNative().setNativeFlow(flowAds);
+
+
+        //mModuleAdsManager.getManagerNative().showNativeAds();
 
        // ((RelativeLayout) findViewById(R.id.containerAdmob)).addView(mModuleAdsManager.getManagerNative().getAds(flowAds));
 
@@ -65,23 +70,14 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
 //        Log.d("mChoosenAd","start");
 //
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                Log.d("mChoosenAd","start 1");
-//                mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
-//            }
-//        },5000);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("mChoosenAd","start 1");
+                mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
+            }
+        },5000);
 
-
-        mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
-       // startActivity(new Intent(this,Second.class));
-//
-//
-
-
-//
-//
 
 
     }
