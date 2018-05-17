@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
         flowAds.add("admob");
         flowAds.add("appnext");
+        flowAds.add("display");
 
 
 
