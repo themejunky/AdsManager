@@ -124,6 +124,7 @@ public class ManagerNative extends ManagerBase {
     }
 
 
+
     private synchronized void runAdds_Part2Native_Test() {
         wasShown = false;
         next++;
