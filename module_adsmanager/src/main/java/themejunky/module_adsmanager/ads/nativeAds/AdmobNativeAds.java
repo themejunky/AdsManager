@@ -50,7 +50,9 @@ public class AdmobNativeAds extends NativeBase {
                     @Override
                     public void onContentAdLoaded(NativeContentAd contentAd) {
                         mAdView = mInflateLayout(R.layout.ad_content);
-                        populateContentAdView(contentAd, (NativeContentAdView) mAdView);
+                        if(mAdView!=null){
+                            populateContentAdView(contentAd, (NativeContentAdView) mAdView);
+                        }
                         if(listenerAds!=null) listenerAds.loadedNativeAds("admob");
                         listenerLogs.logs("Admob Native: ad_content Loaded");
                     }
@@ -59,8 +61,9 @@ public class AdmobNativeAds extends NativeBase {
                     @Override
                     public void onAppInstallAdLoaded(NativeAppInstallAd appInstallAd) {
                         mAdView = mInflateLayout(R.layout.ad_app_install);
-
-                        populateAppInstallAdView(appInstallAd, (NativeAppInstallAdView) mAdView);
+                        if(mAdView!=null){
+                            populateAppInstallAdView(appInstallAd, (NativeAppInstallAdView) mAdView);
+                        }
                         nativeListener.nativeLoaded();
                         listenerLogs.logs("Admob Native: ad_app_install Loaded");
                         if(listenerAds!=null) listenerAds.loadedNativeAds("admob");
