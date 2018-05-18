@@ -93,9 +93,9 @@ public class ManagerInterstitial extends ManagerBase {
     private void runAdds_Part2Interstitial() {
         next++;
         if (next < addsFlowInterstitial.size()) {
+            Log.d(nameLogs, "Flow Interstitial--- "+addsFlowInterstitial.get(next)+" ---");
             switch (addsFlowInterstitial.get(next)) {
                 case ConstantsAds.ADMOB:
-
                     Log.d(nameLogs, "Flow Interstitial: Admob Interstitial 1");
                     if (admobInterstitialAds != null) {
                         if (admobInterstitialAds.isLoadedAdmob()) {

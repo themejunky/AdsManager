@@ -87,9 +87,6 @@ public class FacebookAdsInterstitial extends ManagerBase {
 
     }
     public boolean isFacebookLoaded(){
-        if(isLoaded){
-            Log.d("TestButton", "isAdLoaded --- true;");
-        }
         if(interstitialAd!=null /*&& interstitialAd.isAdLoaded()*/){
             Log.d("TestButton", "isFacebookLoaded true;");
             return true;
