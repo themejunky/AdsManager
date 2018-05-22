@@ -142,6 +142,7 @@ public class ManagerInterstitial extends ManagerBase {
                         Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 4");
                         runAdds_Part2Interstitial();
                     }
+                    break;
                 case ConstantsAds.DISPLAY:
                     Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 1");
                     if (displayInterstitialAds!=null && displayInterstitialAds.ctrl.isInitialized() && !displayInterstitialAds.isNoAds) {
@@ -154,6 +155,7 @@ public class ManagerInterstitial extends ManagerBase {
                     }
                     break;
                 default:
+                    Log.d(nameLogs, "Flow Interstitial: ---Default---");
                     runAdds_Part2Interstitial();
                     break;
             }
