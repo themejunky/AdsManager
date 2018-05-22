@@ -169,14 +169,17 @@ public class ManagerNative extends ManagerBase {
     public void showAds(final List<String> nFlow, final ViewGroup nContainer) {
         mChoosenAd = null;
         next = -1;
-        Log.d("loop",""+ Calendar.getInstance().getTime());
+        Log.d(nameLogs, "Native Ads showAds: 1" );
         if (((appnextNativeAds!=null &&appnextNativeAds.getViewNativeAd() != null) || (admobNativeAds!=null && admobNativeAds.getViewNativeAd() != null) || (facebookNativeAds!=null && facebookNativeAds.getViewNativeAd() != null)) && (nFlow != null && nFlow.size() > 0)) {
+            Log.d(nameLogs, "Native Ads showAds: 2" );
             addsFlowNative = nFlow;
+            Log.d(nameLogs, "Native Ads showAds: 3" );
             runAdds_Part2Native_Test();
-
+            Log.d(nameLogs, "Native Ads showAds: 4" );
             if (mChoosenAd!=null && nContainer!=null) {
                 nContainer.removeAllViews();
                 nContainer.addView(mChoosenAd);
+                Log.d(nameLogs, "Native Ads showAds: 5" );
             } else {
                 Log.d("loop","nasoale "+ Calendar.getInstance().getTime());
             }
@@ -188,8 +191,10 @@ public class ManagerNative extends ManagerBase {
                     showAds(nFlow,nContainer);
                 }
             }, 250);
+            Log.d(nameLogs, "Native Ads showAds: 6" );
         }
         else {
+            Log.d(nameLogs, "Native Ads showAds: 7" );
             Log.d("loop","nasoale "+ Calendar.getInstance().getTime());
         }
 
