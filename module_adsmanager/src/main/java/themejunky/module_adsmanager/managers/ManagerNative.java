@@ -136,6 +136,9 @@ public class ManagerNative extends ManagerBase {
                     wasShown = true;
                     mChoosenAd = admobNativeAds.getViewNativeAd();
                     Log.d(nameLogs, "AdmobNativeAds: 3" );
+                } else {
+                    Log.d(nameLogs, "AdmobNativeAds: 4" );
+                     runAdds_Part2Native_Test();
                 }
             } else if (addsFlowNative.get(next).equals(ConstantsAds.APPNEXT)) {
                 Log.d(nameLogs, "AppnextNativeAds: 1" );
@@ -144,6 +147,9 @@ public class ManagerNative extends ManagerBase {
                     wasShown = true;
                     mChoosenAd = appnextNativeAds.getViewNativeAd();
                     Log.d(nameLogs, "AppnextNativeAds: 3" );
+                } else {
+                    Log.d(nameLogs, "AppnextNativeAds: 4" );
+                     runAdds_Part2Native_Test();
                 }
             } else if (addsFlowNative.get(next).equals(ConstantsAds.FACEBOOK)) {
                 Log.d(nameLogs, "FacebookNativeAds: 1" );
@@ -153,9 +159,13 @@ public class ManagerNative extends ManagerBase {
                     mChoosenAd = facebookNativeAds.getViewNativeAd();
                     Log.d(nameLogs, "FacebookNativeAds: 3" );
                 }
+                else {
+                    Log.d(nameLogs, "FacebookNativeAds: 4" );
+                    runAdds_Part2Native_Test();
+                }
             }
             else {
-                Log.d(nameLogs, "NativeAds: 4" );
+                Log.d(nameLogs, "NativeAds: none" );
                 runAdds_Part2Native_Test();
             }
 
@@ -165,12 +175,23 @@ public class ManagerNative extends ManagerBase {
     public void showAds(final List<String> nFlow, final ViewGroup nContainer) {
         mChoosenAd = null;
         next = -1;
+        Log.d(nameLogs, "Native Ads showAds: 1" );
         if (((appnextNativeAds!=null &&appnextNativeAds.getViewNativeAd() != null) || (admobNativeAds!=null && admobNativeAds.getViewNativeAd() != null) || (facebookNativeAds!=null && facebookNativeAds.getViewNativeAd() != null)) && (nFlow != null && nFlow.size() > 0)) {
+            Log.d(nameLogs, "Native Ads showAds: 2" );
             addsFlowNative = nFlow;
+            Log.d(nameLogs, "Native Ads showAds: 3" );
             runAdds_Part2Native_Test();
+            if(mChoosenAd==null){
+                Log.d(nameLogs, "Native Ads showAds: mChoosenAd este null" );
+            }else if(nContainer==null){
+                Log.d(nameLogs, "Native Ads showAds: nContainer este null" );
+            }
+            Log.d(nameLogs, "Native Ads showAds: 4" );
+
             if (mChoosenAd!=null && nContainer!=null) {
                 nContainer.removeAllViews();
                 nContainer.addView(mChoosenAd);
+                Log.d(nameLogs, "Native Ads showAds: 5" );
             } else {
                 Log.d("loop","nasoale "+ Calendar.getInstance().getTime());
             }
@@ -182,8 +203,10 @@ public class ManagerNative extends ManagerBase {
                     showAds(nFlow,nContainer);
                 }
             }, 250);
+            Log.d(nameLogs, "Native Ads showAds: 6" );
         }
         else {
+            Log.d(nameLogs, "Native Ads showAds: 7" );
             Log.d("loop","nasoale "+ Calendar.getInstance().getTime());
         }
 
