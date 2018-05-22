@@ -175,7 +175,13 @@ public class ManagerNative extends ManagerBase {
             addsFlowNative = nFlow;
             Log.d(nameLogs, "Native Ads showAds: 3" );
             runAdds_Part2Native_Test();
+            if(mChoosenAd==null){
+                Log.d(nameLogs, "Native Ads showAds: mChoosenAd este null" );
+            }else if(nContainer==null){
+                Log.d(nameLogs, "Native Ads showAds: nContainer este null" );
+            }
             Log.d(nameLogs, "Native Ads showAds: 4" );
+
             if (mChoosenAd!=null && nContainer!=null) {
                 nContainer.removeAllViews();
                 nContainer.addView(mChoosenAd);

@@ -164,7 +164,6 @@ public class ManagerInterstitial extends ManagerBase {
     @Override
     public void isClosedInterAds() {
         if (listenerAds != null) listenerAds.afterInterstitialIsClosed(nAction);
-        Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 4");
     }
 
     public static synchronized ManagerInterstitial getInstance(Context nContext) {
