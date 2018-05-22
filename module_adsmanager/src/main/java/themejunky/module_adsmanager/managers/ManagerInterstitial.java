@@ -102,6 +102,9 @@ public class ManagerInterstitial extends ManagerBase {
                             Log.d(nameLogs, "Flow Interstitial: Admob Interstitial 2");
                             admobInterstitialAds.showAdmobAds();
                             Log.d(nameLogs, "Flow Interstitial: Admob Interstitial 3");
+                        }else {
+                            Log.d(nameLogs, "Flow Interstitial: Admob Interstitial 4");
+                            runAdds_Part2Interstitial();
                         }
                     } else {
                         Log.d(nameLogs, "Flow Interstitial: Admob Interstitial 4");
