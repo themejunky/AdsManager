@@ -23,6 +23,13 @@ public class DisplayInterstitialAds {
     boolean isDisplayLoaded;
     public boolean isNoAds;
 
+    public interface _Interface {
+        void mGoBackFromDisplay();
+    }
+
+
+    DisplayInterstitialAds._Interface mListenerComeBack;
+
     public DisplayInterstitialAds(Context context, String appId,AdsListenerManager.ListenerLogs listenerLogs) {
         this.listenerLogs =listenerLogs;
         this.context = context;
@@ -57,6 +64,9 @@ public class DisplayInterstitialAds {
             public void onAdFailedToShow(String placementId) {
                 super.onAdFailedToShow(placementId);
                 listenerLogs.logs("Display.Io Intersitial: onAdFailedToShow");
+                if (mListenerComeBack!=null) {
+                    mListenerComeBack.mGoBackFromDisplay();
+                }
             }
 
             @Override
@@ -123,8 +133,9 @@ public class DisplayInterstitialAds {
 
 
 
-    public void showAd(Context context, String placementId) {
+    public void showAd(Context context, String placementId,DisplayInterstitialAds._Interface nListenerComeBack) {
         if (ctrl != null) {
+            mListenerComeBack = nListenerComeBack;
             ctrl.showAd(context, placementId);
         }
     }

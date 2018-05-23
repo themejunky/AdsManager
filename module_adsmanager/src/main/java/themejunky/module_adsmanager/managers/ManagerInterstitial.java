@@ -17,7 +17,7 @@ import themejunky.module_adsmanager.utils.ConstantsAds;
  * Created by Junky2 on 4/19/2018.
  */
 
-public class ManagerInterstitial extends ManagerBase {
+public class ManagerInterstitial extends ManagerBase implements DisplayInterstitialAds._Interface {
     private static ManagerInterstitial instance = null;
     private final Context mContext;
     private AdmobInterstitialAds admobInterstitialAds;
@@ -25,6 +25,7 @@ public class ManagerInterstitial extends ManagerBase {
     private FacebookAdsInterstitial facebookAdsInterstitial;
     private DisplayInterstitialAds displayInterstitialAds;
     private String placementId;
+
 
     public ManagerInterstitial(Context nContext) {
         this.mContext = nContext;
@@ -59,7 +60,7 @@ public class ManagerInterstitial extends ManagerBase {
     }
 
     public void showDisplayIo(String placementId){
-        displayInterstitialAds.showAd(mContext,placementId);
+        displayInterstitialAds.showAd(mContext,placementId,this);
     }
 
     public void reLoadedInterstitial(){
@@ -147,7 +148,7 @@ public class ManagerInterstitial extends ManagerBase {
                     Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 1");
                     if (displayInterstitialAds!=null && displayInterstitialAds.ctrl.isInitialized() && !displayInterstitialAds.isNoAds) {
                         Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 2");
-                        displayInterstitialAds.showAd(mContext,placementId);
+                        displayInterstitialAds.showAd(mContext,placementId,this);
                         Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 3");
                     } else {
                         Log.d(nameLogs, "Flow Interstitial: Display Interstitial 4");
@@ -182,5 +183,11 @@ public class ManagerInterstitial extends ManagerBase {
         }else if(displayInterstitialAds!=null){
             io.display.sdk.Controller.getInstance().onDestroy();
         }
+    }
+
+    @Override
+    public void mGoBackFromDisplay() {
+        Log.d(nameLogs, "mCOMEBACK");
+        runAdds_Part2Interstitial();
     }
 }
