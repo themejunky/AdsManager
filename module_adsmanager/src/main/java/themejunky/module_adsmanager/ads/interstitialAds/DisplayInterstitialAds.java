@@ -57,7 +57,6 @@ public class DisplayInterstitialAds {
             public void onAdFailedToShow(String placementId) {
                 super.onAdFailedToShow(placementId);
                 listenerLogs.logs("Display.Io Intersitial: onAdFailedToShow");
-                ManagerInterstitial.getInstance(context).runAdds_Part2Interstitial();
             }
 
             @Override
