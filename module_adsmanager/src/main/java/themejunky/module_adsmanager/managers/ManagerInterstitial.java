@@ -90,7 +90,7 @@ public class ManagerInterstitial extends ManagerBase {
 
     }
 
-    private void runAdds_Part2Interstitial() {
+    public void runAdds_Part2Interstitial() {
         next++;
         if (next < addsFlowInterstitial.size()) {
             Log.d(nameLogs, "Flow Interstitial--- "+addsFlowInterstitial.get(next)+" ---");
@@ -129,7 +129,7 @@ public class ManagerInterstitial extends ManagerBase {
                     break;
                 case ConstantsAds.FACEBOOK:
                     Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 1");
-                    if (facebookAdsInterstitial != null) {
+                    if (facebookAdsInterstitial != null && facebookAdsInterstitial.interstitialAd!=null) {
                         if (facebookAdsInterstitial.isFacebookLoaded()) {
                             Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 2");
                             facebookAdsInterstitial.interstitialAd.show();

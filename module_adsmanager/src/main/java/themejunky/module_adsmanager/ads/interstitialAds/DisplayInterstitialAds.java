@@ -8,6 +8,7 @@ import io.display.sdk.Controller;
 import io.display.sdk.EventListener;
 import io.display.sdk.ads.supers.RewardedVideoAd;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
+import themejunky.module_adsmanager.managers.ManagerInterstitial;
 
 /**
  * Created by Junky2 on 5/15/2018.
@@ -56,7 +57,7 @@ public class DisplayInterstitialAds {
             public void onAdFailedToShow(String placementId) {
                 super.onAdFailedToShow(placementId);
                 listenerLogs.logs("Display.Io Intersitial: onAdFailedToShow");
-                isNoAds =true;
+                ManagerInterstitial.getInstance(context).runAdds_Part2Interstitial();
             }
 
             @Override
