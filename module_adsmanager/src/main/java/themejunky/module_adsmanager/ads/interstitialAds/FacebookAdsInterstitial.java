@@ -21,9 +21,10 @@ public class FacebookAdsInterstitial extends ManagerBase {
     private boolean isLoaded;
     private _Interface mListenerComeBack;
 
-    public FacebookAdsInterstitial(Context context, String keyFacebook,AdsListenerManager.ListenerLogs listenerLogs){
+    public FacebookAdsInterstitial(Context context, String keyFacebook,AdsListenerManager.ListenerLogs listenerLogs,ManagerBase._Interface nListenerBack){
         this.listenerLogs = listenerLogs;
         this.context = context;
+        mListenerComeBack = nListenerBack;
         initFacebookInterstitial(keyFacebook);
         AdSettings.addTestDevice("f5726d6130e7bc96ef669e32ea0ae59e");
     }
@@ -76,8 +77,8 @@ public class FacebookAdsInterstitial extends ManagerBase {
         interstitialAd.loadAd();
     }
 
-    public  void showInterstitialFacebook(ManagerBase._Interface nListenerBack) {
-        mListenerComeBack = nListenerBack;
+    public  void showInterstitialFacebook() {
+
         if (interstitialAd !=null && isLoaded) {
             interstitialAd.show();
             listenerLogs.logs("Faceboook Interstitial: is shown");
@@ -98,8 +99,8 @@ public class FacebookAdsInterstitial extends ManagerBase {
         }
     }
 
-    public synchronized static FacebookAdsInterstitial getInstance(Context context, String keyFacebook,AdsListenerManager.ListenerLogs listenerLogs) {
-        if (mInstance == null) mInstance = new FacebookAdsInterstitial(context,keyFacebook,listenerLogs);
+    public synchronized static FacebookAdsInterstitial getInstance(Context context, String keyFacebook,AdsListenerManager.ListenerLogs listenerLogs,ManagerBase._Interface nListenerBack) {
+        if (mInstance == null) mInstance = new FacebookAdsInterstitial(context,keyFacebook,listenerLogs,nListenerBack);
         return mInstance;
     }
 

@@ -38,7 +38,7 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
         appnextAdsInterstitial = AppnextAdsInterstitial.getInstance(mContext, keyInterstitialAppnext, this);}
 
     public void initInterstitialFacebook(String keyInterstitialFacebook) {
-        facebookAdsInterstitial = FacebookAdsInterstitial.getInstance(mContext, keyInterstitialFacebook, this);}
+        facebookAdsInterstitial = FacebookAdsInterstitial.getInstance(mContext, keyInterstitialFacebook, this,this);}
 
     public void initInterstitialDisplay(String appid,String placementId) {
         this.placementId = placementId;
@@ -133,7 +133,7 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
                     if (facebookAdsInterstitial != null && facebookAdsInterstitial.interstitialAd!=null) {
                         if (facebookAdsInterstitial.isFacebookLoaded()) {
                             Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 2");
-                            facebookAdsInterstitial.showInterstitialFacebook(this);
+                            facebookAdsInterstitial.showInterstitialFacebook();
                             Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 3");
                         } else {
                             Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 4");
