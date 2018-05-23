@@ -157,7 +157,7 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
                     break;
                 default:
                     Log.d(nameLogs, "Flow Interstitial: ---Default---");
-                    runAdds_Part2Interstitial();
+                    if (listenerAds != null) listenerAds.afterInterstitialIsClosed(nAction);
                     break;
             }
         }
