@@ -83,6 +83,7 @@ public class FacebookAdsInterstitial extends ManagerBase {
             interstitialAd.show();
             listenerLogs.logs("Faceboook Interstitial: is shown");
         } else {
+            mListenerComeBack.mGoBackFromDisplay();
             listenerLogs.logs("Faceboook Interstitial: show failed");
 
 
