@@ -132,7 +132,7 @@ public class ManagerInterstitial extends ManagerBase {
                     if (facebookAdsInterstitial != null) {
                         if (facebookAdsInterstitial.isFacebookLoaded()) {
                             Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 2");
-                            facebookAdsInterstitial.showInterstitialFacebook();
+                            facebookAdsInterstitial.interstitialAd.show();
                             Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 3");
                         } else {
                             Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 4");
