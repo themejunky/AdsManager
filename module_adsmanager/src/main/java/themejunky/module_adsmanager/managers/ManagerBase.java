@@ -23,6 +23,11 @@ public class ManagerBase extends SlaveListener {
     protected static boolean isReloaded;
 
 
+    public interface _Interface {
+        void mGoBackFromDisplay();
+    }
+
+
 
 
     @Override

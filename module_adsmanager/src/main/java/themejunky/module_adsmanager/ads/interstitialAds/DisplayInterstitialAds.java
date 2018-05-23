@@ -8,6 +8,7 @@ import io.display.sdk.Controller;
 import io.display.sdk.EventListener;
 import io.display.sdk.ads.supers.RewardedVideoAd;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
+import themejunky.module_adsmanager.managers.ManagerBase;
 import themejunky.module_adsmanager.managers.ManagerInterstitial;
 
 /**
@@ -23,12 +24,10 @@ public class DisplayInterstitialAds {
     boolean isDisplayLoaded;
     public boolean isNoAds;
 
-    public interface _Interface {
-        void mGoBackFromDisplay();
-    }
 
 
-    DisplayInterstitialAds._Interface mListenerComeBack;
+
+    ManagerBase._Interface mListenerComeBack;
 
     public DisplayInterstitialAds(Context context, String appId,AdsListenerManager.ListenerLogs listenerLogs) {
         this.listenerLogs =listenerLogs;
@@ -133,7 +132,7 @@ public class DisplayInterstitialAds {
 
 
 
-    public void showAd(Context context, String placementId,DisplayInterstitialAds._Interface nListenerComeBack) {
+    public void showAd(Context context, String placementId,ManagerBase._Interface nListenerComeBack) {
         if (ctrl != null) {
             mListenerComeBack = nListenerComeBack;
             ctrl.showAd(context, placementId);

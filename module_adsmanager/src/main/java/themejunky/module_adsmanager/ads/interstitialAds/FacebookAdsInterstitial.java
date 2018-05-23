@@ -19,6 +19,7 @@ public class FacebookAdsInterstitial extends ManagerBase {
     public InterstitialAd interstitialAd;
     private AdsListenerManager.ListenerLogs listenerLogs;
     private boolean isLoaded;
+    private _Interface mListenerComeBack;
 
     public FacebookAdsInterstitial(Context context, String keyFacebook,AdsListenerManager.ListenerLogs listenerLogs){
         this.listenerLogs = listenerLogs;
@@ -52,6 +53,7 @@ public class FacebookAdsInterstitial extends ManagerBase {
             @Override
             public void onError(Ad ad, AdError adError) {
                 listenerLogs.logs("Faceboook Interstitial error: "+ adError.getErrorMessage());
+                mListenerComeBack.mGoBackFromDisplay();
             }
 
             @Override
@@ -74,8 +76,8 @@ public class FacebookAdsInterstitial extends ManagerBase {
         interstitialAd.loadAd();
     }
 
-    public  void showInterstitialFacebook() {
-
+    public  void showInterstitialFacebook(ManagerBase._Interface nListenerBack) {
+        mListenerComeBack = nListenerBack;
         if (interstitialAd !=null && isLoaded) {
             interstitialAd.show();
             listenerLogs.logs("Faceboook Interstitial: is shown");

@@ -17,7 +17,7 @@ import themejunky.module_adsmanager.utils.ConstantsAds;
  * Created by Junky2 on 4/19/2018.
  */
 
-public class ManagerInterstitial extends ManagerBase implements DisplayInterstitialAds._Interface {
+public class ManagerInterstitial extends ManagerBase implements ManagerBase._Interface {
     private static ManagerInterstitial instance = null;
     private final Context mContext;
     private AdmobInterstitialAds admobInterstitialAds;
@@ -133,7 +133,7 @@ public class ManagerInterstitial extends ManagerBase implements DisplayInterstit
                     if (facebookAdsInterstitial != null && facebookAdsInterstitial.interstitialAd!=null) {
                         if (facebookAdsInterstitial.isFacebookLoaded()) {
                             Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 2");
-                            facebookAdsInterstitial.interstitialAd.show();
+                            facebookAdsInterstitial.showInterstitialFacebook(this);
                             Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 3");
                         } else {
                             Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 4");
