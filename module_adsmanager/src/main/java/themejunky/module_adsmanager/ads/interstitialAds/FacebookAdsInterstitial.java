@@ -11,6 +11,7 @@ import com.facebook.ads.InterstitialAdListener;
 
 import themejunky.module_adsmanager.ads.AdsListenerManager;
 import themejunky.module_adsmanager.managers.ManagerBase;
+import themejunky.module_adsmanager.managers.ManagerInterstitial;
 
 
 public class FacebookAdsInterstitial extends ManagerBase {
@@ -85,6 +86,7 @@ public class FacebookAdsInterstitial extends ManagerBase {
         } else {
             listenerLogs.logs("Faceboook Interstitial: show failed 1");
             mListenerComeBack.mGoBackFromDisplay();
+            ManagerInterstitial.isNoAdsFacebook=true;
             listenerLogs.logs("Faceboook Interstitial: show failed 2");
 
         }

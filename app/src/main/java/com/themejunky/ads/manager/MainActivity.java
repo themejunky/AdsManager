@@ -76,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
             public void run() {
                 Log.d("mChoosenAd","start 1");
                 mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
+                mModuleAdsManager.getManagerInterstitial().initInterstitialDisplay("6358","300072");
+                mModuleAdsManager.getManagerInterstitial().initInterstitialFacebook("156810341634297_15681329163400222");
             }
         },5000);
 
@@ -137,7 +139,12 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         viewButtons = v;
         switch (viewButtons.getId()) {
             case R.id.applyid:
+               if(mModuleAdsManager.getManagerInterstitial().isSomeAdLoaded()){
                 mModuleAdsManager.getManagerInterstitial().showInterstitial(flowAds, Action.APPLY);
+            }else{
+                   startActivity(new Intent(this, ApplyActivity.class));
+               }
+
               /*  mModuleAdsManager.getManagerInterstitial().reLoadedInterstitial();
 
                 if (mModuleAdsManager.getManagerInterstitial().isSomeAdLoaded()) {

@@ -22,7 +22,7 @@ public class DisplayInterstitialAds {
     private final Context context;
     public Controller ctrl;
     boolean isDisplayLoaded;
-    public boolean isNoAds;
+
 
 
 
@@ -50,7 +50,7 @@ public class DisplayInterstitialAds {
             public void onInitError(String msg) {
                 super.onInitError(msg);
                 listenerLogs.logs("Display.Io Intersitial: error - "+msg);
-                isNoAds =true;
+
             }
 
             @Override
@@ -65,6 +65,7 @@ public class DisplayInterstitialAds {
                 listenerLogs.logs("Display.Io Intersitial: onAdFailedToShow");
                 if (mListenerComeBack!=null) {
                     mListenerComeBack.mGoBackFromDisplay();
+                    ManagerInterstitial.isNoAdsDisplay=true;
                 }
             }
 
@@ -72,7 +73,6 @@ public class DisplayInterstitialAds {
             public void onNoAds(String placementId) {
                 super.onNoAds(placementId);
                 listenerLogs.logs("Display.Io Intersitial: onNoAds");
-                isNoAds  =true;
             }
 
             @Override
@@ -110,7 +110,6 @@ public class DisplayInterstitialAds {
             public void inactivate() {
                 super.inactivate();
                 listenerLogs.logs("Display.Io Intersitial: inactivate");
-                isNoAds  =true;
             }
 
             @Override

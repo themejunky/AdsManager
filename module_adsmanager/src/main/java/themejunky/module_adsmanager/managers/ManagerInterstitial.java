@@ -25,6 +25,8 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
     private FacebookAdsInterstitial facebookAdsInterstitial;
     private DisplayInterstitialAds displayInterstitialAds;
     private String placementId;
+    public static boolean isNoAdsFacebook;
+    public static boolean isNoAdsDisplay;
 
 
     public ManagerInterstitial(Context nContext) {
@@ -95,6 +97,8 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
         next++;
         if (next < addsFlowInterstitial.size()) {
             Log.d(nameLogs, "Flow Interstitial--- "+addsFlowInterstitial.get(next)+" ---");
+            Log.d(nameLogs, "Flow Interstitial: isNoAdsFacebook : " + isNoAdsFacebook);
+            Log.d(nameLogs, "Flow Interstitial: isNoAdsDisplay : " + isNoAdsDisplay);
             switch (addsFlowInterstitial.get(next)) {
                 case ConstantsAds.ADMOB:
                     Log.d(nameLogs, "Flow Interstitial: Admob Interstitial 1");
@@ -135,6 +139,9 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
                             Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 2");
                             facebookAdsInterstitial.showInterstitialFacebook();
                             Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 3");
+                            if(isNoAdsFacebook){
+                                isClosedInterAds();
+                            }
                         } else {
                             Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 4");
                             runAdds_Part2Interstitial();
@@ -146,9 +153,12 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
                     break;
                 case ConstantsAds.DISPLAY:
                     Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 1");
-                    if (displayInterstitialAds!=null && displayInterstitialAds.ctrl.isInitialized() && !displayInterstitialAds.isNoAds) {
+                    if (displayInterstitialAds!=null && displayInterstitialAds.ctrl.isInitialized()) {
                         Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 2");
                         displayInterstitialAds.showAd(mContext,placementId,this);
+                        if(isNoAdsDisplay){
+                            isClosedInterAds();
+                        }
                         Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 3");
                     } else {
                         Log.d(nameLogs, "Flow Interstitial: Display Interstitial 4");
@@ -157,9 +167,10 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
                     break;
                 default:
                     Log.d(nameLogs, "Flow Interstitial: ---Default---");
-                    if (listenerAds != null) listenerAds.afterInterstitialIsClosed(nAction);
+                   // runAdds_Part2Interstitial();
                     break;
             }
+
         }
     }
 
@@ -189,5 +200,5 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
     public void mGoBackFromDisplay() {
         Log.d(nameLogs, "mCOMEBACK");
         runAdds_Part2Interstitial();
-    }
+          }
 }
