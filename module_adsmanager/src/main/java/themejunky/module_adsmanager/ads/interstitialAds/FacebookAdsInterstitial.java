@@ -56,6 +56,7 @@ public class FacebookAdsInterstitial extends ManagerBase {
             public void onError(Ad ad, AdError adError) {
                 listenerLogs.logs("Faceboook Interstitial error: "+ adError.getErrorMessage());
                 mListenerComeBack.mGoBackFromDisplay();
+                ManagerInterstitial.isNoAdsFacebook=true;
             }
 
             @Override

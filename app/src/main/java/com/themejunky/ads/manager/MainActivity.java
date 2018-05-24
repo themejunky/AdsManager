@@ -74,10 +74,11 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Log.d("mChoosenAd","start 1");
+                Log.d("TestButton","---------start 1---------------");
                 mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
                 mModuleAdsManager.getManagerInterstitial().initInterstitialDisplay("6358","300072");
                 mModuleAdsManager.getManagerInterstitial().initInterstitialFacebook("156810341634297_15681329163400222");
+
             }
         },5000);
 
