@@ -5,6 +5,7 @@ import android.app.Application;
 import com.appnext.base.Appnext;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import themejunky.module_adsmanager.ModuleAdsManager;
@@ -18,6 +19,7 @@ public class MainApplication extends Application {
     public List<String> flowAdsInceput = new ArrayList<>();
     public List<String> flowAdsSfarsit = new ArrayList<>();
     public ModuleAdsManager moduleAdsManager;
+    private List<String> placementVungle = Arrays.asList("DEFAULT-1982645");
 
     @Override
     public void onCreate() {
@@ -38,6 +40,7 @@ public class MainApplication extends Application {
         moduleAdsManager.getManagerNative().iniNativeFacebook("833164856890775_838240766383184",false);
         moduleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159",false);
         moduleAdsManager.getManagerNative().iniNativeAppnext("cdd052e2-9394-407c-99d4-323439dd7398",false);
+        moduleAdsManager.getManagerInterstitial().initInterstitialVungle("5b06af181f1e8a3626d6bc9d",placementVungle);
 
        // moduleAdsManager.getManagerNative().iniNativeAppnext("cdd052e2-9394-407c-99d4-323439dd7398",true);
 

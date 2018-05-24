@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.android.gms.ads.AdRequest;
+import com.vungle.warren.Vungle;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import themejunky.module_adsmanager.ads.interstitialAds.AdmobInterstitialAds;
 import themejunky.module_adsmanager.ads.interstitialAds.AppnextAdsInterstitial;
 import themejunky.module_adsmanager.ads.interstitialAds.DisplayInterstitialAds;
 import themejunky.module_adsmanager.ads.interstitialAds.FacebookAdsInterstitial;
+import themejunky.module_adsmanager.ads.interstitialAds.VungleInterstitialAds;
 import themejunky.module_adsmanager.utils.ConstantsAds;
 
 /**
@@ -24,6 +26,7 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
     private AppnextAdsInterstitial appnextAdsInterstitial;
     private FacebookAdsInterstitial facebookAdsInterstitial;
     private DisplayInterstitialAds displayInterstitialAds;
+    private VungleInterstitialAds vungleInterstitialAds;
     private String placementId;
     public static boolean isNoAdsFacebook;
     public static boolean isNoAdsDisplay;
@@ -50,6 +53,10 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
         displayInterstitialAds = DisplayInterstitialAds.getInstance(mContext, appid, this);
     }
 
+    public void initInterstitialVungle(String appId,List<String>placements){
+        vungleInterstitialAds = VungleInterstitialAds.getmInstance(mContext,appId,placements,this);
+    }
+
     public boolean isSomeAdLoaded() {
 
         if (facebookAdsInterstitial != null && facebookAdsInterstitial.interstitialAd.isAdLoaded()) {
@@ -64,7 +71,11 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
         } else if (displayInterstitialAds != null && displayInterstitialAds.ctrl.isInitialized()) {
             Log.d(nameLogs, "isSomeAdLoaded : Display");
             return true;
-        } else {
+        }  else if (vungleInterstitialAds != null &&vungleInterstitialAds.isVungleLoaded()) {
+            Log.d(nameLogs, "isSomeAdLoaded : Vungle");
+            return true;
+        }else {
+            Log.d(nameLogs, "isSomeAdLoaded : Nimic nu este Loaded");
             return false;
         }
 
@@ -165,12 +176,20 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
                         if (displayInterstitialAds != null && displayInterstitialAds.ctrl.isInitialized()) {
                             Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 2");
                             displayInterstitialAds.showAd(mContext, placementId, this);
-                            if (isNoAdsDisplay) {
-                                if (listenerAds != null) listenerAds.afterInterstitialIsClosed(nAction);
-                            }
                             Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 3");
                         } else {
                             Log.d(nameLogs, "Flow Interstitial: Display Interstitial 4");
+                            runAdds_Part2Interstitial();
+                        }
+                        break;
+                    case ConstantsAds.VUNGLE:
+                        Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 1");
+                        if (vungleInterstitialAds != null ) {
+                            Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 2");
+                            vungleInterstitialAds.showVungleAds();
+                            Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 3");
+                        } else {
+                            Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 4");
                             runAdds_Part2Interstitial();
                         }
                         break;
@@ -209,5 +228,8 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
     public void mGoBackFromDisplay() {
         Log.d(nameLogs, "mCOMEBACK");
         runAdds_Part2Interstitial();
+        if (isNoAdsDisplay) {
+            if (listenerAds != null) listenerAds.afterInterstitialIsClosed(nAction);
+        }
     }
 }

@@ -45,9 +45,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
         initView();
 
-        flowAds.add("admob");
-        flowAds.add("appnext");
-        flowAds.add("display");
+        flowAds.add("vungle");
 
 
 
@@ -76,8 +74,9 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
             public void run() {
                 Log.d("TestButton","---------start 1---------------");
                 mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
-                mModuleAdsManager.getManagerInterstitial().initInterstitialDisplay("6358","300072");
-                mModuleAdsManager.getManagerInterstitial().initInterstitialFacebook("156810341634297_15681329163400222");
+                findViewById(R.id.applyid).setVisibility(View.VISIBLE);
+              //  mModuleAdsManager.getManagerInterstitial().initInterstitialDisplay("6358","300072");
+               // mModuleAdsManager.getManagerInterstitial().initInterstitialFacebook("156810341634297_15681329163400222");
 
             }
         },5000);

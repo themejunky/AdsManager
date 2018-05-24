@@ -38,7 +38,6 @@ public class DisplayInterstitialAds {
     public void init(final Context context, String appId) {
         ctrl = io.display.sdk.Controller.getInstance();
         ctrl.init(context, appId);
-        listenerLogs.logs("Display.Io Intersitial: isInitialized: " + ctrl.isInitialized());
         ctrl.setEventListener(new EventListener() {
             @Override
             public void onInit() {
