@@ -82,6 +82,7 @@ public class DisplayInterstitialAds {
             public void onAdClick(String placementId) {
                 super.onAdClick(placementId);
                 listenerLogs.logs("Display.Io Intersitial: onAdClick");
+                listenerLogs.isClosedInterAds();
             }
 
             @Override
