@@ -184,7 +184,7 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
                         break;
                     case ConstantsAds.VUNGLE:
                         Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 1");
-                        if (vungleInterstitialAds != null && Vungle.canPlayAd(placementId) ) {
+                        if (vungleInterstitialAds != null && vungleInterstitialAds.isReadyToShow() ) {
                             Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 2");
                             vungleInterstitialAds.showVungleAds();
                             Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 3");

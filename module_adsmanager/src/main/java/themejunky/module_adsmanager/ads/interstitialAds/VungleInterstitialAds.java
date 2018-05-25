@@ -109,6 +109,17 @@ public class VungleInterstitialAds extends ManagerBase {
     }
 
 
+    public boolean isReadyToShow(){
+        if (Vungle.canPlayAd(placementId)) {
+            listenerLogs.logs("Vungle Inter: isReadyToShow");
+           return true;
+
+        }else {
+            listenerLogs.logs("Vungle Inter: is not isReadyToShow");
+            return false;
+
+        }
+    }
 
 
     public void showVungleAds() {
@@ -116,7 +127,7 @@ public class VungleInterstitialAds extends ManagerBase {
             listenerLogs.logs("Vungle Inter: showVungleAds");
             Vungle.playAd(placementId, adConfig, playAdCallback);
         }else {
-            listenerLogs.logs("Vungle Inter: showVungleAds feild");
+            listenerLogs.logs("Vungle Inter: showVungleAds Failed");
         }
     }
     public boolean isVungleLoaded(){
