@@ -89,8 +89,8 @@ public class VungleInterstitialAds extends ManagerBase {
     }
 
     public void loadVungle() {
-        if (app_id != null) {
-            Vungle.loadAd(app_id, new LoadAdCallback() {
+        if (placementId != null) {
+            Vungle.loadAd(placementId, new LoadAdCallback() {
                 @Override
                 public void onAdLoad(String s) {
                     listenerLogs.logs("Vungle Inter: is Loaded");
