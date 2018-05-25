@@ -71,7 +71,7 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
         } else if (displayInterstitialAds != null && displayInterstitialAds.ctrl.isInitialized()) {
             Log.d(nameLogs, "isSomeAdLoaded : Display");
             return true;
-        }  else if (vungleInterstitialAds != null &&vungleInterstitialAds.isVungleLoaded()) {
+        }  else if (vungleInterstitialAds != null &&vungleInterstitialAds.isReadyToShow()) {
             Log.d(nameLogs, "isSomeAdLoaded : Vungle");
             return true;
         }else {
