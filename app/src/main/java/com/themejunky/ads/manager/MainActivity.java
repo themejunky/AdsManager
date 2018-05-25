@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
         initView();
 
-        flowAds.add("vungle");
+        flowAds.add("display");
 
 
 

@@ -1,8 +1,8 @@
 package themejunky.module_adsmanager.ads.interstitialAds;
 
-import android.app.Activity;
+
 import android.content.Context;
-import android.widget.Toast;
+
 
 import io.display.sdk.Controller;
 import io.display.sdk.EventListener;
@@ -22,15 +22,11 @@ public class DisplayInterstitialAds {
     private final Context context;
     public Controller ctrl;
     boolean isDisplayLoaded;
+    private ManagerBase._Interface mListenerComeBack;
+    public boolean isReadyDisplay;
 
-
-
-
-
-    ManagerBase._Interface mListenerComeBack;
-
-    public DisplayInterstitialAds(Context context, String appId,AdsListenerManager.ListenerLogs listenerLogs) {
-        this.listenerLogs =listenerLogs;
+    public DisplayInterstitialAds(Context context, String appId, AdsListenerManager.ListenerLogs listenerLogs) {
+        this.listenerLogs = listenerLogs;
         this.context = context;
         init(context, appId);
     }
@@ -48,8 +44,7 @@ public class DisplayInterstitialAds {
             @Override
             public void onInitError(String msg) {
                 super.onInitError(msg);
-                listenerLogs.logs("Display.Io Intersitial: error - "+msg);
-
+                listenerLogs.logs("Display.Io Intersitial: onInitError");
             }
 
             @Override
@@ -62,10 +57,7 @@ public class DisplayInterstitialAds {
             public void onAdFailedToShow(String placementId) {
                 super.onAdFailedToShow(placementId);
                 listenerLogs.logs("Display.Io Intersitial: onAdFailedToShow");
-                if (mListenerComeBack!=null) {
-                    mListenerComeBack.mGoBackFromDisplay();
-                    ManagerInterstitial.isNoAdsDisplay=true;
-                }
+                mListenerComeBack.mGoBackFromDisplay();
             }
 
             @Override
@@ -83,7 +75,6 @@ public class DisplayInterstitialAds {
             @Override
             public void onAdClose(String placementId) {
                 super.onAdClose(placementId);
-                listenerLogs.isClosedInterAds();
                 listenerLogs.logs("Display.Io Intersitial: onAdClose");
             }
 
@@ -97,6 +88,7 @@ public class DisplayInterstitialAds {
             public void onAdReady(String placementId) {
                 super.onAdReady(placementId);
                 listenerLogs.logs("Display.Io Intersitial: onAdReady");
+                isReadyDisplay = true;
             }
 
             @Override
@@ -118,7 +110,7 @@ public class DisplayInterstitialAds {
             }
 
             @Override
-            public Boolean isActive() {
+            public boolean isActive() {
                 listenerLogs.logs("Display.Io Intersitial: isActive");
                 return super.isActive();
 
@@ -128,9 +120,7 @@ public class DisplayInterstitialAds {
     }
 
 
-
-
-    public void showAd(Context context, String placementId,ManagerBase._Interface nListenerComeBack) {
+    public void showAd(Context context, String placementId, ManagerBase._Interface nListenerComeBack) {
         if (ctrl != null) {
             mListenerComeBack = nListenerComeBack;
             ctrl.showAd(context, placementId);
@@ -138,10 +128,9 @@ public class DisplayInterstitialAds {
     }
 
 
-
-    public static synchronized DisplayInterstitialAds getInstance(Context context, String appId,AdsListenerManager.ListenerLogs listenerLogs) {
+    public static synchronized DisplayInterstitialAds getInstance(Context context, String appId, AdsListenerManager.ListenerLogs listenerLogs) {
         if (instance == null) {
-            return new DisplayInterstitialAds(context, appId,listenerLogs);
+            return new DisplayInterstitialAds(context, appId, listenerLogs);
         } else {
             return instance;
         }

@@ -41,6 +41,7 @@ public class MainApplication extends Application {
         moduleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159",false);
         moduleAdsManager.getManagerNative().iniNativeAppnext("cdd052e2-9394-407c-99d4-323439dd7398",false);
         moduleAdsManager.getManagerInterstitial().initInterstitialVungle("5b06af181f1e8a3626d6bc9d",placementVungle);
+        moduleAdsManager.getManagerInterstitial().initInterstitialDisplay("6363","3079");
 
        // moduleAdsManager.getManagerNative().iniNativeAppnext("cdd052e2-9394-407c-99d4-323439dd7398",true);
 

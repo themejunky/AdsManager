@@ -173,7 +173,7 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
                         break;
                     case ConstantsAds.DISPLAY:
                         Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 1");
-                        if (displayInterstitialAds != null && displayInterstitialAds.ctrl.isInitialized()) {
+                        if (displayInterstitialAds != null && displayInterstitialAds.isReadyDisplay) {
                             Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 2");
                             displayInterstitialAds.showAd(mContext, placementId, this);
                             Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 3");
