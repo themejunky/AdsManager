@@ -52,38 +52,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         mModuleAdsManager.setListenerAds(this);
         mModuleAdsManager.initManagers(this, true);
         mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"5af56f18e113780b0e5a1360", "46cfc662d3d840bf07db9f500244dc7820453682"); //test
-        //mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"4f7b433509b6025804000002", "dd2d41b69ac01b80f443f5b6cf06096d457f82bd"); //test
-
-        // mModuleAdsManager.getManagerNative().setViewNative(findViewById(R.id.containerAdmob));
-        //mModuleAdsManager.getManagerNative().setNativeFlow(flowAds);
-
-
-        //mModuleAdsManager.getManagerNative().showNativeAds();
-
-       // ((RelativeLayout) findViewById(R.id.containerAdmob)).addView(mModuleAdsManager.getManagerNative().getAds(flowAds));
-
-
-     //   ((RelativeLayout) findViewById(R.id.containerAdmob)).addView(mModuleAdsManager.getManagerNative().getAds(flowAds));
-
-       // mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
-//
-
-//        Log.d("mChoosenAd","start");
-//
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Log.d("TestButton","---------start 1---------------");
-                mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
-                findViewById(R.id.applyid).setVisibility(View.VISIBLE);
-              //  mModuleAdsManager.getManagerInterstitial().initInterstitialDisplay("6358","300072");
-               // mModuleAdsManager.getManagerInterstitial().initInterstitialFacebook("156810341634297_15681329163400222");
-
-            }
-        },5000);
-
-
-
+       // mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"4f7b433509b6025804000002", "dd2d41b69ac01b80f443f5b6cf06096d457f82bd"); //test
     }
 
     public void initView() {
