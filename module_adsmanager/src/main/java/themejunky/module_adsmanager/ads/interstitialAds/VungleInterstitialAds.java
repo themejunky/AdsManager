@@ -1,3 +1,4 @@
+/*
 package themejunky.module_adsmanager.ads.interstitialAds;
 
 import android.content.Context;
@@ -18,9 +19,11 @@ import java.util.List;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
 import themejunky.module_adsmanager.managers.ManagerBase;
 
+*/
 /**
  * Created by Junky2 on 5/24/2018.
- */
+ *//*
+
 
 public class VungleInterstitialAds extends ManagerBase {
     private final String app_id;
@@ -144,3 +147,4 @@ public class VungleInterstitialAds extends ManagerBase {
 
     }
 }
+*/

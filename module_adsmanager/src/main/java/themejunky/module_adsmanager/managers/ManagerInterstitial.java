@@ -5,7 +5,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.android.gms.ads.AdRequest;
-import com.vungle.warren.Vungle;
 
 import java.util.List;
 
@@ -14,7 +13,6 @@ import themejunky.module_adsmanager.ads.interstitialAds.AppnextAdsInterstitial;
 import themejunky.module_adsmanager.ads.interstitialAds.ChartboostInterstitialAds;
 import themejunky.module_adsmanager.ads.interstitialAds.DisplayInterstitialAds;
 import themejunky.module_adsmanager.ads.interstitialAds.FacebookAdsInterstitial;
-import themejunky.module_adsmanager.ads.interstitialAds.VungleInterstitialAds;
 import themejunky.module_adsmanager.utils.ConstantsAds;
 
 /**
@@ -28,7 +26,7 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
     private AppnextAdsInterstitial appnextAdsInterstitial;
     private FacebookAdsInterstitial facebookAdsInterstitial;
     private DisplayInterstitialAds displayInterstitialAds;
-    private VungleInterstitialAds vungleInterstitialAds;
+   // private VungleInterstitialAds vungleInterstitialAds;
     private ChartboostInterstitialAds chartboostInterstitialAds;
     private String placementId;
     public static boolean isNoAdsFacebook;
@@ -56,9 +54,9 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
         displayInterstitialAds = DisplayInterstitialAds.getInstance(mContext, appid, this);
     }
 
-    public void initInterstitialVungle(String appId, List<String>placements){
+  /*  public void initInterstitialVungle(String appId, List<String>placements){
         vungleInterstitialAds = VungleInterstitialAds.getmInstance(mContext, appId, placements,this);
-    }
+    }*/
 
     public void initInterstitialChartboost(Activity activity, String appId, String appSignature){
         chartboostInterstitialAds = ChartboostInterstitialAds.getInstance(activity, appId, appSignature, this);
@@ -78,10 +76,10 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
         } else if (displayInterstitialAds != null && displayInterstitialAds.ctrl.isInitialized()) {
             Log.d(nameLogs, "isSomeAdLoaded : Display");
             return true;
-        }  else if (vungleInterstitialAds != null &&vungleInterstitialAds.isReadyToShow()) {
+        } /* else if (vungleInterstitialAds != null &&vungleInterstitialAds.isReadyToShow()) {
             Log.d(nameLogs, "isSomeAdLoaded : Vungle");
             return true;
-        }  else if (chartboostInterstitialAds != null &&chartboostInterstitialAds.isAdReadyToDisplay()) {
+        }*/  else if (chartboostInterstitialAds != null &&chartboostInterstitialAds.isAdReadyToDisplay()) {
             Log.d(nameLogs, "isSomeAdLoaded : Chartboost");
             return true;
         }else {
@@ -192,7 +190,7 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
                             runAdds_Part2Interstitial();
                         }
                         break;
-                    case ConstantsAds.VUNGLE:
+                    /*case ConstantsAds.VUNGLE:
                         Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 1");
                         if (vungleInterstitialAds != null && vungleInterstitialAds.isReadyToShow() ) {
                             Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 2");
@@ -202,7 +200,7 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
                             Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 4");
                             runAdds_Part2Interstitial();
                         }
-                        break;
+                        break;*/
                     case ConstantsAds.CHARTBOOST:
                         Log.d(nameLogs, "Flow Interstitial: Chartboost Interstitial 1");
                         if (chartboostInterstitialAds != null && chartboostInterstitialAds.isAdReadyToDisplay() ) {
