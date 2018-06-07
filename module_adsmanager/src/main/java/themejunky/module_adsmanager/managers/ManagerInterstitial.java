@@ -1,7 +1,6 @@
 package themejunky.module_adsmanager.managers;
 
 import android.app.Activity;
-import android.content.Context;
 import android.util.Log;
 
 import com.google.android.gms.ads.AdRequest;
@@ -9,6 +8,7 @@ import com.google.android.gms.ads.AdRequest;
 import java.util.List;
 
 import themejunky.module_adsmanager.ads.interstitialAds.AdmobInterstitialAds;
+import themejunky.module_adsmanager.ads.interstitialAds.ApplovinInterstitialAds;
 import themejunky.module_adsmanager.ads.interstitialAds.AppnextAdsInterstitial;
 import themejunky.module_adsmanager.ads.interstitialAds.ChartboostInterstitialAds;
 import themejunky.module_adsmanager.ads.interstitialAds.DisplayInterstitialAds;
@@ -26,8 +26,8 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
     private AppnextAdsInterstitial appnextAdsInterstitial;
     private FacebookAdsInterstitial facebookAdsInterstitial;
     private DisplayInterstitialAds displayInterstitialAds;
-   // private VungleInterstitialAds vungleInterstitialAds;
     private ChartboostInterstitialAds chartboostInterstitialAds;
+    private ApplovinInterstitialAds applovinInterstitialAds;
     private String placementId;
     public static boolean isNoAdsFacebook;
     public static boolean isNoAdsDisplay;
@@ -54,12 +54,12 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
         displayInterstitialAds = DisplayInterstitialAds.getInstance(mContext, appid, this);
     }
 
-  /*  public void initInterstitialVungle(String appId, List<String>placements){
-        vungleInterstitialAds = VungleInterstitialAds.getmInstance(mContext, appId, placements,this);
-    }*/
-
     public void initInterstitialChartboost(Activity activity, String appId, String appSignature){
         chartboostInterstitialAds = ChartboostInterstitialAds.getInstance(activity, appId, appSignature, this);
+    }
+
+    public void initInterstitialApplovin(Activity activity){
+        applovinInterstitialAds = ApplovinInterstitialAds.getInstance(activity, this);
     }
 
     public boolean isSomeAdLoaded() {
@@ -76,11 +76,11 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
         } else if (displayInterstitialAds != null && displayInterstitialAds.ctrl.isInitialized()) {
             Log.d(nameLogs, "isSomeAdLoaded : Display");
             return true;
-        } /* else if (vungleInterstitialAds != null &&vungleInterstitialAds.isReadyToShow()) {
-            Log.d(nameLogs, "isSomeAdLoaded : Vungle");
-            return true;
-        }*/  else if (chartboostInterstitialAds != null &&chartboostInterstitialAds.isAdReadyToDisplay()) {
+        }  else if (chartboostInterstitialAds != null &&chartboostInterstitialAds.isAdReadyToDisplay()) {
             Log.d(nameLogs, "isSomeAdLoaded : Chartboost");
+            return true;
+        }else if (applovinInterstitialAds != null &&applovinInterstitialAds.isAdReadyToDisplay()) {
+            Log.d(nameLogs, "isSomeAdLoaded : Applovin");
             return true;
         }else {
             Log.d(nameLogs, "isSomeAdLoaded : Nimic nu este Loaded");
@@ -190,17 +190,6 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
                             runAdds_Part2Interstitial();
                         }
                         break;
-                    /*case ConstantsAds.VUNGLE:
-                        Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 1");
-                        if (vungleInterstitialAds != null && vungleInterstitialAds.isReadyToShow() ) {
-                            Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 2");
-                            vungleInterstitialAds.showVungleAds();
-                            Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 3");
-                        } else {
-                            Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 4");
-                            runAdds_Part2Interstitial();
-                        }
-                        break;*/
                     case ConstantsAds.CHARTBOOST:
                         Log.d(nameLogs, "Flow Interstitial: Chartboost Interstitial 1");
                         if (chartboostInterstitialAds != null && chartboostInterstitialAds.isAdReadyToDisplay() ) {
@@ -209,6 +198,17 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
                             Log.d(nameLogs, "Flow Interstitial: Chartboost Interstitial 3");
                         } else {
                             Log.d(nameLogs, "Flow Interstitial: Chartboost Interstitial 4");
+                            runAdds_Part2Interstitial();
+                        }
+                        break;
+                    case ConstantsAds.APPLOVIN:
+                        Log.d(nameLogs, "Flow Interstitial: Applovin Interstitial 1");
+                        if (applovinInterstitialAds != null && applovinInterstitialAds.isAdReadyToDisplay() ) {
+                            Log.d(nameLogs, "Flow Interstitial: Applovin Interstitial 2");
+                            applovinInterstitialAds.showApplovinAds();
+                            Log.d(nameLogs, "Flow Interstitial: Applovin Interstitial 3");
+                        } else {
+                            Log.d(nameLogs, "Flow Interstitial: Applovin Interstitial 4");
                             runAdds_Part2Interstitial();
                         }
                         break;

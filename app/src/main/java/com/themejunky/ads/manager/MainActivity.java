@@ -46,13 +46,30 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
         initView();
 
-        flowAds.add("chartboost");
+        flowAds.add("applovin");
+        flowAds.add("admob");
+
 
         mModuleAdsManager = ((MainApplication)getApplication()).moduleAdsManager;
         mModuleAdsManager.setListenerAds(this);
         mModuleAdsManager.initManagers(this, true);
-        mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"5af56f18e113780b0e5a1360", "46cfc662d3d840bf07db9f500244dc7820453682"); //test
-       // mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"4f7b433509b6025804000002", "dd2d41b69ac01b80f443f5b6cf06096d457f82bd"); //test
+        //mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"5af56f18e113780b0e5a1360", "46cfc662d3d840bf07db9f500244dc7820453682"); //test
+        //mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"4f7b433509b6025804000002", "dd2d41b69ac01b80f443f5b6cf06096d457f82bd"); //test
+        mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159",false);
+        mModuleAdsManager.getManagerInterstitial().initInterstitialApplovin(this);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("TestButton","---------start 1---------------");
+                mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
+                findViewById(R.id.applyid).setVisibility(View.VISIBLE);
+
+            }
+        },5000);
+
+
+
     }
 
     public void initView() {
@@ -139,5 +156,21 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     protected void onDestroy() {
         mModuleAdsManager.getManagerInterstitial().destroyDisplay();
         super.onDestroy();
+       // mModuleAdsManager.getManagerNative().nContainer.removeAllViews();
+        Log.d("saeadsa","onDestroy");
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("saeadsa","onPause");
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("saeadsa","onResume");
     }
 }
