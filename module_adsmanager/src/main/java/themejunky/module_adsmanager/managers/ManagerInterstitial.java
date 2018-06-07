@@ -1,5 +1,6 @@
 package themejunky.module_adsmanager.managers;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 import themejunky.module_adsmanager.ads.interstitialAds.AdmobInterstitialAds;
 import themejunky.module_adsmanager.ads.interstitialAds.AppnextAdsInterstitial;
+import themejunky.module_adsmanager.ads.interstitialAds.ChartboostInterstitialAds;
 import themejunky.module_adsmanager.ads.interstitialAds.DisplayInterstitialAds;
 import themejunky.module_adsmanager.ads.interstitialAds.FacebookAdsInterstitial;
 import themejunky.module_adsmanager.ads.interstitialAds.VungleInterstitialAds;
@@ -21,18 +23,19 @@ import themejunky.module_adsmanager.utils.ConstantsAds;
 
 public class ManagerInterstitial extends ManagerBase implements ManagerBase._Interface {
     private static ManagerInterstitial instance = null;
-    private final Context mContext;
+    private final Activity mContext;
     private AdmobInterstitialAds admobInterstitialAds;
     private AppnextAdsInterstitial appnextAdsInterstitial;
     private FacebookAdsInterstitial facebookAdsInterstitial;
     private DisplayInterstitialAds displayInterstitialAds;
     private VungleInterstitialAds vungleInterstitialAds;
+    private ChartboostInterstitialAds chartboostInterstitialAds;
     private String placementId;
     public static boolean isNoAdsFacebook;
     public static boolean isNoAdsDisplay;
 
 
-    public ManagerInterstitial(Context nContext) {
+    public ManagerInterstitial(Activity nContext) {
         this.mContext = nContext;
     }
 
@@ -53,8 +56,12 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
         displayInterstitialAds = DisplayInterstitialAds.getInstance(mContext, appid, this);
     }
 
-    public void initInterstitialVungle(String appId,List<String>placements){
-        vungleInterstitialAds = VungleInterstitialAds.getmInstance(mContext,appId,placements,this);
+    public void initInterstitialVungle(String appId, List<String>placements){
+        vungleInterstitialAds = VungleInterstitialAds.getmInstance(mContext, appId, placements,this);
+    }
+
+    public void initInterstitialChartboost(Activity activity, String appId, String appSignature){
+        chartboostInterstitialAds = ChartboostInterstitialAds.getInstance(activity, appId, appSignature, this);
     }
 
     public boolean isSomeAdLoaded() {
@@ -73,6 +80,9 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
             return true;
         }  else if (vungleInterstitialAds != null &&vungleInterstitialAds.isReadyToShow()) {
             Log.d(nameLogs, "isSomeAdLoaded : Vungle");
+            return true;
+        }  else if (chartboostInterstitialAds != null &&chartboostInterstitialAds.isAdReadyToDisplay()) {
+            Log.d(nameLogs, "isSomeAdLoaded : Chartboost");
             return true;
         }else {
             Log.d(nameLogs, "isSomeAdLoaded : Nimic nu este Loaded");
@@ -193,6 +203,17 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
                             runAdds_Part2Interstitial();
                         }
                         break;
+                    case ConstantsAds.CHARTBOOST:
+                        Log.d(nameLogs, "Flow Interstitial: Chartboost Interstitial 1");
+                        if (chartboostInterstitialAds != null && chartboostInterstitialAds.isAdReadyToDisplay() ) {
+                            Log.d(nameLogs, "Flow Interstitial: Chartboost Interstitial 2");
+                            chartboostInterstitialAds.showChartboostAds();
+                            Log.d(nameLogs, "Flow Interstitial: Chartboost Interstitial 3");
+                        } else {
+                            Log.d(nameLogs, "Flow Interstitial: Chartboost Interstitial 4");
+                            runAdds_Part2Interstitial();
+                        }
+                        break;
                     default:
                         Log.d(nameLogs, "Flow Interstitial: ---Default---");
                         // runAdds_Part2Interstitial();
@@ -208,7 +229,7 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
         if (listenerAds != null) listenerAds.afterInterstitialIsClosed(nAction);
     }
 
-    public static synchronized ManagerInterstitial getInstance(Context nContext) {
+    public static synchronized ManagerInterstitial getInstance(Activity nContext) {
         if (instance == null) {
             return new ManagerInterstitial(nContext);
         } else {

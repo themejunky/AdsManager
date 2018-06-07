@@ -1,6 +1,7 @@
 package com.themejunky.ads.manager;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -45,16 +46,16 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
         initView();
 
-        flowAds.add("display");
+        flowAds.add("chartboost");
 
-
-
-//
         mModuleAdsManager = ((MainApplication)getApplication()).moduleAdsManager;
         mModuleAdsManager.setListenerAds(this);
+        mModuleAdsManager.initManagers(this, true);
+        mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"5af56f18e113780b0e5a1360", "46cfc662d3d840bf07db9f500244dc7820453682"); //test
+        //mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"4f7b433509b6025804000002", "dd2d41b69ac01b80f443f5b6cf06096d457f82bd"); //test
 
-       // mModuleAdsManager.getManagerNative().setViewNative(findViewById(R.id.containerAdmob));
-      //  mModuleAdsManager.getManagerNative().setNativeFlow(flowAds);
+        // mModuleAdsManager.getManagerNative().setViewNative(findViewById(R.id.containerAdmob));
+        //mModuleAdsManager.getManagerNative().setNativeFlow(flowAds);
 
 
         //mModuleAdsManager.getManagerNative().showNativeAds();

@@ -24,7 +24,6 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
-
     compile 'com.appnext.sdk:ads:2+'
     // Mandatory
     compile 'com.appnext.sdk:native-ads2:2+'
@@ -33,5 +32,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-basement:11.0.4'
     implementation 'com.google.android.gms:play-services-location:11.0.4'
     implementation 'com.github.vungle:vungle-android-sdk:6.2.5'
-
+    implementation files('libs/chartboost.jar')
 }

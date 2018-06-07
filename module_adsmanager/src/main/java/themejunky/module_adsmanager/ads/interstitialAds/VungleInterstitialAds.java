@@ -35,8 +35,6 @@ public class VungleInterstitialAds extends ManagerBase {
         this.listenerLogs = listenerLogs;
         this.app_id = app_id;
         initVungleInterstitial(context, app_id, placement_collection);
-
-
     }
 
 
@@ -130,6 +128,7 @@ public class VungleInterstitialAds extends ManagerBase {
             listenerLogs.logs("Vungle Inter: showVungleAds Failed");
         }
     }
+
     public boolean isVungleLoaded(){
         if(isVunleLoaded){
             return true;

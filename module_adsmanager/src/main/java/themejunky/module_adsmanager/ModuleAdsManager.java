@@ -1,5 +1,6 @@
 package themejunky.module_adsmanager;
 
+import android.app.Activity;
 import android.content.Context;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
 import themejunky.module_adsmanager.managers.ManagerBase;
@@ -15,7 +16,7 @@ public class ModuleAdsManager extends ManagerBase implements AdsListenerManager.
      * @param nContext - context
      * @param reloaded - reload ads every time an interstitial is closed
      */
-    public void initManagers(Context nContext,boolean reloaded){
+    public void initManagers(Activity nContext, boolean reloaded){
             isReloaded = reloaded;
             managerNative = ManagerNative.getInstance(nContext);
             managerInterstitial = ManagerInterstitial.getInstance(nContext);
