@@ -1,28 +1,15 @@
 package themejunky.module_adsmanager.ads.interstitialAds;
 
 import android.app.Activity;
-import android.content.Context;
-import android.util.Log;
 
-import com.chartboost.sdk.InPlay.CBInPlay;
-import com.chartboost.sdk.Libraries.CBLogging;
-import com.chartboost.sdk.Model.CBError;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
+import com.chartboost.sdk.CBLocation;
+import com.chartboost.sdk.Chartboost;
+import com.chartboost.sdk.ChartboostDelegate;
+import com.chartboost.sdk.Model.CBError.CBClickError;
+import com.chartboost.sdk.Model.CBError.CBImpressionError;
 
 import themejunky.module_adsmanager.ads.AdsListenerManager;
 import themejunky.module_adsmanager.managers.ManagerBase;
-import com.chartboost.sdk.Chartboost;
-import com.chartboost.sdk.CBLocation;
-import com.chartboost.sdk.ChartboostDelegate;
-import com.chartboost.sdk.Libraries.CBLogging.Level;
-import com.chartboost.sdk.Model.CBError.CBClickError;
-import com.chartboost.sdk.Model.CBError.CBImpressionError;
-import com.chartboost.sdk.Tracking.CBAnalytics;
-import com.chartboost.sdk.CBImpressionActivity;
-import com.vungle.warren.Vungle;
 
 /**
  * Created by Alin on 4/24/2017.
