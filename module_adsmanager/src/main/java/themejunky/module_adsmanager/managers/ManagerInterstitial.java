@@ -110,7 +110,7 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
     private void runAdds_Part1Interstitial() {
         next = -1;
         runAdds_Part2Interstitial();
-        Log.d(nameLogs, "runAdds_Part1Interstitial");
+
 
     }
 
@@ -119,7 +119,7 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
             nAction = action;
             addsFlowInterstitial = flow;
             runAdds_Part1Interstitial();
-            Log.d(nameLogs, "showInterstitial");
+
         }
 
     }

@@ -18,7 +18,7 @@ import themejunky.module_adsmanager.managers.ManagerBase;
 public class ChartboostInterstitialAds extends ManagerBase {
     public static ChartboostInterstitialAds instance = null;
     private AdsListenerManager.ListenerLogs listenerLogs;
-
+    private boolean interstialRady=true;
     public ChartboostInterstitialAds(Activity activity, String appId, String appSignature, AdsListenerManager.ListenerLogs listenerLogs){
         this.listenerLogs = listenerLogs;
 
@@ -39,12 +39,14 @@ public class ChartboostInterstitialAds extends ManagerBase {
     }
 
     public boolean isAdReadyToDisplay(){
-        if (delegate.shouldDisplayInterstitial(CBLocation.LOCATION_DEFAULT) && delegate.shouldRequestInterstitial(CBLocation.LOCATION_DEFAULT)) {
+        if (delegate.shouldDisplayInterstitial(CBLocation.LOCATION_DEFAULT) && delegate.shouldRequestInterstitial(CBLocation.LOCATION_DEFAULT) && interstialRady) {
+            listenerLogs.logs("isAdReadyToDisplay: " + delegate.shouldDisplayInterstitial(CBLocation.LOCATION_DEFAULT) + "-----"+ delegate.shouldRequestInterstitial(CBLocation.LOCATION_DEFAULT));
             return true;
         } else {
           return false;
         }
     }
+
 
     public ChartboostDelegate delegate = new ChartboostDelegate() {
         @Override
@@ -68,6 +70,7 @@ public class ChartboostInterstitialAds extends ManagerBase {
         @Override
         public void didFailToLoadInterstitial(String location, CBImpressionError error) {
             super.didFailToLoadInterstitial(location, error);
+            interstialRady = false;
             listenerLogs.logs("Chartboost Interstitial failed to load at " + location + " with error: " + error.name());
 
         }
