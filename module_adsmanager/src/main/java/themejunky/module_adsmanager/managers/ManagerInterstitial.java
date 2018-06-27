@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.google.android.gms.ads.AdRequest;
+import com.vungle.warren.Vungle;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import themejunky.module_adsmanager.ads.interstitialAds.AdmobInterstitialAds;
 import themejunky.module_adsmanager.ads.interstitialAds.AppnextAdsInterstitial;
 import themejunky.module_adsmanager.ads.interstitialAds.DisplayInterstitialAds;
 import themejunky.module_adsmanager.ads.interstitialAds.FacebookAdsInterstitial;
+import themejunky.module_adsmanager.ads.interstitialAds.VungleInterstitialAds;
 import themejunky.module_adsmanager.utils.ConstantsAds;
 
 /**
@@ -26,9 +28,11 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
     private FacebookAdsInterstitial facebookAdsInterstitial;
     private DisplayInterstitialAds displayInterstitialAds;
     private AdColonyInterstitialAds adColonyInterstitialAds;
+    private VungleInterstitialAds vungleInterstitialAds;
     private String placementId;
     public static boolean isNoAdsFacebook;
     public static boolean isNoAdsDisplay;
+
 
 
     public ManagerInterstitial(Activity nContext) {
@@ -54,6 +58,10 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
     public void initInterstitialAdColony(String colonyAppID, String zoneId) {
         adColonyInterstitialAds = AdColonyInterstitialAds.getInstance(mContext, colonyAppID,zoneId, this);
     }
+    public void initInterstitialVungle(String appId,List<String>placements){
+        vungleInterstitialAds = VungleInterstitialAds.getmInstance(mContext,appId,placements,this);
+    }
+
 
 
 
@@ -75,6 +83,9 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
             return true;
         }else if (adColonyInterstitialAds != null && adColonyInterstitialAds.isAdColonyLoaded()) {
             Log.d(nameLogs, "isSomeAdLoaded : AdColony");
+            return true;
+        }else if (vungleInterstitialAds != null &&vungleInterstitialAds.isVungleLoaded()) {
+            Log.d(nameLogs, "isSomeAdLoaded : Vungle");
             return true;
         } else {
             Log.d(nameLogs, "isSomeAdLoaded : Nimic nu este Loaded");
@@ -193,6 +204,17 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
                             runAdds_Part2Interstitial();
                         }
                         break;
+                    case ConstantsAds.VUNGLE:
+                        Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 1");
+                        if (vungleInterstitialAds != null && Vungle.canPlayAd(placementId) ) {
+                            Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 2");
+                            vungleInterstitialAds.showVungleAds();
+                            Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 3");
+                        } else {
+                            Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 4");
+                            runAdds_Part2Interstitial();
+                        }
+                        break;
                     default:
                         Log.d(nameLogs, "Flow Interstitial: ---Default---");
                         // runAdds_Part2Interstitial();
@@ -233,6 +255,9 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
         }
     }
     public void adColonyOnResume(){
-        adColonyInterstitialAds.adColonyOnResume();
+        if(adColonyInterstitialAds!=null){
+            adColonyInterstitialAds.adColonyOnResume();
+        }
+
     }
 }

@@ -21,7 +21,6 @@ public class DisplayInterstitialAds {
     private final AdsListenerManager.ListenerLogs listenerLogs;
     private final Context context;
     public Controller ctrl;
-    boolean isDisplayLoaded;
     private ManagerBase._Interface mListenerComeBack;
     public boolean isReadyDisplay;
 

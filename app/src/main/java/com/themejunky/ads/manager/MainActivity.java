@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.appnext.base.Appnext;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import themejunky.module_adsmanager.ads.AdsListenerManager;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     private boolean isLoaded;
     final private String APP_ID = "app185a7e71e1714831a49ec7";
     final private String ZONE_ID = "vz06e8c32a037749699e7050";
+    private List<String> placementIdVungle = Arrays.asList("DEFAULT-0525668");
 
 
     @Override
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
         initView();
 
-        flowAds.add("adcolony");
+        flowAds.add("vungle");
 
 
 
@@ -57,7 +59,8 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         mModuleAdsManager.initManagers(this, true);
        // mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"5af56f18e113780b0e5a1360", "46cfc662d3d840bf07db9f500244dc7820453682"); //test
      //   mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159",false);
-        mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony(APP_ID,ZONE_ID);
+        //mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony(APP_ID,ZONE_ID);
+        mModuleAdsManager.getManagerInterstitial().initInterstitialVungle("5b33864e05b4826538f1f58f",placementIdVungle);
 
         new Handler().postDelayed(new Runnable() {
             @Override
