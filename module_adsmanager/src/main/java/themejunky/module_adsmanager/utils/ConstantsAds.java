@@ -9,8 +9,7 @@ public class ConstantsAds {
     public static final String ADMOB = "admob";
     public static final String APPNEXT = "appnext";
     public static final String DISPLAY = "display";
-    public static final String VUNGLE = "vungle";
-    public static final String CHARTBOOST = "chartboost";
-    public static final String APPLOVIN = "applovin";
+    public static final String ADCOLONY = "adcolony";
+
 
 }

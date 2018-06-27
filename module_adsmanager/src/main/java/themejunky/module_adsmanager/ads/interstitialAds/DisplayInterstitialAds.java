@@ -76,13 +76,14 @@ public class DisplayInterstitialAds {
             public void onAdClose(String placementId) {
                 super.onAdClose(placementId);
                 listenerLogs.logs("Display.Io Intersitial: onAdClose");
+                listenerLogs.isClosedInterAds();
             }
 
             @Override
             public void onAdClick(String placementId) {
                 super.onAdClick(placementId);
                 listenerLogs.logs("Display.Io Intersitial: onAdClick");
-                listenerLogs.isClosedInterAds();
+
             }
 
             @Override

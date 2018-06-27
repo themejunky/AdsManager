@@ -28,7 +28,7 @@ public class MainApplication extends Application {
 
         Appnext.init(this);
 
-        flowAdsInceput.add("chartboost");
+        flowAdsInceput.add("adcolony");
 
 
 

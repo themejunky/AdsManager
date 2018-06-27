@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     private byte nrFailedLoad = 0;
     private RelativeLayout containerFacebook, mContainerAdmob, containerAppnext;
     private boolean isLoaded;
+    final private String APP_ID = "app185a7e71e1714831a49ec7";
+    final private String ZONE_ID = "vz06e8c32a037749699e7050";
 
 
     @Override
@@ -46,23 +48,22 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
         initView();
 
-        flowAds.add("chartboost");
-        flowAds.add("admob");
+        flowAds.add("adcolony");
+
 
 
         mModuleAdsManager = ((MainApplication)getApplication()).moduleAdsManager;
         mModuleAdsManager.setListenerAds(this);
         mModuleAdsManager.initManagers(this, true);
-        mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"5af56f18e113780b0e5a1360", "46cfc662d3d840bf07db9f500244dc7820453682"); //test
-       // mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"5b27a46b09167b0cb27fbd50", "32cf0b4b1e644c46d000fe57a4e6427cfe538ff5"); //test
-        mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159",false);
-        mModuleAdsManager.getManagerInterstitial().initInterstitialApplovin(this);
+       // mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"5af56f18e113780b0e5a1360", "46cfc662d3d840bf07db9f500244dc7820453682"); //test
+     //   mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159",false);
+        mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony(APP_ID,ZONE_ID);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Log.d("TestButton","---------start 1---------------");
-                mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
+               // mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
                 findViewById(R.id.applyid).setVisibility(View.VISIBLE);
 
             }
@@ -172,5 +173,6 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     protected void onResume() {
         super.onResume();
         Log.d("saeadsa","onResume");
+        mModuleAdsManager.getManagerInterstitial().adColonyOnResume();
     }
 }
