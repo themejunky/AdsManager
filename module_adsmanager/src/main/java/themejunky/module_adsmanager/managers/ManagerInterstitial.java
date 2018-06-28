@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.google.android.gms.ads.AdRequest;
-import com.vungle.warren.Vungle;
 
 import java.util.List;
 
@@ -58,7 +57,7 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
     public void initInterstitialAdColony(String colonyAppID, String zoneId) {
         adColonyInterstitialAds = AdColonyInterstitialAds.getInstance(mContext, colonyAppID,zoneId, this);
     }
-    public void initInterstitialVungle(String appId,List<String>placements){
+    public void initInterstitialVungle(String appId,String[] placements){
         vungleInterstitialAds = VungleInterstitialAds.getmInstance(mContext,appId,placements,this);
     }
 
@@ -206,7 +205,7 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
                         break;
                     case ConstantsAds.VUNGLE:
                         Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 1");
-                        if (vungleInterstitialAds != null && Vungle.canPlayAd(placementId) ) {
+                        if (vungleInterstitialAds != null && vungleInterstitialAds.isVungleLoaded() ) {
                             Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 2");
                             vungleInterstitialAds.showVungleAds();
                             Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 3");

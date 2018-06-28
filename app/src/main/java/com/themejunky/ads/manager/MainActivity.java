@@ -27,7 +27,7 @@ import themejunky.module_adsmanager.utils.Action;
 
 public class MainActivity extends AppCompatActivity implements AdsListenerManager.ListenerAds, View.OnClickListener {
 
-    private List<String> flowAds =Arrays.asList("adcolony","appnext");
+    private List<String> flowAds =Arrays.asList("vungle","appnext");
     private ModuleAdsManager mModuleAdsManager;
     private Button apply, rate, getMore;
     private View viewButtons;
@@ -38,14 +38,16 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     private boolean isLoaded;
     final private String APP_ID = "app185a7e71e1714831a49ec7";
     final private String ZONE_ID = "vz06e8c32a037749699e7050";
-    private List<String> placementIdVungle = Arrays.asList("DEFAULT-0525668");
+    final String app_id = "5916309cb46f6b5a3e00009c";
+    final String DEFAULT_PLACEMENT_ID = "DEFAULT32590";
+    private final String[] placement_list = { DEFAULT_PLACEMENT_ID, "TESTREW28799", "TESTINT07107" };
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        placement_list[0]="DEFAULT32590";
         Appnext.init(this);
 
         initView();
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony(APP_ID,ZONE_ID);
         mModuleAdsManager.getManagerInterstitial().initInterstitialAppnext("aacbb73a-09b8-455d-b9d8-1d246d5a2cb4");
        // mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony("app1f87c72549f94ad9bb","vzf857cf81285d4051bc");
-        //mModuleAdsManager.getManagerInterstitial().initInterstitialVungle("5b33864e05b4826538f1f58f",placementIdVungle);
+        mModuleAdsManager.getManagerInterstitial().initInterstitialVungle(app_id,placement_list);
 
         new Handler().postDelayed(new Runnable() {
             @Override

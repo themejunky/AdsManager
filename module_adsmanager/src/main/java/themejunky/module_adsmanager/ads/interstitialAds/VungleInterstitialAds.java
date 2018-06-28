@@ -4,13 +4,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.vungle.warren.AdConfig;
-import com.vungle.warren.InitCallback;
-import com.vungle.warren.LoadAdCallback;
-import com.vungle.warren.PlayAdCallback;
-import com.vungle.warren.Vungle;
-import com.vungle.warren.error.VungleException;
-import com.vungle.warren.presenter.AdvertisementPresenter;
+import com.vungle.publisher.VungleAdEventListener;
+import com.vungle.publisher.VungleInitListener;
+import com.vungle.publisher.VunglePub;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,54 +20,58 @@ import themejunky.module_adsmanager.managers.ManagerBase;
 
 public class VungleInterstitialAds extends ManagerBase {
     private final String app_id;
+    private final String[] placement_collection;
     private AdsListenerManager.ListenerLogs listenerLogs;
     private static VungleInterstitialAds mInstance = null;
-    public AdConfig adConfig;
-    private String placementId;
-    private PlayAdCallback playAdCallback;
-    private boolean isVunleLoaded;
+    private VunglePub vunglePub = VunglePub.getInstance();
+    private VungleAdEventListener vungleDefaultListener;
 
-    public VungleInterstitialAds(Context context, String app_id, List<String> placement_collection, AdsListenerManager.ListenerLogs listenerLogs) {
+    public VungleInterstitialAds(Context context, String app_id, String[] placement_collection, AdsListenerManager.ListenerLogs listenerLogs) {
         this.listenerLogs = listenerLogs;
         this.app_id = app_id;
+        this.placement_collection = placement_collection;
         initVungleInterstitial(context, app_id, placement_collection);
+
 
 
     }
 
 
-
-    public void initVungleInterstitial(Context context, String app_id, List<String> placement_collection) {
-        placementId = placement_collection.get(0);
-        adConfig = new AdConfig();
-        adConfig.setAutoRotate(false);
-        adConfig.setMuted(true);
-        if(!Vungle.isInitialized()){
-            Vungle.init(placement_collection, app_id, context, new InitCallback() {
+    public void initVungleInterstitial(Context context, String app_id, final String[] placement_collection) {
+        if (!vunglePub.isInitialized()) {
+            vunglePub.init(context, app_id, placement_collection, new VungleInitListener() {
                 @Override
                 public void onSuccess() {
-                    listenerLogs.logs("Vungle Inter: onSuccess :" + Vungle.getValidPlacements());
-                    loadVungle();
+                    listenerLogs.logs("Vungle Inter: onSuccess");
+                    vunglePub.clearAndSetEventListeners(vungleDefaultListener);
+                    listenerLogs.logs("Vungle Inter: isAdPlayable: "+vunglePub.isAdPlayable(placement_collection[0]));
+
                 }
 
                 @Override
-                public void onError(Throwable throwable) {
-                    listenerLogs.logs("Vungle Inter: initializedError: " + throwable.getMessage());
-                }
-
-                @Override
-                public void onAutoCacheAdAvailable(String s) {
-                    listenerLogs.logs("Vungle Inter: onAutoCacheAdAvailable");
+                public void onFailure(Throwable throwable) {
+                    listenerLogs.logs("Vungle Inter: onFailure: " + throwable.getMessage());
                 }
             });
-            listenerLogs.logs("Vungle Inter: placementId" + placementId);
+
 
         }
 
-        playAdCallback = new PlayAdCallback() {
+        vungleDefaultListener = new VungleAdEventListener() {
             @Override
             public void onAdStart(String s) {
                 listenerLogs.logs("Vungle Inter: is onAdStart");
+            }
+
+            @Override
+            public void onUnableToPlayAd(@NonNull String s, String s1) {
+                listenerLogs.logs("Vungle Inter: onUnableToPlayAd: " + s1);
+            }
+
+            @Override
+            public void onAdAvailabilityUpdate(@NonNull String s, boolean b) {
+                listenerLogs.logs("Vungle Inter: onAdAvailabilityUpdate: " + b);
+
             }
 
             @Override
@@ -80,17 +80,13 @@ public class VungleInterstitialAds extends ManagerBase {
                 listenerLogs.isClosedInterAds();
             }
 
-            @Override
-            public void onError(String s, Throwable throwable) {
-                listenerLogs.logs("Vungle Inter: onError: " + throwable.getMessage());
-            }
         };
 
     }
-
+/*
     public void loadVungle() {
         if (placementId != null) {
-            Vungle.loadAd(placementId, new LoadAdCallback() {
+            vunglePub.loadAd(placementId, new () {
                 @Override
                 public void onAdLoad(String s) {
                     listenerLogs.logs("Vungle Inter: is Loaded");
@@ -106,28 +102,28 @@ public class VungleInterstitialAds extends ManagerBase {
         }else {
             listenerLogs.logs("Vungle Inter: is app_id null");
         }
-    }
-
-
+    */
 
 
     public void showVungleAds() {
-        if (Vungle.canPlayAd(placementId)) {
-            listenerLogs.logs("Vungle Inter: showVungleAds");
-            Vungle.playAd(placementId, adConfig, playAdCallback);
-        }else {
-            listenerLogs.logs("Vungle Inter: showVungleAds feild");
+
+        if (vunglePub.isAdPlayable(placement_collection[0])) {
+            // Play a Placement ad with Placement ID, you can pass AdConfig to customize your ad
+            vunglePub.playAd(placement_collection[0], null);
         }
     }
-    public boolean isVungleLoaded(){
-        if(isVunleLoaded){
+
+    public boolean isVungleLoaded() {
+        if (vunglePub.isAdPlayable(placement_collection[0])) {
+            listenerLogs.logs("Vungle Inter: isAdPlayable true");
             return true;
-        }else {
+        } else {
+            listenerLogs.logs("Vungle Inter: isAdPlayable false");
             return false;
         }
     }
 
-    public synchronized static VungleInterstitialAds getmInstance(Context context, String app_id, List<String> placement_collection, AdsListenerManager.ListenerLogs listenerLogs) {
+    public synchronized static VungleInterstitialAds getmInstance(Context context, String app_id, String[] placement_collection, AdsListenerManager.ListenerLogs listenerLogs) {
         if (mInstance == null)
             mInstance = new VungleInterstitialAds(context, app_id, placement_collection, listenerLogs);
         return mInstance;
