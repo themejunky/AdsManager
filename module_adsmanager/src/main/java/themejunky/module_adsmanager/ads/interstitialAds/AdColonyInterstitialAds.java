@@ -40,6 +40,8 @@ public class AdColonyInterstitialAds {
     }
 
     public void init(){
+        isAdColonyReady=false;
+
         AdColonyAppOptions app_options = new AdColonyAppOptions().setUserID("unique_user_id");
         app_options.setAppOrientation(AdColonyAppOptions.PORTRAIT);
 

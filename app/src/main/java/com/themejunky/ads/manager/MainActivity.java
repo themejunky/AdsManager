@@ -49,8 +49,9 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         Appnext.init(this);
 
         initView();
+        Log.d("TestButton","onCreate");
 
-        flowAds.add("vungle");
+        flowAds.add("adcolony");
 
 
 
@@ -59,8 +60,9 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         mModuleAdsManager.initManagers(this, true);
        // mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"5af56f18e113780b0e5a1360", "46cfc662d3d840bf07db9f500244dc7820453682"); //test
      //   mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159",false);
-        //mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony(APP_ID,ZONE_ID);
-        mModuleAdsManager.getManagerInterstitial().initInterstitialVungle("5b33864e05b4826538f1f58f",placementIdVungle);
+       // mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony(APP_ID,ZONE_ID);
+        mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony("app1f87c72549f94ad9bb","vzf857cf81285d4051bc");
+        //mModuleAdsManager.getManagerInterstitial().initInterstitialVungle("5b33864e05b4826538f1f58f",placementIdVungle);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -161,21 +163,21 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         mModuleAdsManager.getManagerInterstitial().destroyDisplay();
         super.onDestroy();
        // mModuleAdsManager.getManagerNative().nContainer.removeAllViews();
-        Log.d("saeadsa","onDestroy");
+        Log.d("TestButton","onDestroy");
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d("saeadsa","onPause");
+        Log.d("TestButton","onPause");
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("saeadsa","onResume");
+        Log.d("TestButton","onResume");
         mModuleAdsManager.getManagerInterstitial().adColonyOnResume();
     }
 }
