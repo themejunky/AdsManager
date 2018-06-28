@@ -27,7 +27,7 @@ public class AdColonyInterstitialAds {
     private final AdsListenerManager.ListenerLogs listenerLogs;
     private AdColonyInterstitialListener listener;
     private AdColonyAdOptions adOptions;
-    private AdColonyInterstitial ad;
+    private AdColonyInterstitial ads;
     private boolean isAdColonyReady=false;
 
     public AdColonyInterstitialAds(Activity context,String colonyAppID, String zoneId,AdsListenerManager.ListenerLogs listenerLogs){
@@ -58,7 +58,7 @@ public class AdColonyInterstitialAds {
 
 
             public void onRequestFilled(AdColonyInterstitial ad) {
-                AdColonyInterstitialAds.this.ad = ad;
+                ads = ad;
                 isAdColonyReady = true;
                 // Ad passed back in request filled callback, ad can now be shown
                 listenerLogs.logs("AdColony Intersitial: onRequestFilled " + ad.getZoneID() );
@@ -76,6 +76,7 @@ public class AdColonyInterstitialAds {
                 listenerLogs.logs("AdColony Intersitial: onClosed");
                 listenerLogs.isClosedInterAds();
                 isAdColonyReady=false;
+               // AdColony.requestInterstitial(zoneId, listener);
             }
 
             @Override
@@ -110,15 +111,15 @@ public class AdColonyInterstitialAds {
             }
         };
 
-        AdColony.requestInterstitial(zoneId, listener);
+
 
     }
 
 
 
     public void showAds (){
-        if(ad!=null){
-            ad.show();
+        if(ads!=null){
+            ads.show();
         }
     }
     public boolean isAdColonyLoaded(){
@@ -131,7 +132,7 @@ public class AdColonyInterstitialAds {
     }
 
     public void adColonyOnResume(){
-        if (ad == null || ad.isExpired()) {
+        if (ads == null || ads.isExpired()) {
             // Optionally update location info in the ad options for each request:
             // LocationManager locationManager =
             //     (LocationManager) getSystemService(Context.LOCATION_SERVICE);
