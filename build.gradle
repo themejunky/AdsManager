@@ -19,9 +19,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven {
-            url  "https://adcolony.bintray.com/AdColony"
-        }
+        maven { url  "https://adcolony.bintray.com/AdColony"}
         maven { url "http://dl.appnext.com/" }
         maven { url "https://maven.google.com"}
         maven { url "https://jitpack.io" }

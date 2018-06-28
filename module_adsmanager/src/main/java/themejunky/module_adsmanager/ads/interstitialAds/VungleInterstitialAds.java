@@ -56,7 +56,7 @@ public class VungleInterstitialAds extends ManagerBase {
 
                 @Override
                 public void onError(Throwable throwable) {
-                    listenerLogs.logs("Vungle Inter: onError: " + throwable.getMessage());
+                    listenerLogs.logs("Vungle Inter: initializedError: " + throwable.getMessage());
                 }
 
                 @Override
