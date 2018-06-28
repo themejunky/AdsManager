@@ -54,9 +54,6 @@ public class AdColonyInterstitialAds {
 
 
         listener = new AdColonyInterstitialListener() {
-
-
-
             public void onRequestFilled(AdColonyInterstitial ad) {
                 ads = ad;
                 isAdColonyReady = true;
@@ -110,6 +107,8 @@ public class AdColonyInterstitialAds {
                 listenerLogs.logs("AdColony Intersitial: onExpiring");
             }
         };
+
+        AdColony.requestInterstitial(zoneId, listener);
 
 
 
