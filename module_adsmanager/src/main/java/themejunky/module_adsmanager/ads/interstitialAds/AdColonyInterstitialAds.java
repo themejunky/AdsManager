@@ -28,7 +28,7 @@ public class AdColonyInterstitialAds {
     private AdColonyInterstitialListener listener;
     private AdColonyAdOptions adOptions;
     private AdColonyInterstitial ad;
-    private boolean isAdColonyReady;
+    private boolean isAdColonyReady=false;
 
     public AdColonyInterstitialAds(Activity context,String colonyAppID, String zoneId,AdsListenerManager.ListenerLogs listenerLogs){
         this.context = context;
@@ -123,8 +123,11 @@ public class AdColonyInterstitialAds {
     }
     public boolean isAdColonyLoaded(){
         if(isAdColonyReady){
+            listenerLogs.logs("AdColony Intersitial: isAdColonyLoaded true");
             return true;
-        }else {return false;}
+        }else {
+            listenerLogs.logs("AdColony Intersitial: isAdColonyLoaded false");
+            return false;}
     }
 
     public void adColonyOnResume(){
