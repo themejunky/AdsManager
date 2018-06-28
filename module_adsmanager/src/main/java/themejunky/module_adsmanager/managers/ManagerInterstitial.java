@@ -195,7 +195,7 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
                         break;
                     case ConstantsAds.ADCOLONY:
                         Log.d(nameLogs, "Flow Interstitial: AdColony Interstitial 1");
-                        if (adColonyInterstitialAds != null ) {
+                        if (adColonyInterstitialAds != null && adColonyInterstitialAds.isAdColonyLoaded()) {
                             Log.d(nameLogs, "Flow Interstitial: AdColony Interstitial 2");
                             adColonyInterstitialAds.showAds();
                             Log.d(nameLogs, "Flow Interstitial: AdColony Interstitial 3");
