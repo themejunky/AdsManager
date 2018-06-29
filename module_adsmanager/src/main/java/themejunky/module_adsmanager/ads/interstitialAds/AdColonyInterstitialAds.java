@@ -98,7 +98,7 @@ public class AdColonyInterstitialAds {
             public void onExpiring(AdColonyInterstitial ad) {
                 // Request a new ad if ad is expiring
                 listenerLogs.logs("AdColony Intersitial: onExpiring");
-                AdColony.requestInterstitial(zoneId, this, adOptions);
+               // AdColony.requestInterstitial(zoneId, this, adOptions);
             }
 
             @Override
