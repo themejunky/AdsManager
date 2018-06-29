@@ -43,6 +43,7 @@ public class AdColonyInterstitialAds {
         isAdColonyReady=false;
 
         AdColonyAppOptions app_options = new AdColonyAppOptions().setUserID("unique_user_id");
+        listenerLogs.logs("AdColony Intersitial: Orinentation 1 : " +  app_options.getAppOrientation());
         app_options.setAppOrientation(AdColonyAppOptions.PORTRAIT);
 
         AdColony.configure(context,app_options, colonyAppID, zoneId);
@@ -51,8 +52,7 @@ public class AdColonyInterstitialAds {
 
         adOptions = new AdColonyAdOptions().setUserMetadata(metadata);
 
-
-
+        listenerLogs.logs("AdColony Intersitial: Orinentation 2 : " +  app_options.getAppOrientation());
         listener = new AdColonyInterstitialListener() {
             public void onRequestFilled(AdColonyInterstitial ad) {
                 ads = ad;

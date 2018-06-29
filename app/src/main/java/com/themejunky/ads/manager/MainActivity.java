@@ -27,7 +27,7 @@ import themejunky.module_adsmanager.utils.Action;
 
 public class MainActivity extends AppCompatActivity implements AdsListenerManager.ListenerAds, View.OnClickListener {
 
-    private List<String> flowAds =Arrays.asList("vungle","appnext");
+    private List<String> flowAds =Arrays.asList("adcolony");
     private ModuleAdsManager mModuleAdsManager;
     private Button apply, rate, getMore;
     private View viewButtons;
