@@ -77,7 +77,7 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
         } else if (appnextAdsInterstitial != null && appnextAdsInterstitial.isLoadedAppNext()) {
             Log.d(nameLogs, "isSomeAdLoaded : Appnext");
             return true;
-        }else if (displayInterstitialAds != null && displayInterstitialAds.ctrl.isInitialized()) {
+        }else if (displayInterstitialAds != null && displayInterstitialAds.ctrl.isInitialized() && displayInterstitialAds.isReadyDisplay) {
             Log.d(nameLogs, "isSomeAdLoaded : Display");
             return true;
         }else if (adColonyInterstitialAds != null && adColonyInterstitialAds.isAdColonyLoaded()) {
