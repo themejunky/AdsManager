@@ -27,7 +27,7 @@ import themejunky.module_adsmanager.utils.Action;
 
 public class MainActivity extends AppCompatActivity implements AdsListenerManager.ListenerAds, View.OnClickListener {
 
-    private List<String> flowAds =Arrays.asList("adcolony");
+    private List<String> flowAds = Arrays.asList("appnext");
     private ModuleAdsManager mModuleAdsManager;
     private Button apply, rate, getMore;
     private View viewButtons;
@@ -59,12 +59,12 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         mModuleAdsManager = ((MainApplication)getApplication()).moduleAdsManager;
         mModuleAdsManager.setListenerAds(this);
         mModuleAdsManager.initManagers(this, true);
-       // mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"5af56f18e113780b0e5a1360", "46cfc662d3d840bf07db9f500244dc7820453682"); //test
-     //   mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159",false);
-        mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony(APP_ID,ZONE_ID);
+        //mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"5af56f18e113780b0e5a1360", "46cfc662d3d840bf07db9f500244dc7820453682"); //test
+        //mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159",false);
+        //mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony(APP_ID,ZONE_ID);
         mModuleAdsManager.getManagerInterstitial().initInterstitialAppnext("aacbb73a-09b8-455d-b9d8-1d246d5a2cb4");
-       // mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony("app1f87c72549f94ad9bb","vzf857cf81285d4051bc");
-        mModuleAdsManager.getManagerInterstitial().initInterstitialVungle(app_id,placement_list);
+        //mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony("app1f87c72549f94ad9bb","vzf857cf81285d4051bc");
+        //mModuleAdsManager.getManagerInterstitial().initInterstitialVungle(app_id,placement_list);
 
         new Handler().postDelayed(new Runnable() {
             @Override
