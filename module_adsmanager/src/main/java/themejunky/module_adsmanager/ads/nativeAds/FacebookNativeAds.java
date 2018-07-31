@@ -2,6 +2,7 @@ package themejunky.module_adsmanager.ads.nativeAds;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,44 +23,56 @@ import java.util.List;
 import themejunky.module_adsmanager.R;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
 
-public class FacebookNativeAds extends NativeBase {
+public class FacebookNativeAds {
 
     private static final String TAG ="Module_ManagerNativeAds" ;
     private static FacebookNativeAds instance = null;
-    private AdsListenerManager.NativeListener nativeListener;
-    private AdsListenerManager.ListenerLogs listenerLogs;
+    private final Context activity;
+    private final AdsListenerManager.ListenerLogs logsListener;
+    private final AdsListenerManager.ListenerAds loadListener;
     public NativeAd nativeAd;
+    private LinearLayout nativeAdContainer;
+    private LinearLayout adView;
 
 
-    public FacebookNativeAds (Context mContext,String keyFacebook, AdsListenerManager.ListenerLogs listenerLogs, AdsListenerManager.NativeListener nativeListener){
-        nContext = mContext;
-        this.listenerLogs = listenerLogs;
-        this.nativeListener = nativeListener;
-        AdSettings.addTestDevice("DDEDEA49939260C29B6F6F7B48C9BFF4");
-        init(keyFacebook);
+
+    public FacebookNativeAds (Context activity, AdsListenerManager.ListenerLogs logs, AdsListenerManager.ListenerAds loadListener){
+        this.activity = activity;
+        this.logsListener = logs;
+        this.loadListener = loadListener;
+        AdSettings.addTestDevice("f5726d6130e7bc96ef669e32ea0ae59e");
+
     }
 
-    private void init(String keynativeFacebook){
-        nativeAd = new NativeAd(nContext, keynativeFacebook);
+    public void initFacebookNative(final View view, String keynativeFacebook){
+        nativeAd = new NativeAd(activity, keynativeFacebook);
         nativeAd.setAdListener(new AdListener() {
             @Override
             public void onError(Ad ad, AdError adError) {
+                logsListener.logs("Facebook: error -  "+adError.getErrorMessage());
+                Log.d(TAG,"Facebook errror: "+adError.getErrorMessage());
 
-
-                listenerLogs.logs("Facebook Native: error -  "+adError.getErrorMessage());
             }
 
             @Override
             public void onAdLoaded(Ad ad) {
-                mAdView = mInflateLayout(R.layout.native_ad);
+                Log.d(TAG,"Facebook loaded");
+                loadListener.loadNativeAds("facebook");
+                logsListener.logs("Facebook: onAdLoaded");
+                nativeAdContainer = (LinearLayout) view.findViewById(R.id.native_ad_container);
+                nativeAdContainer.setOrientation(LinearLayout.VERTICAL);
+                LayoutInflater inflater = LayoutInflater.from(activity);
+                // Inflate the Ad view.  The layout referenced should be the one you created in the last step.
+                adView = (LinearLayout) inflater.inflate(R.layout.native_ad, nativeAdContainer, false);
+                nativeAdContainer.addView(adView);
 
                 // Create native UI using the ad metadata.
-                ImageView nativeAdIcon =  mAdView.findViewById(R.id.native_ad_icon);
-                TextView nativeAdTitle =  mAdView.findViewById(R.id.native_ad_title);
-                MediaView nativeAdMedia =  mAdView.findViewById(R.id.native_ad_media);
-                TextView nativeAdSocialContext =  mAdView.findViewById(R.id.native_ad_social_context);
-                TextView nativeAdBody =  mAdView.findViewById(R.id.native_ad_body);
-                Button nativeAdCallToAction = mAdView.findViewById(R.id.native_ad_call_to_action);
+                ImageView nativeAdIcon = (ImageView) adView.findViewById(R.id.native_ad_icon);
+                TextView nativeAdTitle = (TextView) adView.findViewById(R.id.native_ad_title);
+                MediaView nativeAdMedia = (MediaView) adView.findViewById(R.id.native_ad_media);
+                TextView nativeAdSocialContext = (TextView) adView.findViewById(R.id.native_ad_social_context);
+                TextView nativeAdBody = (TextView) adView.findViewById(R.id.native_ad_body);
+                Button nativeAdCallToAction = (Button) adView.findViewById(R.id.native_ad_call_to_action);
 
                 // Set the Text.
                 nativeAdTitle.setText(nativeAd.getAdTitle());
@@ -75,20 +88,15 @@ public class FacebookNativeAds extends NativeBase {
                 nativeAdMedia.setNativeAd(nativeAd);
 
                 // Add the AdChoices icon
-                LinearLayout adChoicesContainer = mAdView.findViewById(R.id.ad_choices_container);
-                AdChoicesView adChoicesView = new AdChoicesView(nContext, nativeAd, true);
+                LinearLayout adChoicesContainer = (LinearLayout) view.findViewById(R.id.ad_choices_container);
+                AdChoicesView adChoicesView = new AdChoicesView(activity, nativeAd, true);
                 adChoicesContainer.addView(adChoicesView);
 
                 // Register the Title and CTA button to listen for clicks.
                 List<View> clickableViews = new ArrayList<>();
                 clickableViews.add(nativeAdTitle);
                 clickableViews.add(nativeAdCallToAction);
-                nativeAd.registerViewForInteraction(mAdView,clickableViews);
-
-                if(listenerAds!=null){
-                    listenerAds.loadedNativeAds("facebook");
-                }
-                listenerLogs.logs("Facebook Native: onAdLoaded");
+                nativeAd.registerViewForInteraction(nativeAdContainer,clickableViews);
             }
 
             @Override
@@ -104,10 +112,12 @@ public class FacebookNativeAds extends NativeBase {
         nativeAd.loadAd();
     }
 
-    public static FacebookNativeAds getmInstance(Context activity,String keyFacebook, AdsListenerManager.ListenerLogs listenerLogs,AdsListenerManager.NativeListener nativeListener) {
+    public static synchronized FacebookNativeAds getmInstance(Context activity, AdsListenerManager.ListenerLogs logs,AdsListenerManager.ListenerAds loadListener) {
         if(instance == null) {
-            instance = new FacebookNativeAds(activity,keyFacebook,listenerLogs,nativeListener);
+            instance = new FacebookNativeAds(activity,logs,loadListener);
         }
+
         return instance;
     }
+
 }

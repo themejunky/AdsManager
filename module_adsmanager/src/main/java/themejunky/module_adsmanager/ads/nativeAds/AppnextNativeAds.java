@@ -2,9 +2,12 @@ package themejunky.module_adsmanager.ads.nativeAds;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.appnext.base.Appnext;
@@ -14,126 +17,137 @@ import com.appnext.nativeads.NativeAd;
 import com.appnext.nativeads.NativeAdListener;
 import com.appnext.nativeads.NativeAdRequest;
 import com.appnext.nativeads.NativeAdView;
-import com.appnext.nativeads.PrivacyIcon;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import themejunky.module_adsmanager.R;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
-import themejunky.module_adsmanager.ads.AsyncAppNext;
 
 /**
  * Created by Junky2 on 12/11/2017.
  */
 
-public class AppnextNativeAds extends NativeBase {
+public class AppnextNativeAds {
     public static AppnextNativeAds instance = null;
-    private AdsListenerManager.NativeListener nativeListener;
-    private AdsListenerManager.ListenerLogs listenerLogs;
+    private final Context context;
+    private final AdsListenerManager.ListenerLogs logsListener;
+    private final AdsListenerManager.ListenerAds loadListener;
     public NativeAd nativeAd;
     public MediaView mediaView;
     private TextView textView;
+    private TextView rating;
     private TextView description;
     private ImageView imageView;
     private Button button;
     private NativeAdView nativeAdView;
     private  ArrayList<View> viewArrayList;
-    public boolean isAppnextNativeLoaded;
+    private ProgressBar progressBar;
+    private LayoutInflater factory;
+    private View inflateView;
+    private View view2;
 
-    public AppnextNativeAds(Context context,String idUnitAppnext, AdsListenerManager.ListenerLogs listenerLogs, AdsListenerManager.NativeListener nativeListener) {
-        nContext = context;
-        this.listenerLogs = listenerLogs;
-        this.nativeListener = nativeListener;
-        init(idUnitAppnext);
+
+    public AppnextNativeAds(Context context, AdsListenerManager.ListenerLogs logs, AdsListenerManager.ListenerAds loadListener) {
+        this.context = context;
+        this.logsListener = logs;
+        this.loadListener = loadListener;
+
     }
 
-    private void init(String idUnitAppnext) {
-        Log.d("testing","step 0 ");
-        Appnext.init(nContext);
-        Log.d("testing","step 1" );
-        nativeAd = new NativeAd(nContext, idUnitAppnext);
-        nativeAd.setPrivacyPolicyColor(PrivacyIcon.PP_ICON_COLOR_LIGHT);
-        Log.d("testing","step 2 ");
+    public void initAppnextNativeAdvance(final View view, String idUnitAppnext) {
+        Appnext.init(context);
+
+        LayoutInflater factory = LayoutInflater.from(context);
+        View DialogInflateView = factory.inflate(R.layout.ad_appnext, null);
+        RelativeLayout container = (RelativeLayout) DialogInflateView.findViewById(R.id.nContainer);
+        setViews(DialogInflateView);
+        ((RelativeLayout) view).addView(container);
+
+//        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+//        factory = LayoutInflater.from(context);
+//        view2 = inflater.inflate(R.layout.ad_appnext, null, false);
+//        RelativeLayout mContainer = view2.findViewById(R.id.nContainer);
 
 
+        // inflateView= factory.inflate(R.layout.ad_content,null);*/
+    /*    setViews(view2);
+        frameLayout.removeAllViews();
+        frameLayout.addView(view2);*/
 
+        mediaView.setMute(true);
+        mediaView.setAutoPLay(true);
+        mediaView.setClickEnabled(true);
+        nativeAd = new NativeAd(context, idUnitAppnext);
 
         nativeAd.setAdListener(new NativeAdListener() {
             @Override
             public void onAdLoaded(NativeAd nativeAd) {
                 super.onAdLoaded(nativeAd);
-                Log.d("testaree","3");
-                mAdView = mInflateLayout(R.layout.ad_appnext);
-                setViews(mAdView);
-
-                mediaView.setMute(true);
-                mediaView.setAutoPLay(true);
-                mediaView.setClickEnabled(true);
-
                 nativeAd.setMediaView(mediaView);
+
+
                 nativeAd.downloadAndDisplayImage(imageView, nativeAd.getIconURL());
                 textView.setText(nativeAd.getAdTitle());
                 nativeAd.setMediaView(mediaView);
                 description.setText(nativeAd.getAdDescription());
                 nativeAd.registerClickableViews(viewArrayList);
                 nativeAd.setNativeAdView(nativeAdView);
-                isAppnextNativeLoaded = true;
+                if(nativeAd.getAdTitle()!=null){
+                    logsListener.logs("Appnex: onAdLoaded");
+                    loadListener.loadNativeAds("appnext");
+                    Log.d("loadsometd","is text Loaded");
+                }else{
+                    Log.d("loadsometd","is  text not Loaded");
+                }
 
-                if(listenerAds!=null) listenerAds.loadedNativeAds("appnext");
-                listenerLogs.logs("Appnex Native: Loaded");
+
             }
 
             @Override
             public void onAdClicked(NativeAd nativeAd) {
                 super.onAdClicked(nativeAd);
-                Log.d("testaree","4");
             }
 
             @Override
             public void onError(NativeAd nativeAd, AppnextError appnextError) {
                 super.onError(nativeAd, appnextError);
-                Log.d("testaree","5");
-                listenerLogs.logs("Appnex Native: onError: " +appnextError.getErrorMessage());
+                logsListener.logs("Appnex: onError: " +appnextError.getErrorMessage());
             }
 
             @Override
             public void adImpression(NativeAd nativeAd) {
                 super.adImpression(nativeAd);
-                Log.d("testaree","6");
             }
         });
-        Log.d("testaree","7");
 
         nativeAd.loadAd(new NativeAdRequest()
                 // optional - config your ad request:
                 .setPostback("")
                 .setCategories("")
-                .setCachingPolicy(NativeAdRequest.CachingPolicy.STATIC_ONLY)
+                .setCachingPolicy(NativeAdRequest.CachingPolicy.ALL)
                 .setCreativeType(NativeAdRequest.CreativeType.ALL)
                 .setVideoLength(NativeAdRequest.VideoLength.SHORT)
                 .setVideoQuality(NativeAdRequest.VideoQuality.HIGH)
         );
-        Log.d("testaree","8");
     }
     private void setViews(View views) {
-        nativeAdView = views.findViewById(R.id.na_view);
-        imageView =  views.findViewById(R.id.na_icon);
-        textView = views.findViewById(R.id.na_title);
-        mediaView = views.findViewById(R.id.na_media);
-        button = views.findViewById(R.id.install);
-        description = views.findViewById(R.id.description);
+        nativeAdView = (NativeAdView) views.findViewById(R.id.na_view);
+        imageView = (ImageView) views.findViewById(R.id.na_icon);
+        textView = (TextView) views.findViewById(R.id.na_title);
+        mediaView = (MediaView) views.findViewById(R.id.na_media);
+        button = (Button) views.findViewById(R.id.install);
+        description = (TextView) views.findViewById(R.id.description);
         viewArrayList = new ArrayList<>();
         viewArrayList.add(button);
         viewArrayList.add(mediaView);
     }
 
-
-    public static synchronized AppnextNativeAds getInstance(Context activity,String idUnitAppnext, AdsListenerManager.ListenerLogs listenerLogs, AdsListenerManager.NativeListener nativeListener){
-        if (instance==null){
-            instance = new AppnextNativeAds(activity,idUnitAppnext,listenerLogs,nativeListener);
+    public boolean isLoadedAppnextAds(){
+        if(nativeAd.getAdTitle()!=null){
+            return true;
+        }else {
+            return false;
         }
-        return instance;
     }
 
 }

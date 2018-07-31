@@ -26,6 +26,8 @@ public class Second extends AppCompatActivity implements AdsListenerManager.List
         flowAds.add("admob");
         flowAds.add("facebook");
 
+        /*
+
 //
         ModuleAdsManager  mModuleAdsManager = new ModuleAdsManager();
         mModuleAdsManager.initManagers(this, true);
@@ -46,6 +48,12 @@ public class Second extends AppCompatActivity implements AdsListenerManager.List
         catch (Exception e) {
 
         }
+        */
+    }
+
+    @Override
+    public void loadNativeAds(String type) {
+
     }
 
     @Override

@@ -33,6 +33,8 @@ public class ManagerNative extends ManagerBase {
     private boolean wasShown = false;
     public ViewGroup nContainer;
 
+    /*
+
     public ManagerNative(Context nContext) {
         this.mContext = nContext;
     }
@@ -44,6 +46,7 @@ public class ManagerNative extends ManagerBase {
             admobNativeAds = new AdmobNativeAds(mContext, keyAdmob, this, this);
         }
     }
+
 
     public void iniNativeAppnext( String keyAppnext, boolean newInstance) {
         if (newInstance) {
@@ -157,6 +160,6 @@ public class ManagerNative extends ManagerBase {
             return instance;
         }
     }
-
+*/
 
 }

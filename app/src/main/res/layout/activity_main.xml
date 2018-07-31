@@ -8,23 +8,53 @@
     android:gravity="center"
     tools:context="com.themejunky.ads.manager.ApplyActivity">
 
-
-
-
-    <Button
-        android:id="@+id/applyid"
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/loadingId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Apply"
-        android:visibility="visible"
+        android:src="@drawable/customic"/>
+
+
+    <LinearLayout
+        android:id="@+id/layoutButonsId"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/applyid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apply"
+            android:visibility="visible"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:id="@+id/containerAdmob"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"/>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_below="@id/containerAdmob"
+        android:id="@+id/containerFacebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         />
 
     <RelativeLayout
-        android:id="@+id/containerAdmob"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:layout_below="@id/containerAdmob"
+        android:id="@+id/containerAppnext"
         android:layout_width="wrap_content"
         android:layout_height="250dp"
-        android:layout_alignParentBottom="true"
-        android:visibility="visible" />
+        />
 
 
 

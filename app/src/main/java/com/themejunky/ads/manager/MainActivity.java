@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     private ImageView splash;
     private LinearLayout layoutButtons;
     private byte nrFailedLoad = 0;
-    private RelativeLayout containerFacebook, mContainerAdmob, containerAppnext;
+    private RelativeLayout containerFacebook, containerAdmob, containerAppnext;
     private boolean isLoaded;
     final private String APP_ID = "app185a7e71e1714831a49ec7";
     final private String ZONE_ID = "vz06e8c32a037749699e7050";
@@ -58,21 +58,35 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         mModuleAdsManager.setListenerAds(this);
         mModuleAdsManager.initManagers(this, true);
 
+        mModuleAdsManager.setLogs("InfoAds");
+
+        containerFacebook.removeAllViews();
+        containerFacebook.addView(mModuleAdsManager.getAllViewAds("facebook"));
+        containerAdmob.removeAllViews();
+        containerAdmob.addView(mModuleAdsManager.getAllViewAds("admob"));
+        containerAppnext.removeAllViews();
+        containerAppnext.addView(mModuleAdsManager.getAllViewAds("appnext"));
+
+        mModuleAdsManager.initializeNativeAds(true,false);
+        mModuleAdsManager.initAppnextNativeAds(containerAppnext,"cdd052e2-9394-407c-99d4-323439dd7398");
+        //mModuleAdsManager.initAdmobNativeAds(containerAdmob, "ca-app-pub-8562466601970101/5081303159");
+
+
         //mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"5af56f18e113780b0e5a1360", "46cfc662d3d840bf07db9f500244dc7820453682"); //test
         //mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony(APP_ID,ZONE_ID);
         mModuleAdsManager.getManagerInterstitial().initInterstitialAppnext("aacbb73a-09b8-455d-b9d8-1d246d5a2cb4");
         //mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony("app1f87c72549f94ad9bb","vzf857cf81285d4051bc");
         //mModuleAdsManager.getManagerInterstitial().initInterstitialVungle(app_id,placement_list);
 
-        mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159",false);
-        mModuleAdsManager.getManagerNative().iniNativeAppnext("aacbb73a-09b8-455d-b9d8-1d246d5a2cb4",true);
+        //mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159",false);
+        //mModuleAdsManager.getManagerNative().iniNativeAppnext("aacbb73a-09b8-455d-b9d8-1d246d5a2cb4",true);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Log.d("TestButton","---------start 1---------------");
-                mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
-                findViewById(R.id.applyid).setVisibility(View.VISIBLE);
+                //mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
+                //findViewById(R.id.applyid).setVisibility(View.VISIBLE);
 
             }
         },5000);
@@ -83,10 +97,14 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
     public void initView() {
         apply = (Button) findViewById(R.id.applyid);
+        containerFacebook = (RelativeLayout) findViewById(R.id.containerFacebook);
+        containerAdmob = (RelativeLayout) findViewById(R.id.containerAdmob);
+        containerAppnext = (RelativeLayout) findViewById(R.id.containerAppnext);
 
-
-        Log.d("TestLogs2", "onCreate");
-
+        Log.d("TestLogs", "onCreate");
+        layoutButtons = (LinearLayout) findViewById(R.id.layoutButonsId);
+        layoutButtons.setVisibility(View.VISIBLE);
+        layoutButtons.bringToFront();
         apply.setOnClickListener(this);
 
     }
@@ -121,13 +139,13 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
     @Override
     public void loadedNativeAds(String type) {
-        Log.d("TestButton","loadedNativeAds");
-    /*    if (type.equals("admob") && flowAds.size() > 0) {
-            moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob,containerAppnext);
+        Log.d("InfoAds","loadedNativeAds");
+        if (type.equals("admob") && flowAds.size() > 0) {
+            mModuleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob, containerAppnext);
 
         }else if(type.equals("appnext") && flowAds.size() > 0){
-            moduleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob,containerAppnext);
-        }*/
+            mModuleAdsManager.setNativeFlowAndShowAds(flowAds, containerFacebook, containerAdmob, containerAppnext);
+        }
     }
 
 
