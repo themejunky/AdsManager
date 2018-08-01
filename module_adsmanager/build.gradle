@@ -23,8 +23,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
-    //compile 'com.appnext.sdk:ads:2+'
-    //compile 'com.appnext.sdk:ads:2.4.1.471'
+    //compile 'com.appnext.sdk:ads:2.+'
     compile 'com.appnext.sdk:ads:2.4.2.471.1'
     // Mandatory
     compile 'com.appnext.sdk:native-ads2:2+'

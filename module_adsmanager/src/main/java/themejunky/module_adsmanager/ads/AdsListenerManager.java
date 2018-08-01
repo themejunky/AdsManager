@@ -13,7 +13,7 @@ public interface AdsListenerManager {
     }
 
     interface ListenerAds {
-        void loadedNativeAds(String type);
+        void loadNativeAds(String type);
         void loadedInterstitialAds();
         void afterInterstitialIsClosed(String action);
     }

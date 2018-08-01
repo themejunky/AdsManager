@@ -57,11 +57,6 @@ public class Second extends AppCompatActivity implements AdsListenerManager.List
     }
 
     @Override
-    public void loadedNativeAds(String type) {
-
-    }
-
-    @Override
     public void loadedInterstitialAds() {
 
     }
