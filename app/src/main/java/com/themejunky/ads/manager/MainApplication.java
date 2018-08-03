@@ -30,7 +30,7 @@ public class MainApplication extends Application {
 
         flowAdsInceput.add("adcolony");
 
-        moduleAdsManager = new ModuleAdsManager(this, true);
+        moduleAdsManager = new ModuleAdsManager();
         moduleAdsManager.setLogName("TestButton");
 
     }
