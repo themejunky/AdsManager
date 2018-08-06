@@ -3,7 +3,6 @@ package com.themejunky.ads.manager;
 import android.app.Activity;
 import android.app.Application;
 
-import com.appnext.base.Appnext;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,8 +24,6 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        Appnext.init(this);
 
         flowAdsInceput.add("adcolony");
 

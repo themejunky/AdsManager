@@ -34,3 +34,14 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+ext {
+    minSdkVersion = 17
+    targetSdkVersion = 26
+    compileSdkVersion = 26
+    buildToolsVersion = '26.0.2'
+
+    //appnext = '2.+'
+    appnext = '2.4.2.471.2'
+
+
+}

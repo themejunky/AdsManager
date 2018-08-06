@@ -14,9 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.appnext.base.Appnext;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,12 +45,9 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         placement_list[0]="DEFAULT32590";
-        Appnext.init(this);
 
         initView();
         Log.d("TestButton","onCreate");
-
-
 
 
         mModuleAdsManager = ((MainApplication)getApplication()).moduleAdsManager;
