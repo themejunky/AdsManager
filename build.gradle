@@ -18,6 +18,7 @@ buildscript {
 
 allprojects {
     repositories {
+        google()
         jcenter()
         maven { url  "https://adcolony.bintray.com/AdColony"}
         maven { url "http://dl.appnext.com/" }
@@ -38,7 +39,7 @@ ext {
     minSdkVersion = 17
     targetSdkVersion = 26
     compileSdkVersion = 26
-    buildToolsVersion = '26.0.2'
+    buildToolsVersion = '26.1.0'
 
     //appnext = '2.+'
     appnext = '2.4.2.471.2'
