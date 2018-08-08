@@ -47,9 +47,9 @@ public class ManagerNative extends ManagerBase {
 
     public void iniNativeAppnext( String keyAppnext, boolean newInstance) {
         if (newInstance) {
-            appnextNativeAds = new AppnextNativeAds(mContext, keyAppnext, this, this);
-        } else {
             appnextNativeAds = AppnextNativeAds.getInstance(mContext, keyAppnext, this, this);
+        } else {
+            appnextNativeAds = new AppnextNativeAds(mContext, keyAppnext, this, this);
         }
     }
 
@@ -65,6 +65,7 @@ public class ManagerNative extends ManagerBase {
         wasShown = false;
         next++;
         if (next < addsFlowNative.size()) {
+            Log.d(nameLogs, "FlowNative.get(next) is "+addsFlowNative.get(next) );
             if (addsFlowNative.get(next).equals(ConstantsAds.ADMOB)) {
                 Log.d(nameLogs, "AdmobNativeAds: 1" );
                 if (admobNativeAds != null && admobNativeAds.getViewNativeAd() != null) {
@@ -74,7 +75,7 @@ public class ManagerNative extends ManagerBase {
                     Log.d(nameLogs, "AdmobNativeAds: 3" );
                 } else {
                     Log.d(nameLogs, "AdmobNativeAds: 4" );
-                     runAdds_Part2Native_Test();
+                    runAdds_Part2Native_Test();
                 }
             } else if (addsFlowNative.get(next).equals(ConstantsAds.APPNEXT)) {
                 Log.d(nameLogs, "AppnextNativeAds: 1" );
@@ -113,16 +114,21 @@ public class ManagerNative extends ManagerBase {
         mChoosenAd = null;
         next = -1;
         //Log.d(nameLogs, "Native Ads showAds: 1" );
-        if (((appnextNativeAds!=null &&appnextNativeAds.getViewNativeAd() != null) || (admobNativeAds!=null && admobNativeAds.getViewNativeAd() != null) || (facebookNativeAds!=null && facebookNativeAds.getViewNativeAd() != null)) && (nFlow != null && nFlow.size() > 0)) {
+        if (((appnextNativeAds!=null &&appnextNativeAds.getViewNativeAd() != null) ||
+                (admobNativeAds!=null && admobNativeAds.getViewNativeAd() != null) ||
+                (facebookNativeAds!=null && facebookNativeAds.getViewNativeAd() != null)) &&
+                (nFlow != null && nFlow.size() > 0)) {
             Log.d(nameLogs, "Native Ads showAds: 2" );
             addsFlowNative = nFlow;
             Log.d(nameLogs, "Native Ads showAds: 3" );
             runAdds_Part2Native_Test();
+
             if(mChoosenAd==null){
                 Log.d(nameLogs, "Native Ads showAds: mChoosenAd este null" );
             }else if(nContainer==null){
                 Log.d(nameLogs, "Native Ads showAds: nContainer este null" );
             }
+
             Log.d(nameLogs, "Native Ads showAds: 4" );
             if (mChoosenAd!=null && nContainer!=null) {
                 nContainer.removeAllViews();

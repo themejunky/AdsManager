@@ -24,14 +24,14 @@ import themejunky.module_adsmanager.utils.Action;
 
 public class MainActivity extends AppCompatActivity implements AdsListenerManager.ListenerAds, View.OnClickListener {
 
-    private List<String> flowAds = Arrays.asList("appnext");
+    private List<String> flowAds = Arrays.asList("admob","appnext");
     private ModuleAdsManager mModuleAdsManager;
     private Button apply, rate, getMore;
     private View viewButtons;
     private ImageView splash;
     private LinearLayout layoutButtons;
     private byte nrFailedLoad = 0;
-    private RelativeLayout containerFacebook, mContainerAdmob, containerAppnext;
+    private RelativeLayout containerFacebook, containerAdmob, containerAppnext;
     private boolean isLoaded;
     final private String APP_ID = "app185a7e71e1714831a49ec7";
     final private String ZONE_ID = "vz06e8c32a037749699e7050";
@@ -49,15 +49,23 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         initView();
         Log.d("TestButton","onCreate");
 
+        containerAdmob = findViewById(R.id.containerAdmob);
+        containerAppnext = findViewById(R.id.containerAppnext);
+        containerFacebook = findViewById(R.id.containerFacebook);
 
         mModuleAdsManager = ((MainApplication)getApplication()).moduleAdsManager;
         mModuleAdsManager.setListenerAds(this);
+        mModuleAdsManager.setLogName("InfoAds");
         mModuleAdsManager.initManagers(this, true);
         //mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"5af56f18e113780b0e5a1360", "46cfc662d3d840bf07db9f500244dc7820453682"); //test
-        //mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159",false);
+
+        mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/9984599253",false);
         mModuleAdsManager.getManagerNative().iniNativeAppnext("66f95906-de1e-4643-b953-b8bd30524882",true);
+        //mModuleAdsManager.getManagerNative().iniNativeFacebook("",true);
+        mModuleAdsManager.getManagerNative().showAds(flowAds,containerAdmob);
+
         //mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony(APP_ID,ZONE_ID);
-        mModuleAdsManager.getManagerInterstitial().initInterstitialAppnext("aacbb73a-09b8-455d-b9d8-1d246d5a2cb4");
+        //mModuleAdsManager.getManagerInterstitial().initInterstitialAppnext("aacbb73a-09b8-455d-b9d8-1d246d5a2cb4");
         //mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony("app1f87c72549f94ad9bb","vzf857cf81285d4051bc");
         //mModuleAdsManager.getManagerInterstitial().initInterstitialVungle(app_id,placement_list);
 
