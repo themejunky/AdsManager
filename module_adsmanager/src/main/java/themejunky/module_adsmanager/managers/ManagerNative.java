@@ -39,17 +39,17 @@ public class ManagerNative extends ManagerBase {
 
     public void initNativeAdmob(String keyAdmob, boolean newInstance) {
         if (newInstance) {
-            admobNativeAds = AdmobNativeAds.getInstance(mContext, keyAdmob, this, this);
-        } else {
             admobNativeAds = new AdmobNativeAds(mContext, keyAdmob, this, this);
+        } else {
+            admobNativeAds = AdmobNativeAds.getInstance(mContext, keyAdmob, this, this);
         }
     }
 
     public void iniNativeAppnext( String keyAppnext, boolean newInstance) {
         if (newInstance) {
-            appnextNativeAds = AppnextNativeAds.getInstance(mContext, keyAppnext, this, this);
-        } else {
             appnextNativeAds = new AppnextNativeAds(mContext, keyAppnext, this, this);
+        } else {
+            appnextNativeAds = AppnextNativeAds.getInstance(mContext, keyAppnext, this, this);
         }
     }
 
@@ -65,7 +65,7 @@ public class ManagerNative extends ManagerBase {
         wasShown = false;
         next++;
         if (next < addsFlowNative.size()) {
-            Log.d(nameLogs, "FlowNative.get(next) is "+addsFlowNative.get(next) );
+            Log.d(nameLogs, "addsFlowNative.get(next) "+addsFlowNative.get(next) );
             if (addsFlowNative.get(next).equals(ConstantsAds.ADMOB)) {
                 Log.d(nameLogs, "AdmobNativeAds: 1" );
                 if (admobNativeAds != null && admobNativeAds.getViewNativeAd() != null) {
