@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.android.gms.ads.AdRequest;
 
+import java.util.Arrays;
 import java.util.List;
 
 import themejunky.module_adsmanager.ads.interstitialAds.AdColonyInterstitialAds;
@@ -29,9 +30,9 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
     private AdColonyInterstitialAds adColonyInterstitialAds;
     private VungleInterstitialAds vungleInterstitialAds;
     private String placementId;
+    private String whichAdIsLoaded;
     public static boolean isNoAdsFacebook;
     public static boolean isNoAdsDisplay;
-
 
 
     public ManagerInterstitial(Activity nContext) {
@@ -54,44 +55,16 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
         this.placementId = placementId;
         displayInterstitialAds = DisplayInterstitialAds.getInstance(mContext, appid, this);
     }
+
     public void initInterstitialAdColony(String colonyAppID, String zoneId) {
-        adColonyInterstitialAds = AdColonyInterstitialAds.getInstance(mContext, colonyAppID,zoneId, this);
-    }
-    public void initInterstitialVungle(String appId,String[] placements){
-        vungleInterstitialAds = VungleInterstitialAds.getmInstance(mContext,appId,placements,this);
+        adColonyInterstitialAds = AdColonyInterstitialAds.getInstance(mContext, colonyAppID, zoneId, this);
     }
 
-
-
-
-
-
-    public boolean isSomeAdLoaded() {
-
-        if (facebookAdsInterstitial != null && facebookAdsInterstitial.interstitialAd.isAdLoaded()) {
-            Log.d(nameLogs, "isSomeAdLoaded : Facebook");
-            return true;
-        } else if (admobInterstitialAds != null && admobInterstitialAds.isLoadedAdmob()) {
-            Log.d(nameLogs, "isSomeAdLoaded : Admob");
-            return true;
-        } else if (appnextAdsInterstitial != null && appnextAdsInterstitial.isLoadedAppNext()) {
-            Log.d(nameLogs, "isSomeAdLoaded : Appnext");
-            return true;
-        }else if (displayInterstitialAds != null && displayInterstitialAds.ctrl.isInitialized() && displayInterstitialAds.isReadyDisplay) {
-            Log.d(nameLogs, "isSomeAdLoaded : Display");
-            return true;
-        }else if (adColonyInterstitialAds != null && adColonyInterstitialAds.isAdColonyLoaded()) {
-            Log.d(nameLogs, "isSomeAdLoaded : AdColony");
-            return true;
-        }else if (vungleInterstitialAds != null &&vungleInterstitialAds.isVungleLoaded()) {
-            Log.d(nameLogs, "isSomeAdLoaded : Vungle");
-            return true;
-        } else {
-            Log.d(nameLogs, "isSomeAdLoaded : Nimic nu este Loaded");
-            return false;
-        }
-
+    public void initInterstitialVungle(String appId, String[] placements) {
+        vungleInterstitialAds = VungleInterstitialAds.getmInstance(mContext, appId, placements, this);
     }
+
+
 
     public void showDisplayIo(String placementId) {
         displayInterstitialAds.showAd(mContext, placementId, this);
@@ -111,116 +84,67 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
         io.display.sdk.Controller.getInstance().onDestroy();
     }
 
-    private void runAdds_Part1Interstitial() {
-        next = -1;
-        runAdds_Part2Interstitial();
-
-
-    }
 
     public void showInterstitial(List<String> flow, String action) {
         if (flow != null && action != null) {
+            Log.d(nameLogs, "the flow is " + flow);
             nAction = action;
             addsFlowInterstitial = flow;
-            runAdds_Part1Interstitial();
 
-        }
-
-    }
-
-    public void runAdds_Part2Interstitial() {
-        next++;
-        if (next < addsFlowInterstitial.size()) {
-            Log.d(nameLogs, "Flow Interstitial--- " + addsFlowInterstitial.get(next) + " ---");
-                switch (addsFlowInterstitial.get(next)) {
-                    case ConstantsAds.ADMOB:
-                        Log.d(nameLogs, "Flow Interstitial: Admob Interstitial 1");
-                        if (admobInterstitialAds != null) {
-                            if (admobInterstitialAds.isLoadedAdmob()) {
-                                Log.d(nameLogs, "Flow Interstitial: Admob Interstitial 2");
-                                admobInterstitialAds.showAdmobAds();
-                                Log.d(nameLogs, "Flow Interstitial: Admob Interstitial 3");
-                            } else {
-                                Log.d(nameLogs, "Flow Interstitial: Admob Interstitial 4");
-                                runAdds_Part2Interstitial();
-                            }
-                        } else {
-                            Log.d(nameLogs, "Flow Interstitial: Admob Interstitial 4");
-                            runAdds_Part2Interstitial();
+            boolean adShown = false;
+            for (int i = 0; i < flow.size(); i++) {
+                if (!adShown) {
+                    if (flow.get(i).equals("facebook")) {
+                        if (facebookAdsInterstitial != null && facebookAdsInterstitial.interstitialAd.isAdLoaded()) {
+                            Log.d(nameLogs, "isSomeAdLoaded : Facebook, show ad...");
+                            facebookAdsInterstitial.showInterstitialFacebook();
+                            whichAdIsLoaded = "facebook";
+                            adShown = true;
                         }
-                        break;
-                    case ConstantsAds.APPNEXT:
-                        Log.d(nameLogs, "Flow Interstitial: AppNext Interstitial 1");
-                        if (appnextAdsInterstitial != null) {
-                            if (appnextAdsInterstitial.isLoadedAppNext()) {
-                                Log.d(nameLogs, "Flow Interstitial: Appnext Interstitial 2");
-                                appnextAdsInterstitial.showAppNext();
-                                Log.d(nameLogs, "Flow Interstitial: Appnext Interstitial 3");
-                            } else {
-                                Log.d(nameLogs, "Flow Interstitial: Appnext Interstitial 4");
-                                runAdds_Part2Interstitial();
-                            }
-                        } else {
-                            Log.d(nameLogs, "Flow Interstitial: Appnext Interstitial 4");
-                            runAdds_Part2Interstitial();
+                    } else if (flow.get(i).equals("admob")) {
+                        if (admobInterstitialAds != null && admobInterstitialAds.isLoadedAdmob()) {
+                            Log.d(nameLogs, "isSomeAdLoaded : Admob, show ad...");
+                            admobInterstitialAds.showAdmobAds();
+                            whichAdIsLoaded = "admob";
+                            adShown = true;
                         }
-                        break;
-                    case ConstantsAds.FACEBOOK:
-                        Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 1");
-                        if (facebookAdsInterstitial != null && facebookAdsInterstitial.interstitialAd != null) {
-                            if (facebookAdsInterstitial.isFacebookLoaded()) {
-                                Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 2");
-                                facebookAdsInterstitial.showInterstitialFacebook();
-                                Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 3");
-                            } else {
-                                Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 4");
-                                runAdds_Part2Interstitial();
-                            }
-                        } else {
-                            Log.d(nameLogs, "Flow Interstitial: Facebook Interstitial 4");
-                            runAdds_Part2Interstitial();
+                    } else if (flow.get(i).equals("appnext")) {
+                        if (appnextAdsInterstitial != null && appnextAdsInterstitial.isLoadedAppNext()) {
+                            Log.d(nameLogs, "isSomeAdLoaded : Appnext, show ad...");
+                            appnextAdsInterstitial.showAppNext();
+                            whichAdIsLoaded = "appnext";
+                            adShown = true;
                         }
-                        break;
-                    case ConstantsAds.DISPLAY:
-                        Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 1");
-                        if (displayInterstitialAds != null && displayInterstitialAds.isReadyDisplay) {
-                            Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 2");
+                    } else if (flow.get(i).equals("display")) {
+                        if (displayInterstitialAds != null && displayInterstitialAds.ctrl.isInitialized() && displayInterstitialAds.isReadyDisplay) {
+                            Log.d(nameLogs, "isSomeAdLoaded : Display, show ad...");
                             displayInterstitialAds.showAd(mContext, placementId, this);
-                            Log.d(nameLogs, "Flow Interstitial: Display.Io Interstitial 3");
-                        } else {
-                            Log.d(nameLogs, "Flow Interstitial: Display Interstitial 4");
-                            runAdds_Part2Interstitial();
+                            whichAdIsLoaded = "appnext";
+                            adShown = true;
                         }
-                        break;
-                    case ConstantsAds.ADCOLONY:
-                        Log.d(nameLogs, "Flow Interstitial: AdColony Interstitial 1");
+                    } else if (flow.get(i).equals("adcolony")) {
                         if (adColonyInterstitialAds != null && adColonyInterstitialAds.isAdColonyLoaded()) {
-                            Log.d(nameLogs, "Flow Interstitial: AdColony Interstitial 2");
+                            Log.d(nameLogs, "isSomeAdLoaded : AdColony, show ad...");
                             adColonyInterstitialAds.showAds();
-                            Log.d(nameLogs, "Flow Interstitial: AdColony Interstitial 3");
-                        } else {
-                            Log.d(nameLogs, "Flow Interstitial: AdColony Interstitial 4");
-                            runAdds_Part2Interstitial();
+                            whichAdIsLoaded = "adcolony";
+                            adShown = true;
                         }
-                        break;
-                    case ConstantsAds.VUNGLE:
-                        Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 1");
-                        if (vungleInterstitialAds != null && vungleInterstitialAds.isVungleLoaded() ) {
-                            Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 2");
+                    } else if (flow.get(i).equals("vungle")) {
+                        if (vungleInterstitialAds != null && vungleInterstitialAds.isVungleLoaded()) {
+                            Log.d(nameLogs, "isSomeAdLoaded : Vungle, show ad...");
                             vungleInterstitialAds.showVungleAds();
-                            Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 3");
-                        } else {
-                            Log.d(nameLogs, "Flow Interstitial: Vungle Interstitial 4");
-                            runAdds_Part2Interstitial();
+                            whichAdIsLoaded = "vungle";
+                            adShown = true;
                         }
-                        break;
-                    default:
-                        Log.d(nameLogs, "Flow Interstitial: ---Default---");
-                        // runAdds_Part2Interstitial();
-                        break;
+                    } else {
+                        Log.d(nameLogs, "isSomeAdLoaded : Nimic nu este Loaded");
+                        adShown = false;
+                    }
                 }
+            }
 
         }
+
     }
 
 
@@ -248,13 +172,15 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
     @Override
     public void mGoBackFromDisplay() {
         Log.d(nameLogs, "mCOMEBACK");
-        runAdds_Part2Interstitial();
+        //showInterstitial(addsFlowInterstitial,"action");
+        //runAdds_Part2Interstitial();
         if (isNoAdsDisplay) {
             if (listenerAds != null) listenerAds.afterInterstitialIsClosed(nAction);
         }
     }
-    public void adColonyOnResume(){
-        if(adColonyInterstitialAds!=null){
+
+    public void adColonyOnResume() {
+        if (adColonyInterstitialAds != null) {
             adColonyInterstitialAds.adColonyOnResume();
         }
 

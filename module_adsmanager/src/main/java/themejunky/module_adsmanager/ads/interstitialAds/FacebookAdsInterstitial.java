@@ -81,7 +81,7 @@ public class FacebookAdsInterstitial extends ManagerBase {
 
     public  void showInterstitialFacebook() {
 
-        if (interstitialAd !=null && isLoaded) {
+        if (interstitialAd !=null && interstitialAd.isAdLoaded()) {
             interstitialAd.show();
             listenerLogs.logs("Faceboook Interstitial: is shown");
         } else {
