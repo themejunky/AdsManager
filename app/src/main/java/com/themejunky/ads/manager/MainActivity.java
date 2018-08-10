@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         viewButtons = v;
         switch (viewButtons.getId()) {
             case R.id.applyid:
-                if(mModuleAdsManager.getManagerInterstitial() != null){
+                if(mModuleAdsManager.getManagerInterstitial().isSomeAdLoaded()){
                     mModuleAdsManager.getManagerInterstitial().showInterstitial(flowAds, Action.APPLY);
                 }else{
                     startActivity(new Intent(this, ApplyActivity.class));

@@ -30,7 +30,6 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
     private AdColonyInterstitialAds adColonyInterstitialAds;
     private VungleInterstitialAds vungleInterstitialAds;
     private String placementId;
-    private String whichAdIsLoaded;
     public static boolean isNoAdsFacebook;
     public static boolean isNoAdsDisplay;
 
@@ -65,7 +64,6 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
     }
 
 
-
     public void showDisplayIo(String placementId) {
         displayInterstitialAds.showAd(mContext, placementId, this);
     }
@@ -85,64 +83,85 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
     }
 
 
+    public boolean isSomeAdLoaded() {
+        if (facebookAdsInterstitial != null && facebookAdsInterstitial.interstitialAd.isAdLoaded()) {
+            Log.d(nameLogs, "isSomeAdLoaded : Facebook");
+            return true;
+        } else if (admobInterstitialAds != null && admobInterstitialAds.isLoadedAdmob()) {
+            Log.d(nameLogs, "isSomeAdLoaded : Admob");
+            return true;
+        } else if (appnextAdsInterstitial != null && appnextAdsInterstitial.isLoadedAppNext()) {
+            Log.d(nameLogs, "isSomeAdLoaded : Appnext");
+            return true;
+        } else if (displayInterstitialAds != null && displayInterstitialAds.ctrl.isInitialized() && displayInterstitialAds.isReadyDisplay) {
+            Log.d(nameLogs, "isSomeAdLoaded : Display");
+            return true;
+        } else if (adColonyInterstitialAds != null && adColonyInterstitialAds.isAdColonyLoaded()) {
+            Log.d(nameLogs, "isSomeAdLoaded : AdColony");
+            return true;
+        } else if (vungleInterstitialAds != null && vungleInterstitialAds.isVungleLoaded()) {
+            Log.d(nameLogs, "isSomeAdLoaded : Vungle");
+            return true;
+        } else {
+            Log.d(nameLogs, "isSomeAdLoaded : Nimic nu este Loaded");
+            return false;
+        }
+    }
+
     public void showInterstitial(List<String> flow, String action) {
         if (flow != null && action != null) {
             Log.d(nameLogs, "the flow is " + flow);
             nAction = action;
             addsFlowInterstitial = flow;
 
-            boolean adShown = false;
-            for (int i = 0; i < flow.size(); i++) {
-                if (!adShown) {
-                    if (flow.get(i).equals("facebook")) {
-                        if (facebookAdsInterstitial != null && facebookAdsInterstitial.interstitialAd.isAdLoaded()) {
-                            Log.d(nameLogs, "isSomeAdLoaded : Facebook, show ad...");
-                            facebookAdsInterstitial.showInterstitialFacebook();
-                            whichAdIsLoaded = "facebook";
-                            adShown = true;
+            if (isSomeAdLoaded()) {
+                boolean adShown = false;
+                for (int i = 0; i < flow.size(); i++) {
+                    if (!adShown) //show ad only once
+                    {
+                        if (flow.get(i).equals("facebook")) {
+                            if (facebookAdsInterstitial != null && facebookAdsInterstitial.interstitialAd.isAdLoaded()) {
+                                Log.d(nameLogs, "Show " + flow.get(i) + " ad...");
+                                facebookAdsInterstitial.showInterstitialFacebook();
+                                adShown = true;
+                            }
+                        } else if (flow.get(i).equals("admob")) {
+                            if (admobInterstitialAds != null && admobInterstitialAds.isLoadedAdmob()) {
+                                Log.d(nameLogs, "Show " + flow.get(i) + " ad...");
+                                admobInterstitialAds.showAdmobAds();
+                                adShown = true;
+                            }
+                        } else if (flow.get(i).equals("appnext")) {
+                            if (appnextAdsInterstitial != null && appnextAdsInterstitial.isLoadedAppNext()) {
+                                Log.d(nameLogs, "Show " + flow.get(i) + " ad...");
+                                appnextAdsInterstitial.showAppNext();
+                                adShown = true;
+                            }
+                        } else if (flow.get(i).equals("display")) {
+                            if (displayInterstitialAds != null && displayInterstitialAds.ctrl.isInitialized() && displayInterstitialAds.isReadyDisplay) {
+                                Log.d(nameLogs, "Show " + flow.get(i) + " ad...");
+                                displayInterstitialAds.showAd(mContext, placementId, this);
+                                adShown = true;
+                            }
+                        } else if (flow.get(i).equals("adcolony")) {
+                            if (adColonyInterstitialAds != null && adColonyInterstitialAds.isAdColonyLoaded()) {
+                                Log.d(nameLogs, "Show " + flow.get(i) + " ad...");
+                                adColonyInterstitialAds.showAds();
+                                adShown = true;
+                            }
+                        } else if (flow.get(i).equals("vungle")) {
+                            if (vungleInterstitialAds != null && vungleInterstitialAds.isVungleLoaded()) {
+                                Log.d(nameLogs, "Show " + flow.get(i) + " ad...");
+                                vungleInterstitialAds.showVungleAds();
+                                adShown = true;
+                            }
+                        } else {
+                            Log.d(nameLogs, "isSomeAdLoaded : Nimic nu este Loaded");
+                            adShown = false;
                         }
-                    } else if (flow.get(i).equals("admob")) {
-                        if (admobInterstitialAds != null && admobInterstitialAds.isLoadedAdmob()) {
-                            Log.d(nameLogs, "isSomeAdLoaded : Admob, show ad...");
-                            admobInterstitialAds.showAdmobAds();
-                            whichAdIsLoaded = "admob";
-                            adShown = true;
-                        }
-                    } else if (flow.get(i).equals("appnext")) {
-                        if (appnextAdsInterstitial != null && appnextAdsInterstitial.isLoadedAppNext()) {
-                            Log.d(nameLogs, "isSomeAdLoaded : Appnext, show ad...");
-                            appnextAdsInterstitial.showAppNext();
-                            whichAdIsLoaded = "appnext";
-                            adShown = true;
-                        }
-                    } else if (flow.get(i).equals("display")) {
-                        if (displayInterstitialAds != null && displayInterstitialAds.ctrl.isInitialized() && displayInterstitialAds.isReadyDisplay) {
-                            Log.d(nameLogs, "isSomeAdLoaded : Display, show ad...");
-                            displayInterstitialAds.showAd(mContext, placementId, this);
-                            whichAdIsLoaded = "appnext";
-                            adShown = true;
-                        }
-                    } else if (flow.get(i).equals("adcolony")) {
-                        if (adColonyInterstitialAds != null && adColonyInterstitialAds.isAdColonyLoaded()) {
-                            Log.d(nameLogs, "isSomeAdLoaded : AdColony, show ad...");
-                            adColonyInterstitialAds.showAds();
-                            whichAdIsLoaded = "adcolony";
-                            adShown = true;
-                        }
-                    } else if (flow.get(i).equals("vungle")) {
-                        if (vungleInterstitialAds != null && vungleInterstitialAds.isVungleLoaded()) {
-                            Log.d(nameLogs, "isSomeAdLoaded : Vungle, show ad...");
-                            vungleInterstitialAds.showVungleAds();
-                            whichAdIsLoaded = "vungle";
-                            adShown = true;
-                        }
-                    } else {
-                        Log.d(nameLogs, "isSomeAdLoaded : Nimic nu este Loaded");
-                        adShown = false;
                     }
                 }
             }
-
         }
 
     }
