@@ -29,6 +29,8 @@ public class MainApplication extends Application {
 
         moduleAdsManager = new ModuleAdsManager();
         moduleAdsManager.setLogName("TestButton");
+        //moduleAdsManager.setInterstitialAdsListener(this);
+        //moduleAdsManager.setNoAdsLoadedListener(this);
 
     }
 }

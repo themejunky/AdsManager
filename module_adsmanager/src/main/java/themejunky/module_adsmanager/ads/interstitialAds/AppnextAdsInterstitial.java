@@ -1,9 +1,7 @@
 package themejunky.module_adsmanager.ads.interstitialAds;
 
-
 import android.content.Context;
 import android.util.Log;
-
 
 import com.appnext.ads.interstitial.Interstitial;
 import com.appnext.base.Appnext;
@@ -11,22 +9,23 @@ import com.appnext.core.callbacks.OnAdClosed;
 import com.appnext.core.callbacks.OnAdError;
 import com.appnext.core.callbacks.OnAdLoaded;
 
-import themejunky.module_adsmanager.ads.AdsListenerManager;
-import themejunky.module_adsmanager.managers.ManagerBase;
+import themejunky.module_adsmanager.ListenerContract;
 
 
 /**
  * Created by Alin on 5/21/2017.
  */
 
-public class AppnextAdsInterstitial extends ManagerBase {
+public class AppnextAdsInterstitial {
     public static AppnextAdsInterstitial instance = null;
     private final Context context;
+    private final String nameTag;
+    private final ListenerContract.ListenerIntern listener;
     public Interstitial interstitialAppnext;
-    private AdsListenerManager.ListenerLogs listenerLogs;
 
-    public AppnextAdsInterstitial(Context context,String keyAppext,AdsListenerManager.ListenerLogs listenerLogs) {
-        this.listenerLogs = listenerLogs;
+    public AppnextAdsInterstitial(Context context,String nameTag, String keyAppext, ListenerContract.ListenerIntern listener) {
+        this.listener = listener;
+        this.nameTag = nameTag;
         this.context = context;
         initAppnext(keyAppext);
 
@@ -36,31 +35,31 @@ public class AppnextAdsInterstitial extends ManagerBase {
     public void initAppnext(String placementID) {
         Appnext.init(context);
         interstitialAppnext = new Interstitial(context, placementID);
-        listenerLogs.logs("Appnext inter: initialized");
+        Log.d(nameTag,"Appnext inter: initialized");
         interstitialAppnext.setOnAdClosedCallback(new OnAdClosed() {
             @Override
             public void onAdClosed() {
-                listenerLogs.logs("Appnext inter: Closed");
-                listenerLogs.isClosedInterAds();
+                Log.d(nameTag,"Appnext Interstitial: Closed!");
+                listener.isInterstitialClosed();
             }
         });
         interstitialAppnext.setOnAdErrorCallback(new OnAdError() {
             @Override
             public void adError(String s) {
-                listenerLogs.logs("Appnext inter error: " + s.toString());
+                Log.d(nameTag,"Appnext inter error: " + s.toString());
             }
         });
         interstitialAppnext.setOnAdLoadedCallback(new OnAdLoaded() {
             @Override
             public void adLoaded(String s) {
-                if(listenerAds!=null)listenerAds.loadedInterstitialAds();
-                listenerLogs.logs("Appnext inter: is Loaded");
+                listener.somethingReloaded("appnext");
+                Log.d(nameTag,"Appnext Interstitial: onAdLoaded!");
             }
         });
         interstitialAppnext.setBackButtonCanClose(true);
         interstitialAppnext.setMute(true);
         interstitialAppnext.setAutoPlay(true);
-        interstitialAppnext.loadAd();
+
 
     }
 
@@ -78,8 +77,13 @@ public class AppnextAdsInterstitial extends ManagerBase {
         }
     }
 
-    public synchronized static AppnextAdsInterstitial getInstance(Context context,String keyAppext,AdsListenerManager.ListenerLogs listenerLogs) {
-        if (instance == null) instance = new AppnextAdsInterstitial(context,keyAppext,listenerLogs);
+    public synchronized static AppnextAdsInterstitial getInstance(Context context,String nameTag, String keyAppext, ListenerContract.ListenerIntern listener) {
+        if (instance == null) instance = new AppnextAdsInterstitial(context,nameTag,keyAppext,listener);
         return instance;
+    }
+
+
+    public void requestNewInterstitialAppnext() {
+        interstitialAppnext.loadAd();
     }
 }

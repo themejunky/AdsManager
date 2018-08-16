@@ -19,7 +19,7 @@ public class ModuleAdsManager extends ManagerBase implements AdsListenerManager.
     public void initManagers(Activity nContext, boolean reloaded){
             isReloaded = reloaded;
             managerNative = ManagerNative.getInstance(nContext);
-            managerInterstitial = ManagerInterstitial.getInstance(nContext);
+            managerInterstitial = ManagerInterstitial.getInstance(nContext,"");
     }
 
     public ManagerNative getManagerNative() {
