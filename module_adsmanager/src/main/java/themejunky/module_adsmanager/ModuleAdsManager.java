@@ -26,9 +26,9 @@ public class ModuleAdsManager extends ManagerBase implements AdsListenerManager.
             return managerNative;
     }
 
-    public ManagerInterstitial getManagerInterstitial() {
-            return managerInterstitial;
-    }
+    //public ManagerInterstitial getManagerInterstitial() {
+    //        return managerInterstitial;
+    //}
 
     public void setLogName(String nNameLog){
         nameLogs = nNameLog;

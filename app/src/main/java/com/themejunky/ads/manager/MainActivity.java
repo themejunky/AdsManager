@@ -1,7 +1,6 @@
 package com.themejunky.ads.manager;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,15 +16,18 @@ import android.widget.Toast;
 import java.util.Arrays;
 import java.util.List;
 
-import themejunky.module_adsmanager.ads.AdsListenerManager;
 import themejunky.module_adsmanager.ModuleAdsManager;
+import themejunky.module_adsmanager.ads.AdsListenerManager;
+import themejunky.module_adsmanager.ads.newInterstitialAds.ListenerContract;
+import themejunky.module_adsmanager.ads.newInterstitialAds.ManagerInterstitialAds;
 import themejunky.module_adsmanager.utils.Action;
 
 
-public class MainActivity extends AppCompatActivity implements AdsListenerManager.ListenerAds, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements AdsListenerManager.ListenerAds, View.OnClickListener, ListenerContract.AdsInterstitialListener, ListenerContract.NoAdsLoaded {
 
     private List<String> flowAds = Arrays.asList("facebook","admob","appnext");
     private ModuleAdsManager mModuleAdsManager;
+    public ManagerInterstitialAds managerInterstitialAds;
     private Button apply, rate, getMore;
     private View viewButtons;
     private ImageView splash;
@@ -57,6 +59,15 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         mModuleAdsManager.setListenerAds(this);
         mModuleAdsManager.setLogName("InfoAds");
         mModuleAdsManager.initManagers(this, true);
+
+
+        managerInterstitialAds = ManagerInterstitialAds.getInstance(this,"InfoAds");
+        managerInterstitialAds.initAdmob("ca-app-pub-5322508131338449/2877444211");
+        managerInterstitialAds.initAppnext("aacbb73a-09b8-455d-b9d8-1d246d5a2cb4");
+        managerInterstitialAds.setInterstitialAdsListener(this);
+        managerInterstitialAds.setNoAdsLoadedListener(this);
+
+
         //mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"5af56f18e113780b0e5a1360", "46cfc662d3d840bf07db9f500244dc7820453682"); //test
 
         //mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/9984599253",false);
@@ -64,9 +75,9 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         //mModuleAdsManager.getManagerNative().iniNativeFacebook("",true);
         //mModuleAdsManager.getManagerNative().showAds(flowAds,containerAdmob);
 
-        mModuleAdsManager.getManagerInterstitial().initInterstitialFacebook("2064441373794453_2064443300460927");
-        mModuleAdsManager.getManagerInterstitial().initInterstitialAdmob("ca-app-pub-5322508131338449/6935033151");
-        mModuleAdsManager.getManagerInterstitial().initInterstitialAppnext("aacbb73a-09b8-455d-b9d8-1d246d5a2cb4");
+        //mModuleAdsManager.getManagerInterstitial().initInterstitialFacebook("2064441373794453_2064443300460927");
+        //mModuleAdsManager.getManagerInterstitial().initInterstitialAdmob("ca-app-pub-5322508131338449/6935033151");
+        //mModuleAdsManager.getManagerInterstitial().initInterstitialAppnext("aacbb73a-09b8-455d-b9d8-1d246d5a2cb4");
         //mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony(APP_ID,ZONE_ID);.
         //mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony("app1f87c72549f94ad9bb","vzf857cf81285d4051bc");
         //mModuleAdsManager.getManagerInterstitial().initInterstitialVungle(app_id,placement_list);
@@ -76,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
             public void run() {
                 Log.d("TestButton","---------start 1---------------");
                 // mModuleAdsManager.getManagerNative().showAds(flowAds,((RelativeLayout) findViewById(R.id.containerAdmob)));
-                findViewById(R.id.applyid).setVisibility(View.VISIBLE);
+                findViewById(R.id.applyid).setEnabled(true);
 
             }
         },5000);
@@ -87,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
     public void initView() {
         apply = (Button) findViewById(R.id.applyid);
-
 
         Log.d("TestLogs2", "onCreate");
 
@@ -118,6 +128,26 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     }
 
     @Override
+    public void noAdsLoaded(String action) {
+        Log.d("TestLogs", "noAdsLoaded");
+        switch (action) {
+            case Action.APPLY:
+                startActivity(new Intent(this, ApplyActivity.class));
+                break;
+            case "rate":
+                Toast.makeText(this, "Rate", Toast.LENGTH_SHORT).show();
+                break;
+            case "more":
+                Toast.makeText(this, "GetMore", Toast.LENGTH_SHORT).show();
+                break;
+            case "back":
+                finish();
+                break;
+
+        }
+    }
+
+    @Override
     public void loadedInterstitialAds() {
         isLoaded = true;
     }
@@ -140,11 +170,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         viewButtons = v;
         switch (viewButtons.getId()) {
             case R.id.applyid:
-                if(mModuleAdsManager.getManagerInterstitial().isSomeAdLoaded()){
-                    mModuleAdsManager.getManagerInterstitial().showInterstitial(flowAds, Action.APPLY);
-                }else{
-                    startActivity(new Intent(this, ApplyActivity.class));
-                }
+                managerInterstitialAds.showInterstitialLoading(this,true,5000,"intro","Loading Wallpaper...",flowAds);
 
               /*  mModuleAdsManager.getManagerInterstitial().reLoadedInterstitial();
 
@@ -160,6 +186,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         }
     }
 
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -168,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
     @Override
     protected void onDestroy() {
-        mModuleAdsManager.getManagerInterstitial().destroyDisplay();
+        //mModuleAdsManager.getManagerInterstitial().destroyDisplay();
         super.onDestroy();
         // mModuleAdsManager.getManagerNative().nContainer.removeAllViews();
         Log.d("TestButton","onDestroy");
@@ -186,6 +213,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     protected void onResume() {
         super.onResume();
         Log.d("TestButton","onResume");
-        mModuleAdsManager.getManagerInterstitial().adColonyOnResume();
+        //mModuleAdsManager.getManagerInterstitial().adColonyOnResume();
     }
+
 }
