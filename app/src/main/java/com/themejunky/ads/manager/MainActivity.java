@@ -25,7 +25,7 @@ import themejunky.module_adsmanager.utils.Action;
 
 public class MainActivity extends AppCompatActivity implements AdsListenerManager.ListenerAds, View.OnClickListener, ListenerContract.AdsInterstitialListener, ListenerContract.NoAdsLoaded {
 
-    private List<String> flowAds = Arrays.asList("facebook","admob","appnext");
+    private List<String> flowAds = Arrays.asList("facebook","appnext","admob");
     private ModuleAdsManager mModuleAdsManager;
     public ManagerInterstitialAds managerInterstitialAds;
     private Button apply, rate, getMore;
