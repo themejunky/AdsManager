@@ -24,8 +24,9 @@ import themejunky.module_adsmanager.utils.Action;
 
 
 public class MainActivity extends AppCompatActivity implements AdsListenerManager.ListenerAds, View.OnClickListener, ListenerContract.AdsInterstitialListener, ListenerContract.NoAdsLoaded {
-
     private List<String> flowAds = Arrays.asList("facebook","appnext","admob");
+    //private List<String> flowAds = Arrays.asList("admob","appnext","facebook");
+    //private List<String> flowAds = Arrays.asList("appnext","admob","facebook");
     private ModuleAdsManager mModuleAdsManager;
     public ManagerInterstitialAds managerInterstitialAds;
     private Button apply, rate, getMore;
@@ -63,7 +64,11 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
         managerInterstitialAds = ManagerInterstitialAds.getInstance(this,"InfoAds");
         managerInterstitialAds.initAdmob("ca-app-pub-5322508131338449/2877444211");
-        managerInterstitialAds.initAppnext("aacbb73a-09b8-455d-b9d8-1d246d5a2cb4");
+        //managerInterstitialAds.initAppnext("aacbb73a-09b8-455d-b9d8-1d246d5a2cb44");
+        //managerInterstitialAds.initAppnext("aacbb73a-09b8-455d-b9d8-1d246d5a2cb4");
+        //managerInterstitialAds.initFacebook("2064441373794453_2064443300460927");
+        managerInterstitialAds.initFacebook("1735232666767897_1821660514791778");
+        managerInterstitialAds.initAppnext("8ce1a263-7a74-42b1-b209-80276c0fe971");
         managerInterstitialAds.setInterstitialAdsListener(this);
         managerInterstitialAds.setNoAdsLoadedListener(this);
 

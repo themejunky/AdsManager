@@ -67,7 +67,6 @@ public class AdmobInterstitialAds  {
                     super.onAdLoaded();
                     Log.d(numeTag,"Admob Interstitial: onAdLoaded!");
                     isAdmobLoaded = true;
-                    Log.d("qqqqq","admob");
                     listener.somethingReloaded("admob");
 
                 }

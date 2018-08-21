@@ -36,5 +36,6 @@ dependencies {
     // Vungle SDK
     implementation 'com.github.vungle:vungle-android-sdk:5.3.2'
     compile 'com.github.ybq:Android-SpinKit:1.1.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.35.0'
 
 }

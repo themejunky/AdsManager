@@ -51,7 +51,6 @@ public class AppnextAdsInterstitial {
             @Override
             public void adLoaded(String s) {
                 listener.somethingReloaded("appnext");
-                Log.d("qqqqq","appnext");
                 Log.d(nameTag,"Appnext Interstitial: onAdLoaded!");
             }
         });

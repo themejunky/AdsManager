@@ -29,11 +29,11 @@ public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern 
     private AppnextAdsInterstitial appnextInterstitialAds;
     private List<String> whatIsLoaded = new ArrayList<>();
     private ListenerContract.NoAdsLoaded noAdsLoadedListener;
-    private int nrAdsManagers;
     private List<String> flow = new ArrayList<>();
-    private android.app.AlertDialog mDialog;
-    private boolean addShowed;
-    private int relaoded;
+    private android.app.AlertDialog mDialog;;
+    private int count;
+    private int priority = 100;
+    private String stringLoaded;
 
     public static synchronized ManagerInterstitialAds getInstance(Context context, String tagName) {
         if (instance == null) {
@@ -52,7 +52,7 @@ public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern 
     public void showInterstitialLoading(Context context,boolean isShowLoading ,int timeLoadinMillisec, final String action,String textLoading,List<String> flow){
         this.action = action;
         this.flow = flow;
-        Log.d(tagName,"showInterstitialLoading");
+        Log.d(tagName,"showInterstitialLoading!!!");
         final android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder( context );
         LayoutInflater factory = LayoutInflater.from(context);
         View dialog = factory.inflate(R.layout.activity_loading_screen, null);
@@ -129,47 +129,25 @@ public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern 
     @Override
     public void somethingReloaded(final String whatIsLoaded) {
         isSomeAdLoaded(whatIsLoaded);
-        Log.d(tagName,"whatIsLoaded: " + whatIsLoaded+" "+relaoded);
-        nrAdsManagers++;
-        if(flow!=null){
-            try {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(whatIsLoaded.equals(flow.get(0))){
-                            Log.d(tagName,"somethingReloaded: 1");
+        count++;
+        //Log.d("isSomeAdLoaded", "count "+count);
+        if (count==1) {
+            //Log.d("isSomeAdLoaded", "wait 3 sec");
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(tagName, "showInterstitial " + isSomeAdLoaded(whatIsLoaded));
+                    if (flow != null) {
+                        if (flow.contains(isSomeAdLoaded(whatIsLoaded))) {
                             showInterstitial();
-                        }else if(relaoded==0) {
-                            Log.d(tagName,"somethingReloaded: 1.1");
-                            relaoded++;
-                            somethingReloaded(whatIsLoaded);
+                            count = 0;
                         }
+                    } else {
+                        Log.d(tagName,"Flow is NULL");
                     }
-                },1500);
-
-                if(relaoded == 1){
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(whatIsLoaded.equals(flow.get(0))){
-                                Log.d(tagName,"somethingReloaded: 2");
-                                showInterstitial();
-                            }else {
-                                Log.d(tagName,"somethingReloaded: 2.1");
-                                showInterstitial();
-                            }
-                        }
-                    },1500);
                 }
-
-            }catch (Exception e){
-                Log.d(tagName,"Exception: " + e.getMessage());
-            }
-
-        }else {
-            Log.d(tagName,"Flow is NULL");
+            }, 3000);
         }
-
     }
 
     public void showInterstitial() {
@@ -189,10 +167,10 @@ public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern 
         if(admobInterstitialAds!=null){
             admobInterstitialAds.requestNewInterstitialAdmob();
         }
-        if( facebookInterstitialAdsInterstitial!=null){
+        if(facebookInterstitialAdsInterstitial!=null){
             facebookInterstitialAdsInterstitial.requestNewInterstitialFacebook();
         }
-        if( appnextInterstitialAds!=null){
+        if(appnextInterstitialAds!=null){
             appnextInterstitialAds.requestNewInterstitialAppnext();
         }
 
@@ -241,11 +219,41 @@ public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern 
 
 
 
-    public List<String> isSomeAdLoaded(String reloadedList) {
-       whatIsLoaded = new ArrayList<>();
-        whatIsLoaded.add(reloadedList);
-        Log.d(tagName, "isSomeAdLoaded: " + reloadedList);
-        return whatIsLoaded;
+    public String isSomeAdLoaded(String theAd) {
+        if (!whatIsLoaded.contains(theAd)) {
+            whatIsLoaded.add(theAd);
+        } else {
+            //do nothing, ad already loaded
+        }
+
+        for (int i = 0; i < whatIsLoaded.size(); i++) {
+            if (priority != 0) {
+                if (whatIsLoaded.get(i).equals(flow.get(0))) {
+                    //Log.d(tagName, "ahaha " + whatIsLoaded.get(i) + " is pos 0");
+                    stringLoaded = whatIsLoaded.get(i);
+                    priority = 0;
+                }
+
+                if (priority != 1) {
+                    if (whatIsLoaded.get(i).equals(flow.get(1))) {
+                        //Log.d(tagName, "ahaha " + whatIsLoaded.get(i) + " is pos 1");
+                        stringLoaded = whatIsLoaded.get(i);
+                        priority = 1;
+                    }
+
+                    if (priority != 2) {
+                        if (whatIsLoaded.get(i).equals(flow.get(2))) {
+                            //Log.d(tagName, "ahaha " + whatIsLoaded.get(i) + " is pos 2");
+                            stringLoaded = whatIsLoaded.get(i);
+                            priority = 2;
+                        }
+                    }
+                }
+            }
+        }
+
+        Log.d(tagName, "whatIsLoaded"+whatIsLoaded+" flow "+flow+" higher priority ad is "+stringLoaded);
+        return stringLoaded;
     }
 
 }
