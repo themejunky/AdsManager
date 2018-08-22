@@ -75,10 +75,10 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
         //mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"5af56f18e113780b0e5a1360", "46cfc662d3d840bf07db9f500244dc7820453682"); //test
 
-        //mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/9984599253",false);
-        //mModuleAdsManager.getManagerNative().iniNativeAppnext("66f95906-de1e-4643-b953-b8bd30524882",true);
-        //mModuleAdsManager.getManagerNative().iniNativeFacebook("",true);
-        //mModuleAdsManager.getManagerNative().showAds(flowAds,containerAdmob);
+        mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/9984599253",false);
+        mModuleAdsManager.getManagerNative().iniNativeAppnext("66f95906-de1e-4643-b953-b8bd30524882",true);
+        mModuleAdsManager.getManagerNative().iniNativeFacebook("",true);
+        mModuleAdsManager.getManagerNative().showAds(flowAds,containerAdmob);
 
         //mModuleAdsManager.getManagerInterstitial().initInterstitialFacebook("2064441373794453_2064443300460927");
         //mModuleAdsManager.getManagerInterstitial().initInterstitialAdmob("ca-app-pub-5322508131338449/6935033151");
