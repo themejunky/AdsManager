@@ -18,9 +18,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Loading Wallpaper..."
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="25sp"
         />
 
+    <TextView
+        android:id="@+id/loadingAd"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="An ad will load"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        />
 
 </LinearLayout>

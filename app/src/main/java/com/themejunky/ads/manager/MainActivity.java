@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         managerInterstitialAds.setInterstitialAdsListener(this);
         managerInterstitialAds.setNoAdsLoadedListener(this);
 
-
         //mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"5af56f18e113780b0e5a1360", "46cfc662d3d840bf07db9f500244dc7820453682"); //test
 
         mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/9984599253",false);
@@ -80,9 +79,6 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         mModuleAdsManager.getManagerNative().iniNativeFacebook("",true);
         mModuleAdsManager.getManagerNative().showAds(flowAds,containerAdmob);
 
-        //mModuleAdsManager.getManagerInterstitial().initInterstitialFacebook("2064441373794453_2064443300460927");
-        //mModuleAdsManager.getManagerInterstitial().initInterstitialAdmob("ca-app-pub-5322508131338449/6935033151");
-        //mModuleAdsManager.getManagerInterstitial().initInterstitialAppnext("aacbb73a-09b8-455d-b9d8-1d246d5a2cb4");
         //mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony(APP_ID,ZONE_ID);.
         //mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony("app1f87c72549f94ad9bb","vzf857cf81285d4051bc");
         //mModuleAdsManager.getManagerInterstitial().initInterstitialVungle(app_id,placement_list);

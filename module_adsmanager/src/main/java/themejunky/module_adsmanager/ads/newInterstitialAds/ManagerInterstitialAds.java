@@ -1,13 +1,20 @@
 package themejunky.module_adsmanager.ads.newInterstitialAds;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.ybq.android.spinkit.style.ThreeBounce;
@@ -16,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import themejunky.module_adsmanager.R;
+
 
 public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern {
     private static ManagerInterstitialAds instance;
@@ -30,7 +38,8 @@ public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern 
     private List<String> whatIsLoaded = new ArrayList<>();
     private ListenerContract.NoAdsLoaded noAdsLoadedListener;
     private List<String> flow = new ArrayList<>();
-    private android.app.AlertDialog mDialog;;
+    private android.app.AlertDialog mDialog;
+    private Dialog nDialog;
     private int count;
     private int priority = 100;
     private String stringLoaded;
@@ -49,7 +58,7 @@ public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern 
     }
 
 
-    public void showInterstitialLoading(Context context,boolean isShowLoading ,int timeLoadinMillisec, final String action,String textLoading,List<String> flow){
+    public void showInterstitialLoadingOld(Context context,boolean isShowLoading ,int timeLoadinMillisec, final String action,String textLoading,List<String> flow){
         this.action = action;
         this.flow = flow;
         Log.d(tagName,"showInterstitialLoading");
@@ -81,6 +90,47 @@ public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern 
                     if(noAdsLoadedListener!=null && whatIsLoaded.size()<1){
                         noAdsLoadedListener.noAdsLoaded(action);
                     }
+
+            }
+        },timeLoadinMillisec);
+    }
+
+    public void showInterstitialLoading(Context context,boolean isShowLoading ,int timeLoadinMillisec, final String action,String textLoading,List<String> flow){
+        this.action = action;
+        this.flow = flow;
+        Log.d(tagName,"showInterstitialLoading");
+
+        LayoutInflater mInflater = LayoutInflater.from(context);
+        View customView = mInflater.inflate(R.layout.activity_loading_screen, null);
+        nDialog = new Dialog(context, R.style.full_screen_dialog);
+        nDialog.setContentView(customView);
+        nDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+
+        ImageView imageView = (ImageView) nDialog.findViewById(R.id.imageTest);
+        TextView textView =  nDialog.findViewById(R.id.loadingText);
+        textView.setText(textLoading);
+
+        ThreeBounce threeBounce = new ThreeBounce();
+        threeBounce.setBounds(0, 0, 100, 100);
+        threeBounce.setColor(Color.BLACK);
+        imageView.setImageDrawable(threeBounce);
+        threeBounce.start();
+
+        if(isShowLoading){
+            nDialog.show();
+        }
+
+        requestNewInterstitial();
+
+        new android.os.Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //mDialog.dismiss();
+                nDialog.dismiss();
+                Log.d(tagName,"showInterstitialLoading: " + whatIsLoaded.size()+" whatIsLoaded "+whatIsLoaded);
+                if(noAdsLoadedListener!=null && whatIsLoaded.size()<1){
+                    noAdsLoadedListener.noAdsLoaded(action);
+                }
 
             }
         },timeLoadinMillisec);
@@ -151,7 +201,6 @@ public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern 
     }
 
     public void showInterstitial(String theAd) {
-        mDialog.dismiss();
         if (flow != null) {
             Log.d(tagName,"theAd "+theAd);
             if (theAd.equals("admob")){
@@ -159,6 +208,14 @@ public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern 
                 if (admobInterstitialAds!=null && admobInterstitialAds.isLoadedAdmob()) {
                     Log.d(tagName, "Flow Interstitial: ---Admob 2 ---");
                     admobInterstitialAds.showInterstitialAdmob();
+
+                    new android.os.Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            nDialog.dismiss();
+                        }
+                    },1000);
+
                     Log.d(tagName, "Flow Interstitial: ---Admob 3 ---");
                 } else {
                     Log.d(tagName, "Flow Interstitial: ---Admob 4 is null or not loaded");
@@ -168,6 +225,14 @@ public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern 
                 if (appnextInterstitialAds!=null &&appnextInterstitialAds.isLoadedAppNext()) {
                     Log.d(tagName, "Flow Interstitial: ---Appnext 2 ---");
                     appnextInterstitialAds.showAppNext();
+
+                    new android.os.Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            nDialog.dismiss();
+                        }
+                    },1000);
+
                     Log.d(tagName, "Flow Interstitial: ---Appnext 3 ---");
                 } else {
                     Log.d(tagName, "Flow Interstitial: ---Appnext 4 is null or not loaded");
@@ -177,6 +242,14 @@ public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern 
                 if (facebookInterstitialAdsInterstitial!=null &&facebookInterstitialAdsInterstitial.isFacebookLoaded()) {
                     Log.d(tagName, "Flow Interstitial: ---Facebook 2 ---");
                     facebookInterstitialAdsInterstitial.showInterstitialFacebook();
+
+                    new android.os.Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            nDialog.dismiss();
+                        }
+                    },1000);
+
                     Log.d(tagName, "Flow Interstitial: ---Facebook 3 ---");
                 } else {
                     Log.d(tagName, "Flow Interstitial: ---Facebook 4 is null or not loaded");
