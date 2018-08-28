@@ -40,7 +40,7 @@ public class Second extends AppCompatActivity implements AdsListenerManager.List
 
 
         try {
-            mModuleAdsManager.getManagerNative().iniNativeAppnext("cdd052e2-9394-407c-99d4-323439dd7398",false);
+            //mModuleAdsManager.getManagerNative().iniNativeAppnext("cdd052e2-9394-407c-99d4-323439dd7398",false);
 
         }
         catch (Exception e) {

@@ -1,3 +1,4 @@
+/*
 package themejunky.module_adsmanager.ads.nativeAds;
 
 import android.content.Context;
@@ -23,9 +24,11 @@ import themejunky.module_adsmanager.R;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
 import themejunky.module_adsmanager.ads.AsyncAppNext;
 
+*/
 /**
  * Created by Junky2 on 12/11/2017.
- */
+ *//*
+
 
 public class AppnextNativeAds extends NativeBase {
     public static AppnextNativeAds instance = null;
@@ -137,3 +140,4 @@ public class AppnextNativeAds extends NativeBase {
     }
 
 }
+*/

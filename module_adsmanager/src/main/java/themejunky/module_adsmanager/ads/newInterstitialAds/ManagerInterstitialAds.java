@@ -34,7 +34,7 @@ public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern 
     private ListenerContract.AdsInterstitialListener listener;
     private int next;
     private String action = "testAction";
-    private AppnextAdsInterstitial appnextInterstitialAds;
+    //private AppnextAdsInterstitial appnextInterstitialAds;
     private List<String> whatIsLoaded = new ArrayList<>();
     private ListenerContract.NoAdsLoaded noAdsLoadedListener;
     private List<String> flow = new ArrayList<>();
@@ -150,12 +150,15 @@ public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern 
             admobInterstitialAds = new AdmobInterstitialAds(context, tagName, key,this);
         }
     }
+
+    /*
     public void initAppnext(String key){
         if(key!=null){
             Log.d(tagName,"initAppnext");
             appnextInterstitialAds = new AppnextAdsInterstitial(context, tagName, key,this);
         }
     }
+    */
 
 
 
@@ -220,6 +223,7 @@ public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern 
                 } else {
                     Log.d(tagName, "Flow Interstitial: ---Admob 4 is null or not loaded");
                 }
+              /*
             } else if (theAd.equals("appnext")) {
                 Log.d(tagName, "Flow Interstitial: ---Appnext 1 ---");
                 if (appnextInterstitialAds!=null &&appnextInterstitialAds.isLoadedAppNext()) {
@@ -237,6 +241,7 @@ public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern 
                 } else {
                     Log.d(tagName, "Flow Interstitial: ---Appnext 4 is null or not loaded");
                 }
+                */
             } else if (theAd.equals("facebook")) {
                 Log.d(tagName, "Flow Interstitial: ---Facebook 1 ---");
                 if (facebookInterstitialAdsInterstitial!=null &&facebookInterstitialAdsInterstitial.isFacebookLoaded()) {
@@ -280,9 +285,12 @@ public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern 
         if(facebookInterstitialAdsInterstitial!=null){
             facebookInterstitialAdsInterstitial.requestNewInterstitialFacebook();
         }
+
+        /*
         if(appnextInterstitialAds!=null){
             appnextInterstitialAds.requestNewInterstitialAppnext();
         }
+        */
 
     }
 
@@ -310,6 +318,7 @@ public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern 
                         runAdds_Part2Interstitial();
                     }
                     break;
+                    /*
                 case "appnext":
                     Log.d(tagName, "Flow Interstitial: ---Appnext 1 ---");
                     if (appnextInterstitialAds!=null &&appnextInterstitialAds.isLoadedAppNext()) {
@@ -320,6 +329,7 @@ public class ManagerInterstitialAds  implements ListenerContract.ListenerIntern 
                         runAdds_Part2Interstitial();
                     }
                     break;
+                    */
                 default:
                     Log.d(tagName, "Flow Interstitial: ---Default---");
                     break;

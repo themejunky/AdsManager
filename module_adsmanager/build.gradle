@@ -24,8 +24,8 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.0.2'
     // Mandatory
-    implementation "com.appnext.sdk:native-ads2:$rootProject.appnext"
-    implementation "com.appnext.sdk:ads:$rootProject.appnext"
+    //implementation "com.appnext.sdk:native-ads2:$rootProject.appnext"
+    //implementation "com.appnext.sdk:ads:$rootProject.appnext"
     implementation 'com.facebook.android:audience-network-sdk:4.27.1'
     implementation 'com.facebook.android:facebook-android-sdk:4.35.0'
     implementation 'com.google.android.gms:play-services-ads:11.0.4'

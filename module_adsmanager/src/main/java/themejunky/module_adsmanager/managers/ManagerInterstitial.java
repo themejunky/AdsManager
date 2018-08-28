@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import themejunky.module_adsmanager.ads.interstitialAds.AdmobInterstitialAds;
-import themejunky.module_adsmanager.ads.interstitialAds.AppnextAdsInterstitial;
+
 import themejunky.module_adsmanager.ads.interstitialAds.FacebookAdsInterstitial;
 import themejunky.module_adsmanager.utils.ConstantsAds;
 
@@ -21,7 +21,7 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
     private static ManagerInterstitial instance = null;
     private final Activity mContext;
     private AdmobInterstitialAds admobInterstitialAds;
-    private AppnextAdsInterstitial appnextAdsInterstitial;
+    //private AppnextAdsInterstitial appnextAdsInterstitial;
     private FacebookAdsInterstitial facebookAdsInterstitial;
     private String placementId;
     public static boolean isNoAdsFacebook;
@@ -36,9 +36,11 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
         admobInterstitialAds = AdmobInterstitialAds.getInstance(mContext, keyInterstitialAdmob, this);
     }
 
+/*
     public void initInterstitialAppnext(String keyInterstitialAppnext) {
         appnextAdsInterstitial = AppnextAdsInterstitial.getInstance(mContext, keyInterstitialAppnext, this);
     }
+    */
 
     public void initInterstitialFacebook(String keyInterstitialFacebook) {
         facebookAdsInterstitial = FacebookAdsInterstitial.getInstance(mContext, keyInterstitialFacebook, this, this);
@@ -67,9 +69,11 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
         } else if (admobInterstitialAds != null && admobInterstitialAds.isLoadedAdmob()) {
             Log.d(nameLogs, "isSomeAdLoaded : Admob");
             return true;
+            /*
         } else if (appnextAdsInterstitial != null && appnextAdsInterstitial.isLoadedAppNext()) {
             Log.d(nameLogs, "isSomeAdLoaded : Appnext");
             return true;
+            */
         } else {
             Log.d(nameLogs, "isSomeAdLoaded : Nimic nu este Loaded");
             return false;
@@ -99,12 +103,14 @@ public class ManagerInterstitial extends ManagerBase implements ManagerBase._Int
                                 admobInterstitialAds.showAdmobAds();
                                 adShown = true;
                             }
+                            /*
                         } else if (flow.get(i).equals("appnext")) {
                             if (appnextAdsInterstitial != null && appnextAdsInterstitial.isLoadedAppNext()) {
                                 Log.d(nameLogs, "Show " + flow.get(i) + " ad...");
                                 appnextAdsInterstitial.showAppNext();
                                 adShown = true;
                             }
+                            */
                         } else {
                             Log.d(nameLogs, "isSomeAdLoaded : Nimic nu este Loaded");
                             adShown = false;

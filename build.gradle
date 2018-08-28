@@ -20,7 +20,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url "http://dl.appnext.com/" }
+        //maven { url "http://dl.appnext.com/" }
         maven { url "https://maven.google.com"}
         maven { url "https://jitpack.io" }
         maven {

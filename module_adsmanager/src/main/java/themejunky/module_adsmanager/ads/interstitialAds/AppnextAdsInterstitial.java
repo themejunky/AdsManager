@@ -1,3 +1,4 @@
+/*
 package themejunky.module_adsmanager.ads.interstitialAds;
 
 
@@ -15,9 +16,11 @@ import themejunky.module_adsmanager.ads.AdsListenerManager;
 import themejunky.module_adsmanager.managers.ManagerBase;
 
 
+*/
 /**
  * Created by Alin on 5/21/2017.
- */
+ *//*
+
 
 public class AppnextAdsInterstitial extends ManagerBase {
     public static AppnextAdsInterstitial instance = null;
@@ -83,3 +86,4 @@ public class AppnextAdsInterstitial extends ManagerBase {
         return instance;
     }
 }
+*/
