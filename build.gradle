@@ -41,7 +41,7 @@ ext {
     buildToolsVersion = '27.0.2'
 
     //appnext = '2.+'
-    appnext = '2.4.2.472'
+    appnext = '2.4.2.471.2'
 
 
 }

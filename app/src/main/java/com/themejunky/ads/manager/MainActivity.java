@@ -18,17 +18,16 @@ import java.util.List;
 
 import themejunky.module_adsmanager.ModuleAdsManager;
 import themejunky.module_adsmanager.ads.AdsListenerManager;
-import themejunky.module_adsmanager.ads.newInterstitialAds.ListenerContract;
-import themejunky.module_adsmanager.ads.newInterstitialAds.ManagerInterstitialAds;
+
 import themejunky.module_adsmanager.utils.Action;
 
 
-public class MainActivity extends AppCompatActivity implements AdsListenerManager.ListenerAds, View.OnClickListener, ListenerContract.AdsInterstitialListener, ListenerContract.NoAdsLoaded {
+public class MainActivity extends AppCompatActivity implements AdsListenerManager.ListenerAds, View.OnClickListener {
     private List<String> flowAds = Arrays.asList("facebook","appnext","admob");
     //private List<String> flowAds = Arrays.asList("admob","appnext","facebook");
     //private List<String> flowAds = Arrays.asList("appnext","admob","facebook");
     private ModuleAdsManager mModuleAdsManager;
-    public ManagerInterstitialAds managerInterstitialAds;
+    //public ManagerInterstitialAds managerInterstitialAds;
     private Button apply, rate, getMore;
     private View viewButtons;
     private ImageView splash;
@@ -56,13 +55,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         containerAppnext = findViewById(R.id.containerAppnext);
         containerFacebook = findViewById(R.id.containerFacebook);
 
-        mModuleAdsManager = ((MainApplication)getApplication()).moduleAdsManager;
-        mModuleAdsManager.setListenerAds(this);
-        mModuleAdsManager.setLogName("InfoAds");
-        mModuleAdsManager.initManagers(this, true);
-
-
-        managerInterstitialAds = ManagerInterstitialAds.getInstance(this,"InfoAds");
+/*        managerInterstitialAds = ManagerInterstitialAds.getInstance(this,"InfoAds");
         managerInterstitialAds.initAdmob("ca-app-pub-5322508131338449/2877444211");
         //managerInterstitialAds.initAppnext("aacbb73a-09b8-455d-b9d8-1d246d5a2cb44");
         //managerInterstitialAds.initAppnext("aacbb73a-09b8-455d-b9d8-1d246d5a2cb4");
@@ -70,10 +63,14 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         managerInterstitialAds.initFacebook("1735232666767897_1821660514791778");
         managerInterstitialAds.initAppnext("8ce1a263-7a74-42b1-b209-80276c0fe971");
         managerInterstitialAds.setInterstitialAdsListener(this);
-        managerInterstitialAds.setNoAdsLoadedListener(this);
+        managerInterstitialAds.setNoAdsLoadedListener(this);*/
 
         //mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"5af56f18e113780b0e5a1360", "46cfc662d3d840bf07db9f500244dc7820453682"); //test
 
+        mModuleAdsManager = ((MainApplication)getApplication()).moduleAdsManager;
+        mModuleAdsManager.setListenerAds(this);
+        mModuleAdsManager.setLogName("InfoAds");
+        mModuleAdsManager.initManagers(this, true);
         mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/9984599253",false);
         mModuleAdsManager.getManagerNative().iniNativeAppnext("66f95906-de1e-4643-b953-b8bd30524882",true);
         mModuleAdsManager.getManagerNative().iniNativeFacebook("",true);
@@ -128,25 +125,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
     }
 
-    @Override
-    public void noAdsLoaded(String action) {
-        Log.d("TestLogs", "noAdsLoaded");
-        switch (action) {
-            case Action.APPLY:
-                startActivity(new Intent(this, ApplyActivity.class));
-                break;
-            case "rate":
-                Toast.makeText(this, "Rate", Toast.LENGTH_SHORT).show();
-                break;
-            case "more":
-                Toast.makeText(this, "GetMore", Toast.LENGTH_SHORT).show();
-                break;
-            case "back":
-                finish();
-                break;
 
-        }
-    }
 
     @Override
     public void loadedInterstitialAds() {
@@ -171,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         viewButtons = v;
         switch (viewButtons.getId()) {
             case R.id.applyid:
-                managerInterstitialAds.showInterstitialLoading(this,true,5000,"intro","Loading Wallpaper...",flowAds);
+                //managerInterstitialAds.showInterstitialLoading(this,true,5000,"intro","Loading Wallpaper...",flowAds);
 
               /*  mModuleAdsManager.getManagerInterstitial().reLoadedInterstitial();
 
