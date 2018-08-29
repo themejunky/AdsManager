@@ -1,1 +1,1 @@
-include ':app', ':module_adsmanager'
+include ':app', ':module_nativeadsmanager'

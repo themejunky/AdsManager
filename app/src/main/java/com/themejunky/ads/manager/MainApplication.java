@@ -1,14 +1,12 @@
 package com.themejunky.ads.manager;
 
-import android.app.Activity;
 import android.app.Application;
-
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import themejunky.module_adsmanager.ModuleAdsManager;
+import themejunky.module_adsmanager.ModuleNativeAdsManager;
 
 
 /**
@@ -18,7 +16,7 @@ import themejunky.module_adsmanager.ModuleAdsManager;
 public class MainApplication extends Application {
     public List<String> flowAdsInceput = new ArrayList<>();
     public List<String> flowAdsSfarsit = new ArrayList<>();
-    public ModuleAdsManager moduleAdsManager;
+    public ModuleNativeAdsManager mModuleNativeAdsManager;
     private List<String> placementVungle = Arrays.asList("DEFAULT-1982645");
 
     @Override
@@ -27,8 +25,8 @@ public class MainApplication extends Application {
 
         flowAdsInceput.add("adcolony");
 
-        moduleAdsManager = new ModuleAdsManager();
-        moduleAdsManager.setLogName("TestButton");
+        mModuleNativeAdsManager = new ModuleNativeAdsManager();
+        mModuleNativeAdsManager.setLogName("TestButton");
 
     }
 }

@@ -21,6 +21,6 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(':module_adsmanager')
+    implementation project(':module_nativeadsmanager')
     implementation 'com.android.support:appcompat-v7:27.0.2'
 }
