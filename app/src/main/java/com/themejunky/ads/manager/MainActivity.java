@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         mModuleAdsManager.setLogName("InfoAds");
         mModuleAdsManager.initManagers(this, true);
         mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/9984599253",false);
-        mModuleAdsManager.getManagerNative().iniNativeAppnext("66f95906-de1e-4643-b953-b8bd30524882",true);
+        //mModuleAdsManager.getManagerNative().iniNativeAppnext("66f95906-de1e-4643-b953-b8bd30524882",true);
         mModuleAdsManager.getManagerNative().iniNativeFacebook("",true);
         mModuleAdsManager.getManagerNative().showAds(flowAds,containerAdmob);
 

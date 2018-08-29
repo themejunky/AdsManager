@@ -20,7 +20,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url "http://dl.appnext.com/" }
+        //maven { url "http://dl.appnext.com/" }
         maven { url "https://maven.google.com"}
         maven { url "https://jitpack.io" }
         maven {
@@ -41,7 +41,7 @@ ext {
     buildToolsVersion = '27.0.2'
 
     //appnext = '2.+'
-    appnext = '2.4.2.471.2'
+    appnext = '2.4.2.472'
 
 
 }

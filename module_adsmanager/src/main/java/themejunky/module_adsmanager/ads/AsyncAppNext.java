@@ -1,3 +1,4 @@
+/*
 package themejunky.module_adsmanager.ads;
 
 import android.app.Activity;
@@ -151,3 +152,4 @@ this.mActivity = nActivity;
         return DialogInflateView.findViewById(R.id.nContainer);
     }
 }
+*/

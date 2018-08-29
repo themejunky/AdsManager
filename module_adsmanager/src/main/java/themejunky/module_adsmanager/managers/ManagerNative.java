@@ -11,7 +11,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import themejunky.module_adsmanager.ads.nativeAds.AdmobNativeAds;
-import themejunky.module_adsmanager.ads.nativeAds.AppnextNativeAds;
+//import themejunky.module_adsmanager.ads.nativeAds.AppnextNativeAds;
 import themejunky.module_adsmanager.ads.nativeAds.FacebookNativeAds;
 import themejunky.module_adsmanager.utils.ConstantsAds;
 import themejunky.module_adsmanager.utils.Stuff;
@@ -24,7 +24,7 @@ public class ManagerNative extends ManagerBase {
 
     private Context mContext;
     private AdmobNativeAds admobNativeAds;
-    private AppnextNativeAds appnextNativeAds;
+    //private AppnextNativeAds appnextNativeAds;
     private FacebookNativeAds facebookNativeAds;
     private static ManagerNative instance = null;
 
@@ -45,13 +45,14 @@ public class ManagerNative extends ManagerBase {
         }
     }
 
+/*
     public void iniNativeAppnext( String keyAppnext, boolean newInstance) {
         if (newInstance) {
             appnextNativeAds = new AppnextNativeAds(mContext, keyAppnext, this, this);
         } else {
             appnextNativeAds = AppnextNativeAds.getInstance(mContext, keyAppnext, this, this);
         }
-    }
+    }*/
 
     public void iniNativeFacebook(String keyFacebook, boolean newInstance) {
         if (newInstance) {
@@ -77,6 +78,7 @@ public class ManagerNative extends ManagerBase {
                     Log.d(nameLogs, "AdmobNativeAds: 4" );
                     runAdds_Part2Native_Test();
                 }
+                /*
             } else if (addsFlowNative.get(next).equals(ConstantsAds.APPNEXT)) {
                 Log.d(nameLogs, "AppnextNativeAds: 1" );
                 if (appnextNativeAds != null && appnextNativeAds.getViewNativeAd() != null) {
@@ -88,6 +90,7 @@ public class ManagerNative extends ManagerBase {
                     Log.d(nameLogs, "AppnextNativeAds: 4" );
                      runAdds_Part2Native_Test();
                 }
+                */
             } else if (addsFlowNative.get(next).equals(ConstantsAds.FACEBOOK)) {
                 Log.d(nameLogs, "FacebookNativeAds: 1" );
                 if (facebookNativeAds != null && facebookNativeAds.getViewNativeAd() != null) {
@@ -114,8 +117,8 @@ public class ManagerNative extends ManagerBase {
         mChoosenAd = null;
         next = -1;
         //Log.d(nameLogs, "Native Ads showAds: 1" );
-        if (((appnextNativeAds!=null &&appnextNativeAds.getViewNativeAd() != null) ||
-                (admobNativeAds!=null && admobNativeAds.getViewNativeAd() != null) ||
+        //if (((appnextNativeAds!=null &&appnextNativeAds.getViewNativeAd() != null) ||
+               if (((admobNativeAds!=null && admobNativeAds.getViewNativeAd() != null) ||
                 (facebookNativeAds!=null && facebookNativeAds.getViewNativeAd() != null)) &&
                 (nFlow != null && nFlow.size() > 0)) {
             Log.d(nameLogs, "Native Ads showAds: 2" );
