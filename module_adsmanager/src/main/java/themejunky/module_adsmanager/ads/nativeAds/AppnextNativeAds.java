@@ -17,11 +17,9 @@ import com.appnext.nativeads.NativeAdView;
 import com.appnext.nativeads.PrivacyIcon;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import themejunky.module_adsmanager.R;
-import themejunky.module_adsmanager.ads.AdsListenerManager;
-import themejunky.module_adsmanager.ads.AsyncAppNext;
+import themejunky.module_adsmanager.utils.AdsListenerManager;
 
 /**
  * Created by Junky2 on 12/11/2017.

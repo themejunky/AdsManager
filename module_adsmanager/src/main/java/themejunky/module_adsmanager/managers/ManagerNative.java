@@ -16,9 +16,6 @@ import themejunky.module_adsmanager.ads.nativeAds.FacebookNativeAds;
 import themejunky.module_adsmanager.utils.ConstantsAds;
 import themejunky.module_adsmanager.utils.Stuff;
 
-/**
- * Created by Junky2 on 4/19/2018.
- */
 
 public class ManagerNative extends ManagerBase {
 

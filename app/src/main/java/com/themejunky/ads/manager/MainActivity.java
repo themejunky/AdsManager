@@ -16,10 +16,11 @@ import android.widget.Toast;
 import java.util.Arrays;
 import java.util.List;
 
-import themejunky.module_adsmanager.ModuleAdsManager;
-import themejunky.module_adsmanager.ads.AdsListenerManager;
-import themejunky.module_adsmanager.ads.newInterstitialAds.ListenerContract;
-import themejunky.module_adsmanager.ads.newInterstitialAds.ManagerInterstitialAds;
+import themejunky.module_adsmanager.managers.ModuleAdsManager;
+import themejunky.module_adsmanager.utils.AdsListenerManager;
+import themejunky.module_adsmanager.ads.newInterstitialAds.FacebookInterstitialAds;
+import themejunky.module_adsmanager.utils.ListenerContract;
+import themejunky.module_adsmanager.managers.ManagerInterstitialAds;
 import themejunky.module_adsmanager.utils.Action;
 
 
@@ -41,7 +42,8 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
     final String app_id = "5916309cb46f6b5a3e00009c";
     final String DEFAULT_PLACEMENT_ID = "DEFAULT32590";
     private final String[] placement_list = { DEFAULT_PLACEMENT_ID, "TESTREW28799", "TESTINT07107" };
-
+    private FacebookInterstitialAds facebookInterstitialAds1;
+    private FacebookInterstitialAds facebookInterstitialAds2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,14 +63,14 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         mModuleAdsManager.setLogName("InfoAds");
         mModuleAdsManager.initManagers(this, true);
 
-
-        managerInterstitialAds = ManagerInterstitialAds.getInstance(this,"InfoAds");
-        managerInterstitialAds.initAdmob("ca-app-pub-5322508131338449/2877444211");
+        managerInterstitialAds = new ManagerInterstitialAds();
+        //managerInterstitialAds = ManagerInterstitialAds.getInstance(this,"InfoAds");
+        //managerInterstitialAds.initAdmob("ca-app-pub-5322508131338449/2877444211");
         //managerInterstitialAds.initAppnext("aacbb73a-09b8-455d-b9d8-1d246d5a2cb44");
         //managerInterstitialAds.initAppnext("aacbb73a-09b8-455d-b9d8-1d246d5a2cb4");
         //managerInterstitialAds.initFacebook("2064441373794453_2064443300460927");
-        managerInterstitialAds.initFacebook("1735232666767897_1821660514791778");
-        managerInterstitialAds.initAppnext("8ce1a263-7a74-42b1-b209-80276c0fe971");
+        //managerInterstitialAds.initFacebook("1735232666767897_1821660514791778");
+        //managerInterstitialAds.initAppnext("8ce1a263-7a74-42b1-b209-80276c0fe971");
         managerInterstitialAds.setInterstitialAdsListener(this);
         managerInterstitialAds.setNoAdsLoadedListener(this);
 
@@ -171,7 +173,8 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         viewButtons = v;
         switch (viewButtons.getId()) {
             case R.id.applyid:
-                managerInterstitialAds.showInterstitialLoading(this,true,5000,"intro","Loading Wallpaper...",flowAds);
+                //managerInterstitialAds.showInterstitialLoading(this,true,5000,"intro","Loading Wallpaper...",flowAds);
+                managerInterstitialAds.showInterstitial(this, facebookInterstitialAds1, true,"intro","Loading Wallpaper...",flowAds);
 
               /*  mModuleAdsManager.getManagerInterstitial().reLoadedInterstitial();
 

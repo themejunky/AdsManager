@@ -1,6 +1,4 @@
-package themejunky.module_adsmanager.managers;
-
-import themejunky.module_adsmanager.ads.AdsListenerManager;
+package themejunky.module_adsmanager.utils;
 
 /**
  * Created by Junky2 on 4/19/2018.

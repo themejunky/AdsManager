@@ -1,6 +1,5 @@
 package com.themejunky.ads.manager;
 
-import android.app.Activity;
 import android.app.Application;
 
 
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import themejunky.module_adsmanager.ModuleAdsManager;
+import themejunky.module_adsmanager.managers.ModuleAdsManager;
 
 
 /**

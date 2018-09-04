@@ -8,57 +8,63 @@ import com.facebook.ads.AdError;
 import com.facebook.ads.InterstitialAd;
 import com.facebook.ads.InterstitialAdListener;
 
+import themejunky.module_adsmanager.utils.ListenerContract;
 
-/**
- * Created by Junky2 on 7/20/2018.
- */
 
 public class FacebookInterstitialAds {
     private final Context activity;
+    private final Boolean isReloaded;
     public InterstitialAd interstitialAd;
     private String numeTag;
-    private boolean isLoaded;
+    private static boolean isLoaded;
     private ListenerContract.ListenerIntern listener;
     private boolean noFacebookError=true;
 
-    public FacebookInterstitialAds(Context activity, String nameTag, String keyFacebook, ListenerContract.ListenerIntern listener){
+    public FacebookInterstitialAds(Context activity, String nameTag, String keyFacebook, ListenerContract.ListenerIntern listener,Boolean isReloaded){
         this.activity=activity;
         this.numeTag=nameTag;
         this.listener=listener;
+        this.isReloaded = isReloaded;
         initFacebookInterstitial(keyFacebook);
     }
 
 
     public void initFacebookInterstitial(String keyFacebook) {
+
         interstitialAd = new InterstitialAd(activity, keyFacebook);
+        Log.d(numeTag,"Facebook init " + numeTag + " " + interstitialAd);
         interstitialAd.setAdListener(new InterstitialAdListener() {
 
             @Override
             public void onInterstitialDisplayed(Ad ad) {
-                Log.d(numeTag,"Facebook Interstitial: displayed!");
+                Log.d(numeTag,"Facebook Interstitial: displayed! " + numeTag + " " + interstitialAd);
 
             }
 
             @Override
             public void onInterstitialDismissed(Ad ad) {
-                interstitialAd.loadAd();
                 Log.d(numeTag,"Facebook Interstitial: dismissed!");
                 Log.d("dasdas","isInterstitialClosed");
                 listener.isInterstitialClosed();
+                if(isReloaded){
+                    interstitialAd.loadAd();
+                }
             }
 
             @Override
             public void onError(Ad ad, AdError adError) {
                 Log.d(numeTag,"Facebook Interstitial: error: "+ adError.getErrorMessage());
                 noFacebookError = false;
+
+
             }
 
             @Override
             public void onAdLoaded(Ad ad) {
                 isLoaded =true;
-                Log.d("qqqqq","facebook");
-                Log.d(numeTag,"Facebook Interstitial: is Loaded");
+                Log.d(numeTag,"Facebook Interstitial: is Loaded  " + numeTag + " " + interstitialAd);
                 listener.somethingReloaded("facebook");
+                //interstitialAd.show();
             }
 
             @Override
@@ -71,30 +77,44 @@ public class FacebookInterstitialAds {
 
             }
         });
+        if(isReloaded){
+            interstitialAd.loadAd();
+            Log.d(numeTag,"Facebook Interstitial: isReloaded: " +interstitialAd + " " + interstitialAd);
+        }
         //interstitialAd.loadAd();
     }
 
     public  void showInterstitialFacebook() {
 
         if (interstitialAd !=null && isLoaded) {
+            Log.d(numeTag,"Facebook Interstitial: is shown: " +interstitialAd);
             interstitialAd.show();
-            Log.d(numeTag,"Facebook Interstitial: is shown");
+
         } else {
-            Log.d(numeTag,"Facebook Interstitial: show failed");
+            Log.d(numeTag,"Facebook Interstitial: show failed: " + interstitialAd);
         }
 
     }
     public boolean isFacebookLoaded(){
-        if(interstitialAd!=null && noFacebookError&& interstitialAd.isAdLoaded()){
+        Log.d(numeTag,"Facebook Interstitial: isFacebookLoaded :interstitialAd " + interstitialAd +" noFacebookError " +noFacebookError + " isAdLoaded " + interstitialAd.isAdLoaded() + " isLoaded " + isLoaded );
+        if(interstitialAd!=null  && (interstitialAd.isAdLoaded()||isLoaded) ){
             Log.d(numeTag,"Facebook Interstitial: isFacebookLoaded true");
             return true;
         }else {
-            android.util.Log.d("TestButton", "isFacebookLoaded false;");
+            Log.d(numeTag,"Facebook Interstitial: isFacebookLoaded false");
             return false;
         }
     }
     public void requestNewInterstitialFacebook() {
         interstitialAd.loadAd();
 
+    }
+
+    public boolean isFaceookError(){
+        if(noFacebookError){
+            return false;
+        }else {
+            return true;
+        }
     }
 }

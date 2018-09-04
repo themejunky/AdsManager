@@ -21,7 +21,7 @@ import com.google.android.gms.ads.formats.NativeContentAdView;
 import java.util.List;
 
 import themejunky.module_adsmanager.R;
-import themejunky.module_adsmanager.ads.AdsListenerManager;
+import themejunky.module_adsmanager.utils.AdsListenerManager;
 
 
 /**

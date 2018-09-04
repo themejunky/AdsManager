@@ -2,13 +2,12 @@ package com.themejunky.ads.manager;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import themejunky.module_adsmanager.ModuleAdsManager;
-import themejunky.module_adsmanager.ads.AdsListenerManager;
+import themejunky.module_adsmanager.managers.ModuleAdsManager;
+import themejunky.module_adsmanager.utils.AdsListenerManager;
 
 /**
  * Created by ThemeJunky on 4/25/2018.

@@ -1,6 +1,4 @@
 package themejunky.module_adsmanager.ads.newInterstitialAds;
-
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 
@@ -8,31 +6,29 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
-
-/**
- * Created by Alin on 4/24/2017.
- */
+import themejunky.module_adsmanager.utils.ListenerContract;
 
 public class AdmobInterstitialAds  {
     private final Context context;
     private final String numeTag;
+    private final Boolean isReloaded;
     public InterstitialAd interstitialAdmob;
     private static AdmobInterstitialAds mInstance = null;
     private ListenerContract.ListenerIntern listener;
-    private boolean isAdmobLoaded;
+    public boolean isAdmobLoaded;
+    private AdRequest adRequest;
 
-
-
-    public AdmobInterstitialAds(Context context, String nameTag, String keyAdmob, ListenerContract.ListenerIntern listener){
+    public AdmobInterstitialAds(Context context, String nameTag, String keyAdmob, ListenerContract.ListenerIntern listener,Boolean isReloaded){
         this.context = context;
         this.numeTag=nameTag;
         this.listener = listener;
+        this.isReloaded = isReloaded;
         initAdmobInterstitial(keyAdmob);
     }
 
 
     public void initAdmobInterstitial(String adUnitId ) {
-
+        adRequest = new AdRequest.Builder().build();
         interstitialAdmob = new com.google.android.gms.ads.InterstitialAd(context);
         if (adUnitId != null) {
             interstitialAdmob.setAdUnitId(adUnitId);
@@ -42,6 +38,9 @@ public class AdmobInterstitialAds  {
                     super.onAdClosed();
                     Log.d(numeTag,"Admob Interstitial: Closed!");
                     listener.isInterstitialClosed();
+                    if(isReloaded){
+                        requestNewInterstitialAdmob();
+                    }
                 }
 
                 @Override
@@ -72,12 +71,16 @@ public class AdmobInterstitialAds  {
                 }
             };
             interstitialAdmob.setAdListener(adListener);
-           // requestNewInterstitialAdmob();
+            if(isReloaded){
+                requestNewInterstitialAdmob();
+            }
+            // requestNewInterstitialAdmob();
         }
 
     }
 
     public boolean isLoadedAdmob() {
+        Log.d(numeTag,"isLoadedAdmob : " +interstitialAdmob.isLoaded());
         if (interstitialAdmob!=null && interstitialAdmob.isLoaded()) {
             return true;
         } else {
@@ -94,10 +97,9 @@ public class AdmobInterstitialAds  {
     }
 
     public void requestNewInterstitialAdmob() {
-        Log.d(numeTag,"Admob Interstitial: requestNewInterstitialAdmob");
-        AdRequest adRequest;
-        adRequest = new AdRequest.Builder().build();
-        interstitialAdmob.loadAd(adRequest);
+        Log.d(numeTag,"Admob Interstitial: requestNewInterstitialAdmob 1: "+interstitialAdmob);
+        interstitialAdmob.loadAd(new AdRequest.Builder().build());
+        Log.d(numeTag,"Admob Interstitial: requestNewInterstitialAdmob 2: "+adRequest);
 
 
     }

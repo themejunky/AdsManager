@@ -1,4 +1,4 @@
-package themejunky.module_adsmanager.ads.newInterstitialAds;
+package themejunky.module_adsmanager.utils;
 
 /**
  * Created by Junky2 on 8/9/2018.

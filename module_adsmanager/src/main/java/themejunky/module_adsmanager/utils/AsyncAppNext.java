@@ -1,4 +1,4 @@
-package themejunky.module_adsmanager.ads;
+package themejunky.module_adsmanager.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,10 +10,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.appnext.core.AppnextError;
 import com.appnext.nativeads.MediaView;
 import com.appnext.nativeads.NativeAd;
-import com.appnext.nativeads.NativeAdListener;
 import com.appnext.nativeads.NativeAdView;
 
 import java.util.ArrayList;

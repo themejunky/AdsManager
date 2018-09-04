@@ -1,5 +1,6 @@
 package themejunky.module_adsmanager.ads.newInterstitialAds;
 
+
 import android.content.Context;
 import android.util.Log;
 
@@ -9,10 +10,7 @@ import com.appnext.core.callbacks.OnAdClosed;
 import com.appnext.core.callbacks.OnAdError;
 import com.appnext.core.callbacks.OnAdLoaded;
 
-
-/**
- * Created by Alin on 5/21/2017.
- */
+import themejunky.module_adsmanager.utils.ListenerContract;
 
 public class AppnextAdsInterstitial {
     public static AppnextAdsInterstitial instance = null;
@@ -20,11 +18,13 @@ public class AppnextAdsInterstitial {
     private final String nameTag;
     private final ListenerContract.ListenerIntern listener;
     public Interstitial interstitialAppnext;
+    private boolean isReloaded;
 
-    public AppnextAdsInterstitial(Context context,String nameTag, String keyAppext, ListenerContract.ListenerIntern listener) {
+    public AppnextAdsInterstitial(Context context,String nameTag, String keyAppext, ListenerContract.ListenerIntern listener,Boolean isReloaded) {
         this.listener = listener;
         this.nameTag = nameTag;
         this.context = context;
+        this.isReloaded = isReloaded;
         initAppnext(keyAppext);
 
     }
@@ -39,6 +39,9 @@ public class AppnextAdsInterstitial {
             public void onAdClosed() {
                 Log.d(nameTag,"Appnext Interstitial: Closed!");
                 listener.isInterstitialClosed();
+                if(isReloaded){
+                    requestNewInterstitialAppnext();
+                }
             }
         });
         interstitialAppnext.setOnAdErrorCallback(new OnAdError() {
@@ -75,8 +78,8 @@ public class AppnextAdsInterstitial {
         }
     }
 
-    public synchronized static AppnextAdsInterstitial getInstance(Context context,String nameTag, String keyAppext, ListenerContract.ListenerIntern listener) {
-        if (instance == null) instance = new AppnextAdsInterstitial(context,nameTag,keyAppext,listener);
+    public synchronized static AppnextAdsInterstitial getInstance(Context context,String nameTag, String keyAppext, ListenerContract.ListenerIntern listener,Boolean isReloaded) {
+        if (instance == null) instance = new AppnextAdsInterstitial(context,nameTag,keyAppext,listener,isReloaded);
         return instance;
     }
 

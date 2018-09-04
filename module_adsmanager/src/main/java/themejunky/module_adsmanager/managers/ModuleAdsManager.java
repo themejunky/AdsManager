@@ -1,16 +1,13 @@
-package themejunky.module_adsmanager;
+package themejunky.module_adsmanager.managers;
 
 import android.app.Activity;
-import android.content.Context;
-import themejunky.module_adsmanager.ads.AdsListenerManager;
-import themejunky.module_adsmanager.managers.ManagerBase;
-import themejunky.module_adsmanager.managers.ManagerInterstitial;
-import themejunky.module_adsmanager.managers.ManagerNative;
+
+import themejunky.module_adsmanager.utils.AdsListenerManager;
 
 public class ModuleAdsManager extends ManagerBase implements AdsListenerManager.ListenerLogs{
 
     private ManagerNative managerNative;
-    private ManagerInterstitial managerInterstitial;
+    private ManagerInterstitialAds managerInterstitial;
 
     /**
      * @param nContext - context
@@ -19,7 +16,7 @@ public class ModuleAdsManager extends ManagerBase implements AdsListenerManager.
     public void initManagers(Activity nContext, boolean reloaded){
             isReloaded = reloaded;
             managerNative = ManagerNative.getInstance(nContext);
-            managerInterstitial = ManagerInterstitial.getInstance(nContext);
+            //managerInterstitial = ManagerInterstitialAds.getInstance(nContext);
     }
 
     public ManagerNative getManagerNative() {

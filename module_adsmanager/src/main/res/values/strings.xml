@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Module_AdsManager</string>
+    <string name="advertisement_loading">Advertisement Loading</string>
 </resources>

@@ -6,7 +6,8 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import themejunky.module_adsmanager.ads.AdsListenerManager;
+import themejunky.module_adsmanager.utils.AdsListenerManager;
+import themejunky.module_adsmanager.utils.SlaveListener;
 
 /**
  * Created by Junky2 on 4/19/2018.
