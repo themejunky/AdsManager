@@ -7,13 +7,10 @@ package themejunky.module_adsmanager.utils;
 public interface AdsListenerManager {
     interface ListenerLogs {
         void logs(String logs);
-        void isClosedInterAds();
     }
 
     interface ListenerAds {
         void loadedNativeAds(String type);
-        void loadedInterstitialAds();
-        void afterInterstitialIsClosed(String action);
     }
 
     interface NativeListener {

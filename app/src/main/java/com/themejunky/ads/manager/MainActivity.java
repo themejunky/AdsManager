@@ -76,9 +76,10 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
 
         //mModuleAdsManager.getManagerInterstitial().initInterstitialChartboost(this,"5af56f18e113780b0e5a1360", "46cfc662d3d840bf07db9f500244dc7820453682"); //test
 
-        mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/9984599253",false);
-        mModuleAdsManager.getManagerNative().iniNativeAppnext("66f95906-de1e-4643-b953-b8bd30524882",true);
-        mModuleAdsManager.getManagerNative().iniNativeFacebook("",true);
+        //mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/9984599253",false);
+        //mModuleAdsManager.getManagerNative().iniNativeAppnext("66f95906-de1e-4643-b953-b8bd30524882",true);
+        mModuleAdsManager.getManagerNative().iniNativeFacebook("263700057716193_263734114379454", true);
+        //mModuleAdsManager.getManagerNative().iniNativeFacebook("467576940317585_467577570317522",true);
         mModuleAdsManager.getManagerNative().showAds(flowAds,containerAdmob);
 
         //mModuleAdsManager.getManagerInterstitial().initInterstitialAdColony(APP_ID,ZONE_ID);.
@@ -148,11 +149,6 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
                 break;
 
         }
-    }
-
-    @Override
-    public void loadedInterstitialAds() {
-        isLoaded = true;
     }
 
 

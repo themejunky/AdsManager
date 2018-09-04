@@ -7,9 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-/**
- * Created by Junky2 on 8/24/2018.
- */
 
 public class StartProgressBar {
 

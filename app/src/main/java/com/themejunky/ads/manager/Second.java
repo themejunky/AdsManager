@@ -34,7 +34,7 @@ public class Second extends AppCompatActivity implements AdsListenerManager.List
         mModuleAdsManager.getManagerNative().iniNativeFacebook("833164856890775_838240766383184",false);
         mModuleAdsManager.getManagerNative().initNativeAdmob("ca-app-pub-8562466601970101/5081303159",false);
 
-        //   mModuleAdsManager = ((MainApplication)getApplication()).moduleAdsManager;
+        //mModuleAdsManager = ((MainApplication)getApplication()).moduleAdsManager;
         mModuleAdsManager.setListenerAds(this);
 
 
@@ -52,13 +52,4 @@ public class Second extends AppCompatActivity implements AdsListenerManager.List
 
     }
 
-    @Override
-    public void loadedInterstitialAds() {
-
-    }
-
-    @Override
-    public void afterInterstitialIsClosed(String action) {
-
-    }
 }
