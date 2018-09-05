@@ -11,14 +11,12 @@
         android:orientation="vertical">
 
 
-
-
         <LinearLayout
-            android:layout_marginTop="5dp"
             android:id="@+id/contentBottom"
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -87,11 +85,12 @@
 
 
         </LinearLayout>
+
         <com.google.android.gms.ads.formats.MediaView
             android:id="@+id/appinstall_media"
-            android:layout_above="@id/contentBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@id/contentBottom"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
             android:scaleType="centerInside" />

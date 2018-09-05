@@ -27,7 +27,7 @@ public class MainApplication extends Application {
         flowAdsInceput.add("adcolony");
 
         moduleAdsManager = new ModuleAdsManager();
-        moduleAdsManager.setLogName("TestButton");
+        moduleAdsManager.setLogName("InfoAds");
 
     }
 }

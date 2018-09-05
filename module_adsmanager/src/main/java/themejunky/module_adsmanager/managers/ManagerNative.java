@@ -83,7 +83,7 @@ public class ManagerNative extends ManagerBase {
                     Log.d(nameLogs, "AppnextNativeAds: 3" );
                 } else {
                     Log.d(nameLogs, "AppnextNativeAds: 4" );
-                     runAdds_Part2Native_Test();
+                    runAdds_Part2Native_Test();
                 }
             } else if (addsFlowNative.get(next).equals(ConstantsAds.FACEBOOK)) {
                 Log.d(nameLogs, "FacebookNativeAds: 1" );

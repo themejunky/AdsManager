@@ -42,18 +42,18 @@ public class AdmobNativeAds extends NativeBase {
     }
 
     public void init(String idUnitAdmob) {
-
         adLoader = new AdLoader.Builder(nContext, idUnitAdmob)
                 .forContentAd(new NativeContentAd.OnContentAdLoadedListener() {
-
                     @Override
                     public void onContentAdLoaded(NativeContentAd contentAd) {
                         mAdView = mInflateLayout(R.layout.ad_content);
                         if(mAdView!=null){
                             populateContentAdView(contentAd, (NativeContentAdView) mAdView);
+                            if(listenerAds!=null) listenerAds.loadedNativeAds("admob");
+                            listenerLogs.logs("Admob Native: ad_content Loaded");
+                        } else {
+                            listenerLogs.logs("Admob Native: mAdView in contentAd is null");
                         }
-                        if(listenerAds!=null) listenerAds.loadedNativeAds("admob");
-                        listenerLogs.logs("Admob Native: ad_content Loaded");
                     }
                 })
                 .forAppInstallAd(new NativeAppInstallAd.OnAppInstallAdLoadedListener() {
@@ -62,10 +62,12 @@ public class AdmobNativeAds extends NativeBase {
                         mAdView = mInflateLayout(R.layout.ad_app_install);
                         if(mAdView!=null){
                             populateAppInstallAdView(appInstallAd, (NativeAppInstallAdView) mAdView);
+                            nativeListener.nativeLoaded();
+                            listenerLogs.logs("Admob Native: ad_app_install Loaded");
+                            if(listenerAds!=null) listenerAds.loadedNativeAds("admob");
+                        } else {
+                            listenerLogs.logs("Admob Native: mAdView in appInstallAd is null");
                         }
-                        nativeListener.nativeLoaded();
-                        listenerLogs.logs("Admob Native: ad_app_install Loaded");
-                        if(listenerAds!=null) listenerAds.loadedNativeAds("admob");
                     }
                 })
                 .withAdListener(new AdListener() {
@@ -91,8 +93,8 @@ public class AdmobNativeAds extends NativeBase {
                 })
                 .withNativeAdOptions(new NativeAdOptions.Builder()
                         .build())
-                .build();
-        adLoader.loadAd(new AdRequest.Builder().build());
+                            .build();
+        adLoader.loadAd(new AdRequest.Builder().addTestDevice("2184F858FFCDF534E26419F85B421D1F").build());
     }
 
     /**
