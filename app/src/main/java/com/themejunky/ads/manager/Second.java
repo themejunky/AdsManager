@@ -52,4 +52,14 @@ public class Second extends AppCompatActivity implements AdsListenerManager.List
 
     }
 
+    @Override
+    public void loadedInterstitialAds() {
+
+    }
+
+    @Override
+    public void afterInterstitialIsClosed(String action) {
+
+    }
+
 }

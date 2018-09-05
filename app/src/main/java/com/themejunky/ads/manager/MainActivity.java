@@ -163,6 +163,11 @@ public class MainActivity extends AppCompatActivity implements AdsListenerManage
         }*/
     }
 
+    @Override
+    public void loadedInterstitialAds() {
+
+    }
+
 
     @Override
     public void onClick(View v) {
