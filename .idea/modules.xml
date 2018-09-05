@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/AdsManager.iml" filepath="$PROJECT_DIR$/AdsManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_adsmanager/module_adsmanager.iml" filepath="$PROJECT_DIR$/module_adsmanager/module_adsmanager.iml" />
-      <module fileurl="file://C:\Users\Zalman\Documents\AdsManager\module_adsmanager\module_adsmanager.iml" filepath="C:\Users\Zalman\Documents\AdsManager\module_adsmanager\module_adsmanager.iml" />
     </modules>
   </component>
 </project>

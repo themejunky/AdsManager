@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nContainer"
     android:layout_width="match_parent"
     android:layout_height="250dp"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
 
     <com.appnext.nativeads.NativeAdView
         android:id="@+id/na_view"
-        android:foregroundGravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        >
+        android:foregroundGravity="center">
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-         >
-
+            android:layout_height="wrap_content">
 
 
             <com.appnext.nativeads.MediaView
                 android:id="@+id/na_media"
-                android:layout_marginTop="5dp"
-                android:scaleType="fitXY"
-                android:layout_above="@id/contentBottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
-
+                android:layout_above="@id/contentBottom"
+                android:layout_marginTop="5dp"
+                android:scaleType="fitXY" />
 
 
             <LinearLayout
@@ -69,8 +64,7 @@
                             android:maxLines="1"
                             android:textSize="14sp"
                             android:textStyle="bold"
-                            android:visibility="visible"
-                            />
+                            android:visibility="visible" />
 
                         <TextView
                             android:id="@+id/description"
@@ -88,27 +82,23 @@
 
 
                 <Button
-                    android:text="install"
                     android:id="@+id/install"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:padding="7dp"
                     android:layout_gravity="center"
-                    android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:background="@drawable/button_green_unpressed"
                     android:gravity="center"
+                    android:padding="7dp"
+                    android:text="install"
                     android:textColor="@color/white" />
 
 
             </LinearLayout>
 
 
-
         </RelativeLayout>
-
-
-
 
 
     </com.appnext.nativeads.NativeAdView>

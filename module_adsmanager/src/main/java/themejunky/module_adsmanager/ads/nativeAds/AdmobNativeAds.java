@@ -29,7 +29,6 @@ import themejunky.module_adsmanager.utils.AdsListenerManager;
  */
 
 public class AdmobNativeAds extends NativeBase {
-
     private static AdmobNativeAds instance = null;
     private final AdsListenerManager.NativeListener nativeListener;
     private AdsListenerManager.ListenerLogs listenerLogs;
@@ -161,7 +160,6 @@ public class AdmobNativeAds extends NativeBase {
      * @param adView          the view to be populated
      */
     private void populateContentAdView(NativeContentAd nativeContentAd, NativeContentAdView adView) {
-
         adView.setHeadlineView(adView.findViewById(R.id.contentad_headline));
         adView.setImageView(adView.findViewById(R.id.contentad_image));
         adView.setBodyView(adView.findViewById(R.id.contentad_body));

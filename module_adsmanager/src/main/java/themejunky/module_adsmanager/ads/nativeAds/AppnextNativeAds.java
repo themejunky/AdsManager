@@ -36,7 +36,7 @@ public class AppnextNativeAds extends NativeBase {
     private ImageView imageView;
     private Button button;
     private NativeAdView nativeAdView;
-    private  ArrayList<View> viewArrayList;
+    private ArrayList<View> viewArrayList;
     public boolean isAppnextNativeLoaded;
 
     public AppnextNativeAds(Context context,String idUnitAppnext, AdsListenerManager.ListenerLogs listenerLogs, AdsListenerManager.NativeListener nativeListener) {

@@ -8,7 +8,6 @@ import themejunky.module_adsmanager.R;
 import themejunky.module_adsmanager.managers.ManagerBase;
 
 public class NativeBase extends ManagerBase {
-
     Context nContext;
     View mAdView;
 
